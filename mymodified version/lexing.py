@@ -83,6 +83,6 @@ def lexing(data):
         file.write(str(tok))
         file.write("\n")
 
-inp_file = open("mymodified version/PERL/mod.pm","r")
+inp_file = open("mymodified version/PERL/testing.pl","r")
 data = inp_file.read()
 lexing(data)
