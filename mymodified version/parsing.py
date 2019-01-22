@@ -1,8 +1,15 @@
 import ply.yacc as yacc
-from lexing import *
+from lexing import tokens, lexing
 
 indent = 0
 
+#defining the module
+def p_module(p):
+    '''p_module : package_dec
+                | body
+                | empty'''
+    print("module: ",p[0:])
+    p[0] = p[1]
 
 # defining the body of the context
 
@@ -30,6 +37,26 @@ def p_statement(p):
                 | cond_stat'''
     print("statement: ", p[0:])
     p[0] = "\t" * indent + str(p[1])
+
+#defining the package
+def p_package_dec(p):
+    '''package_dec : PACKAGE KEYWORD SEMI upind body lowind NUMBER SEMI'''
+    print("package: ",p[0:])
+    p[0] = "class " + p[2] + ":\n" + p[5]
+
+# for incrementing indentation
+def p_upind(p):
+    '''upind :'''
+    global indent
+    indent+=1
+    p[0] = ""
+
+# for decrementing indentation
+def p_lowind(p):
+    '''lowind :'''
+    global indent
+    indent+=1
+    p[0] = ""
 
 # for print statement
 def p_output(p):

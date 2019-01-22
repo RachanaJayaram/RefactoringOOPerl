@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'ALB ARB COMMA COMMENT EQUALS KEYWORD LB LFB NUMBER OPER RB RFB SEMI STRING VARIABLE newlbody : statementlist\n            | emptystatementlist : statement\n                    | statementlist statementstatement : var_dec\n                | function_call\n                | output\n                | comment\n                | cond_statoutput : KEYWORD out SEMI out : VARIABLE\n            | STRING\n            | out COMMA out function_call : KEYWORD LB argument RB SEMIargument : VARIABLE\n                | STRING\n                | argument COMMA argument\n                | emptyvar_dec : VARIABLE EQUALS exp SEMI\n                | VARIABLE EQUALS input SEMIexp : NUMBER\n            | VARIABLE\n            | STRING\n            | exp OPER expinput : ALB KEYWORD ARBcomment : COMMENTcond_stat : KEYWORD LB condition RB block\n                    | KEYWORD LB for_cond RB l_braces body r_bracesfor_cond : VARIABLE EQUALS exp SEMI VARIABLE sign exp SEMI incrementincrement : VARIABLE OPER OPER\n                    | VARIABLE sign expblock : l_braces body r_bracesl_braces : LFBr_braces : RFBcondition : VARIABLE sign expsign : EQUALS\n            | OPER\n            | ALB\n            | ARB\n            | sign signempty :'
+_lr_signature = 'ALB ARB COMMA COMMENT EQUALS KEYWORD LB LFB MY NEW NUMBER OPER PACKAGE RB RETURN RFB SEMI SHIFT STRING SUB VARIABLE newlp_module : package_dec\n                | body\n                | emptybody : statementlist\n            | emptystatementlist : statement\n                    | statementlist statementstatement : var_dec\n                | function_call\n                | output\n                | comment\n                | cond_statpackage_dec : PACKAGE KEYWORD SEMI upind body lowind NUMBER SEMIupind :lowind :output : KEYWORD out SEMI out : VARIABLE\n            | STRING\n            | out COMMA out function_call : KEYWORD LB argument RB SEMIargument : VARIABLE\n                | STRING\n                | argument COMMA argument\n                | emptyvar_dec : VARIABLE EQUALS exp SEMI\n                | VARIABLE EQUALS input SEMIexp : NUMBER\n            | VARIABLE\n            | STRING\n            | exp OPER expinput : ALB KEYWORD ARBcomment : COMMENTcond_stat : KEYWORD LB condition RB block\n                    | KEYWORD LB for_cond RB l_braces body r_bracesfor_cond : VARIABLE EQUALS exp SEMI VARIABLE sign exp SEMI incrementincrement : VARIABLE OPER OPER\n                    | VARIABLE sign expblock : l_braces body r_bracesl_braces : LFBr_braces : RFBcondition : VARIABLE sign expsign : EQUALS\n            | OPER\n            | ALB\n            | ARB\n            | sign signempty :'
     
-_lr_action_items = {'$end':([0,1,2,3,4,5,6,7,8,9,12,13,31,33,35,49,52,63,64,65,],[-41,0,-1,-2,-3,-5,-6,-7,-8,-9,-26,-4,-10,-19,-20,-14,-27,-32,-34,-28,]),'VARIABLE':([0,2,4,5,6,7,8,9,11,12,13,14,15,31,32,33,34,35,38,41,42,43,44,45,49,52,53,54,55,56,58,62,63,64,65,67,69,72,73,],[10,10,-3,-5,-6,-7,-8,-9,17,-26,-4,19,28,-10,17,-19,19,-20,51,19,19,-37,-38,-39,-14,-27,10,-33,10,-40,-36,66,-32,-34,-28,19,70,-37,19,]),'KEYWORD':([0,2,4,5,6,7,8,9,12,13,24,31,33,35,49,52,53,54,55,63,64,65,],[11,11,-3,-5,-6,-7,-8,-9,-26,-4,36,-10,-19,-20,-14,-27,11,-33,11,-32,-34,-28,]),'COMMENT':([0,2,4,5,6,7,8,9,12,13,31,33,35,49,52,53,54,55,63,64,65,],[12,12,-3,-5,-6,-7,-8,-9,-26,-4,-10,-19,-20,-14,-27,12,-33,12,-32,-34,-28,]),'RFB':([2,3,4,5,6,7,8,9,12,13,31,33,35,49,52,53,54,55,60,61,63,64,65,],[-1,-2,-3,-5,-6,-7,-8,-9,-26,-4,-10,-19,-20,-14,-27,-41,-33,-41,64,64,-32,-34,-28,]),'EQUALS':([10,28,41,42,43,44,45,56,58,66,67,70,72,73,],[14,42,58,-36,-37,-38,-39,58,-36,58,58,58,-37,58,]),'LB':([11,],[15,]),'STRING':([11,14,15,32,34,38,41,42,43,44,45,56,58,67,72,73,],[18,23,29,18,23,29,23,23,-37,-38,-39,-40,-36,23,-37,23,]),'NUMBER':([14,34,41,42,43,44,45,56,58,67,72,73,],[22,22,22,22,-37,-38,-39,-40,-36,22,-37,22,]),'ALB':([14,28,41,42,43,44,45,56,58,66,67,70,72,73,],[24,44,44,-36,-37,-38,-39,44,-36,44,44,44,-37,44,]),'RB':([15,19,22,23,25,26,27,28,29,30,38,47,50,51,57,71,74,75,],[-41,-22,-21,-23,37,39,40,-15,-16,-18,-41,-24,-17,-15,-35,-29,-30,-31,]),'COMMA':([15,16,17,18,25,28,29,30,38,46,50,51,],[-41,32,-11,-12,38,-15,-16,-18,-41,32,38,-15,]),'SEMI':([16,17,18,19,20,21,22,23,37,46,47,48,59,68,],[31,-11,-12,-22,33,35,-21,-23,49,-13,-24,-25,62,69,]),'OPER':([19,20,22,23,28,41,42,43,44,45,47,56,57,58,59,66,67,68,70,72,73,75,],[-22,34,-21,-23,43,43,-36,-37,-38,-39,34,43,34,-36,34,43,43,34,72,74,43,34,]),'ARB':([28,36,41,42,43,44,45,56,58,66,67,70,72,73,],[45,48,45,-36,-37,-38,-39,45,-36,45,45,45,-37,45,]),'LFB':([39,40,],[54,54,]),}
+_lr_action_items = {'PACKAGE':([0,],[5,]),'$end':([0,1,2,3,4,7,8,9,10,11,12,13,15,21,30,49,51,55,58,73,74,75,77,],[-47,0,-1,-2,-3,-4,-6,-8,-9,-10,-11,-12,-32,-7,-16,-25,-26,-20,-33,-38,-40,-34,-13,]),'VARIABLE':([0,6,7,8,9,10,11,12,13,15,17,21,22,23,30,31,38,40,43,44,45,46,47,49,50,51,55,58,59,60,61,62,64,71,73,74,75,78,80,83,84,],[14,19,14,-6,-8,-9,-10,-11,-12,-32,27,-7,32,-14,-16,19,14,57,32,32,-43,-44,-45,-25,32,-26,-20,-33,14,-39,14,-46,-42,76,-38,-40,-34,32,81,-43,32,]),'KEYWORD':([0,5,7,8,9,10,11,12,13,15,21,23,30,37,38,49,51,55,58,59,60,61,73,74,75,],[6,16,6,-6,-8,-9,-10,-11,-12,-32,-7,-14,-16,52,6,-25,-26,-20,-33,6,-39,6,-38,-40,-34,]),'COMMENT':([0,7,8,9,10,11,12,13,15,21,23,30,38,49,51,55,58,59,60,61,73,74,75,],[15,15,-6,-8,-9,-10,-11,-12,-32,-7,-14,-16,15,-25,-26,-20,-33,15,-39,15,-38,-40,-34,]),'LB':([6,],[17,]),'STRING':([6,17,22,31,40,43,44,45,46,47,50,62,64,78,83,84,],[20,28,36,20,28,36,36,-43,-44,-45,36,-46,-42,36,-43,36,]),'NUMBER':([7,8,9,10,11,12,13,15,21,22,23,30,38,43,44,45,46,47,49,50,51,53,54,55,58,62,64,68,73,74,75,78,83,84,],[-4,-6,-8,-9,-10,-11,-12,-32,-7,35,-14,-16,-47,35,35,-43,-44,-45,-25,35,-26,-15,-5,-20,-33,-46,-42,72,-38,-40,-34,35,-43,35,]),'RFB':([7,8,9,10,11,12,13,15,21,30,49,51,54,55,58,59,60,61,69,70,73,74,75,],[-4,-6,-8,-9,-10,-11,-12,-32,-7,-16,-25,-26,-5,-20,-33,-47,-39,-47,74,74,-38,-40,-34,]),'EQUALS':([14,27,43,44,45,46,47,62,64,76,78,81,83,84,],[22,44,64,-42,-43,-44,-45,64,-42,64,64,64,-43,64,]),'SEMI':([16,18,19,20,32,33,34,35,36,39,48,65,66,67,72,79,],[23,30,-17,-18,-28,49,51,-27,-29,55,-19,71,-30,-31,77,80,]),'RB':([17,24,25,26,27,28,29,32,35,36,40,56,57,63,66,82,85,86,],[-47,39,41,42,-21,-22,-24,-28,-27,-29,-47,-23,-21,-41,-30,-35,-36,-37,]),'COMMA':([17,18,19,20,24,27,28,29,40,48,56,57,],[-47,31,-17,-18,40,-21,-22,-24,-47,31,40,-21,]),'ALB':([22,27,43,44,45,46,47,62,64,76,78,81,83,84,],[37,46,46,-42,-43,-44,-45,46,-42,46,46,46,-43,46,]),'OPER':([27,32,33,35,36,43,44,45,46,47,62,63,64,65,66,76,78,79,81,83,84,86,],[45,-28,50,-27,-29,45,-42,-43,-44,-45,45,50,-42,50,50,45,45,50,83,85,45,50,]),'ARB':([27,43,44,45,46,47,52,62,64,76,78,81,83,84,],[47,47,-42,-43,-44,-45,67,47,-42,47,47,47,-43,47,]),'LFB':([41,42,],[60,60,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'body':([0,53,55,],[1,60,61,]),'statementlist':([0,53,55,],[2,2,2,]),'empty':([0,15,38,53,55,],[3,30,30,3,3,]),'statement':([0,2,53,55,],[4,13,4,4,]),'var_dec':([0,2,53,55,],[5,5,5,5,]),'function_call':([0,2,53,55,],[6,6,6,6,]),'output':([0,2,53,55,],[7,7,7,7,]),'comment':([0,2,53,55,],[8,8,8,8,]),'cond_stat':([0,2,53,55,],[9,9,9,9,]),'out':([11,32,],[16,46,]),'exp':([14,34,41,42,67,73,],[20,47,57,59,68,75,]),'input':([14,],[21,]),'argument':([15,38,],[25,50,]),'condition':([15,],[26,]),'for_cond':([15,],[27,]),'sign':([28,41,56,66,67,70,73,],[41,56,56,67,56,73,56,]),'block':([39,],[52,]),'l_braces':([39,40,],[53,55,]),'r_braces':([60,61,],[63,65,]),'increment':([69,],[71,]),}
+_lr_goto_items = {'p_module':([0,],[1,]),'package_dec':([0,],[2,]),'body':([0,38,59,61,],[3,53,69,70,]),'empty':([0,17,38,40,59,61,],[4,29,54,29,54,54,]),'statementlist':([0,38,59,61,],[7,7,7,7,]),'statement':([0,7,38,59,61,],[8,21,8,8,8,]),'var_dec':([0,7,38,59,61,],[9,9,9,9,9,]),'function_call':([0,7,38,59,61,],[10,10,10,10,10,]),'output':([0,7,38,59,61,],[11,11,11,11,11,]),'comment':([0,7,38,59,61,],[12,12,12,12,12,]),'cond_stat':([0,7,38,59,61,],[13,13,13,13,13,]),'out':([6,31,],[18,48,]),'argument':([17,40,],[24,56,]),'condition':([17,],[25,]),'for_cond':([17,],[26,]),'exp':([22,43,44,50,78,84,],[33,63,65,66,79,86,]),'input':([22,],[34,]),'upind':([23,],[38,]),'sign':([27,43,62,76,78,81,84,],[43,62,62,78,62,84,62,]),'block':([41,],[58,]),'l_braces':([41,42,],[59,61,]),'lowind':([53,],[68,]),'r_braces':([69,70,],[73,75,]),'increment':([80,],[82,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -26,46 +26,52 @@ for _k, _v in _lr_goto_items.items():
        _lr_goto[_x][_k] = _y
 del _lr_goto_items
 _lr_productions = [
-  ("S' -> body","S'",1,None,None,None),
-  ('body -> statementlist','body',1,'p_body','parsing.py',10),
-  ('body -> empty','body',1,'p_body','parsing.py',11),
-  ('statementlist -> statement','statementlist',1,'p_statementlist','parsing.py',18),
-  ('statementlist -> statementlist statement','statementlist',2,'p_statementlist','parsing.py',19),
-  ('statement -> var_dec','statement',1,'p_statement','parsing.py',26),
-  ('statement -> function_call','statement',1,'p_statement','parsing.py',27),
-  ('statement -> output','statement',1,'p_statement','parsing.py',28),
-  ('statement -> comment','statement',1,'p_statement','parsing.py',29),
-  ('statement -> cond_stat','statement',1,'p_statement','parsing.py',30),
-  ('output -> KEYWORD out SEMI','output',3,'p_output','parsing.py',36),
-  ('out -> VARIABLE','out',1,'p_out','parsing.py',43),
-  ('out -> STRING','out',1,'p_out','parsing.py',44),
-  ('out -> out COMMA out','out',3,'p_out','parsing.py',45),
-  ('function_call -> KEYWORD LB argument RB SEMI','function_call',5,'p_function_call','parsing.py',52),
-  ('argument -> VARIABLE','argument',1,'p_argument','parsing.py',59),
-  ('argument -> STRING','argument',1,'p_argument','parsing.py',60),
-  ('argument -> argument COMMA argument','argument',3,'p_argument','parsing.py',61),
-  ('argument -> empty','argument',1,'p_argument','parsing.py',62),
-  ('var_dec -> VARIABLE EQUALS exp SEMI','var_dec',4,'p_var_dec','parsing.py',69),
-  ('var_dec -> VARIABLE EQUALS input SEMI','var_dec',4,'p_var_dec','parsing.py',70),
-  ('exp -> NUMBER','exp',1,'p_exp','parsing.py',77),
-  ('exp -> VARIABLE','exp',1,'p_exp','parsing.py',78),
-  ('exp -> STRING','exp',1,'p_exp','parsing.py',79),
-  ('exp -> exp OPER exp','exp',3,'p_exp','parsing.py',80),
-  ('input -> ALB KEYWORD ARB','input',3,'p_input','parsing.py',90),
-  ('comment -> COMMENT','comment',1,'p_comment','parsing.py',97),
-  ('cond_stat -> KEYWORD LB condition RB block','cond_stat',5,'p_cond_stat','parsing.py',104),
-  ('cond_stat -> KEYWORD LB for_cond RB l_braces body r_braces','cond_stat',7,'p_cond_stat','parsing.py',105),
-  ('for_cond -> VARIABLE EQUALS exp SEMI VARIABLE sign exp SEMI increment','for_cond',9,'p_for_cond','parsing.py',112),
-  ('increment -> VARIABLE OPER OPER','increment',3,'p_increment','parsing.py',121),
-  ('increment -> VARIABLE sign exp','increment',3,'p_increment','parsing.py',122),
-  ('block -> l_braces body r_braces','block',3,'p_block','parsing.py',132),
-  ('l_braces -> LFB','l_braces',1,'p_l_braces','parsing.py',138),
-  ('r_braces -> RFB','r_braces',1,'p_r_braces','parsing.py',145),
-  ('condition -> VARIABLE sign exp','condition',3,'p_condition','parsing.py',152),
-  ('sign -> EQUALS','sign',1,'p_sign','parsing.py',159),
-  ('sign -> OPER','sign',1,'p_sign','parsing.py',160),
-  ('sign -> ALB','sign',1,'p_sign','parsing.py',161),
-  ('sign -> ARB','sign',1,'p_sign','parsing.py',162),
-  ('sign -> sign sign','sign',2,'p_sign','parsing.py',163),
-  ('empty -> <empty>','empty',0,'p_empty','parsing.py',180),
+  ("S' -> p_module","S'",1,None,None,None),
+  ('p_module -> package_dec','p_module',1,'p_module','parsing.py',8),
+  ('p_module -> body','p_module',1,'p_module','parsing.py',9),
+  ('p_module -> empty','p_module',1,'p_module','parsing.py',10),
+  ('body -> statementlist','body',1,'p_body','parsing.py',17),
+  ('body -> empty','body',1,'p_body','parsing.py',18),
+  ('statementlist -> statement','statementlist',1,'p_statementlist','parsing.py',25),
+  ('statementlist -> statementlist statement','statementlist',2,'p_statementlist','parsing.py',26),
+  ('statement -> var_dec','statement',1,'p_statement','parsing.py',33),
+  ('statement -> function_call','statement',1,'p_statement','parsing.py',34),
+  ('statement -> output','statement',1,'p_statement','parsing.py',35),
+  ('statement -> comment','statement',1,'p_statement','parsing.py',36),
+  ('statement -> cond_stat','statement',1,'p_statement','parsing.py',37),
+  ('package_dec -> PACKAGE KEYWORD SEMI upind body lowind NUMBER SEMI','package_dec',8,'p_package_dec','parsing.py',43),
+  ('upind -> <empty>','upind',0,'p_upind','parsing.py',49),
+  ('lowind -> <empty>','lowind',0,'p_lowind','parsing.py',56),
+  ('output -> KEYWORD out SEMI','output',3,'p_output','parsing.py',63),
+  ('out -> VARIABLE','out',1,'p_out','parsing.py',70),
+  ('out -> STRING','out',1,'p_out','parsing.py',71),
+  ('out -> out COMMA out','out',3,'p_out','parsing.py',72),
+  ('function_call -> KEYWORD LB argument RB SEMI','function_call',5,'p_function_call','parsing.py',79),
+  ('argument -> VARIABLE','argument',1,'p_argument','parsing.py',86),
+  ('argument -> STRING','argument',1,'p_argument','parsing.py',87),
+  ('argument -> argument COMMA argument','argument',3,'p_argument','parsing.py',88),
+  ('argument -> empty','argument',1,'p_argument','parsing.py',89),
+  ('var_dec -> VARIABLE EQUALS exp SEMI','var_dec',4,'p_var_dec','parsing.py',96),
+  ('var_dec -> VARIABLE EQUALS input SEMI','var_dec',4,'p_var_dec','parsing.py',97),
+  ('exp -> NUMBER','exp',1,'p_exp','parsing.py',104),
+  ('exp -> VARIABLE','exp',1,'p_exp','parsing.py',105),
+  ('exp -> STRING','exp',1,'p_exp','parsing.py',106),
+  ('exp -> exp OPER exp','exp',3,'p_exp','parsing.py',107),
+  ('input -> ALB KEYWORD ARB','input',3,'p_input','parsing.py',117),
+  ('comment -> COMMENT','comment',1,'p_comment','parsing.py',124),
+  ('cond_stat -> KEYWORD LB condition RB block','cond_stat',5,'p_cond_stat','parsing.py',131),
+  ('cond_stat -> KEYWORD LB for_cond RB l_braces body r_braces','cond_stat',7,'p_cond_stat','parsing.py',132),
+  ('for_cond -> VARIABLE EQUALS exp SEMI VARIABLE sign exp SEMI increment','for_cond',9,'p_for_cond','parsing.py',139),
+  ('increment -> VARIABLE OPER OPER','increment',3,'p_increment','parsing.py',148),
+  ('increment -> VARIABLE sign exp','increment',3,'p_increment','parsing.py',149),
+  ('block -> l_braces body r_braces','block',3,'p_block','parsing.py',159),
+  ('l_braces -> LFB','l_braces',1,'p_l_braces','parsing.py',165),
+  ('r_braces -> RFB','r_braces',1,'p_r_braces','parsing.py',172),
+  ('condition -> VARIABLE sign exp','condition',3,'p_condition','parsing.py',179),
+  ('sign -> EQUALS','sign',1,'p_sign','parsing.py',186),
+  ('sign -> OPER','sign',1,'p_sign','parsing.py',187),
+  ('sign -> ALB','sign',1,'p_sign','parsing.py',188),
+  ('sign -> ARB','sign',1,'p_sign','parsing.py',189),
+  ('sign -> sign sign','sign',2,'p_sign','parsing.py',190),
+  ('empty -> <empty>','empty',0,'p_empty','parsing.py',207),
 ]
