@@ -63,7 +63,7 @@ def lexing(data):
     lexer = lex.lex()
     #testing
     lexer.input(data);
-    file = open("./PERL/lexout","w+")
+    file = open("mymodified version/PERL/lexout","w+")
     while True:
         tok = lexer.token()
         if not tok: break

@@ -183,13 +183,13 @@ def p_empty(p):
 
 # function which does the parsing
 def parsing():
-    inp_file = open("./PERL/testing.pl", "r+")
+    inp_file = open("mymodified version/PERL/testing.pl", "r")
     inp_data = inp_file.read()
     lexing(inp_data)
     parser = yacc.yacc()
     p = parser.parse(inp_data)
     print(p)
-    out_file = open("./PERL/pyequi.py", "w+")
+    out_file = open("mymodified version/PERL/pyequi.py", "w+")
     for statement in p.split("\n"):
         out_file.write(statement + "\n")
     out_file.close()

@@ -1,0 +1,1092 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    newl
+
+Grammar
+
+Rule 0     S' -> body
+Rule 1     body -> statementlist
+Rule 2     body -> empty
+Rule 3     statementlist -> statement
+Rule 4     statementlist -> statementlist statement
+Rule 5     statement -> var_dec
+Rule 6     statement -> function_call
+Rule 7     statement -> output
+Rule 8     statement -> comment
+Rule 9     statement -> cond_stat
+Rule 10    output -> KEYWORD out SEMI
+Rule 11    out -> VARIABLE
+Rule 12    out -> STRING
+Rule 13    out -> out COMMA out
+Rule 14    function_call -> KEYWORD LB argument RB SEMI
+Rule 15    argument -> VARIABLE
+Rule 16    argument -> STRING
+Rule 17    argument -> argument COMMA argument
+Rule 18    argument -> empty
+Rule 19    var_dec -> VARIABLE EQUALS exp SEMI
+Rule 20    var_dec -> VARIABLE EQUALS input SEMI
+Rule 21    exp -> NUMBER
+Rule 22    exp -> VARIABLE
+Rule 23    exp -> STRING
+Rule 24    exp -> exp OPER exp
+Rule 25    input -> ALB KEYWORD ARB
+Rule 26    comment -> COMMENT
+Rule 27    cond_stat -> KEYWORD LB condition RB block
+Rule 28    cond_stat -> KEYWORD LB for_cond RB l_braces body r_braces
+Rule 29    for_cond -> VARIABLE EQUALS exp SEMI VARIABLE sign exp SEMI increment
+Rule 30    increment -> VARIABLE OPER OPER
+Rule 31    increment -> VARIABLE sign exp
+Rule 32    block -> l_braces body r_braces
+Rule 33    l_braces -> LFB
+Rule 34    r_braces -> RFB
+Rule 35    condition -> VARIABLE sign exp
+Rule 36    sign -> EQUALS
+Rule 37    sign -> OPER
+Rule 38    sign -> ALB
+Rule 39    sign -> ARB
+Rule 40    sign -> sign sign
+Rule 41    empty -> <empty>
+
+Terminals, with rules where they appear
+
+ALB                  : 25 38
+ARB                  : 25 39
+COMMA                : 13 17
+COMMENT              : 26
+EQUALS               : 19 20 29 36
+KEYWORD              : 10 14 25 27 28
+LB                   : 14 27 28
+LFB                  : 33
+NUMBER               : 21
+OPER                 : 24 30 30 37
+RB                   : 14 27 28
+RFB                  : 34
+SEMI                 : 10 14 19 20 29 29
+STRING               : 12 16 23
+VARIABLE             : 11 15 19 20 22 29 29 30 31 35
+error                : 
+newl                 : 
+
+Nonterminals, with rules where they appear
+
+argument             : 14 17 17
+block                : 27
+body                 : 28 32 0
+comment              : 8
+cond_stat            : 9
+condition            : 27
+empty                : 2 18
+exp                  : 19 24 24 29 29 31 35
+for_cond             : 28
+function_call        : 6
+increment            : 29
+input                : 20
+l_braces             : 28 32
+out                  : 10 13 13
+output               : 7
+r_braces             : 28 32
+sign                 : 29 31 35 40 40
+statement            : 3 4
+statementlist        : 1 4
+var_dec              : 5
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . body
+    (1) body -> . statementlist
+    (2) body -> . empty
+    (3) statementlist -> . statement
+    (4) statementlist -> . statementlist statement
+    (41) empty -> .
+    (5) statement -> . var_dec
+    (6) statement -> . function_call
+    (7) statement -> . output
+    (8) statement -> . comment
+    (9) statement -> . cond_stat
+    (19) var_dec -> . VARIABLE EQUALS exp SEMI
+    (20) var_dec -> . VARIABLE EQUALS input SEMI
+    (14) function_call -> . KEYWORD LB argument RB SEMI
+    (10) output -> . KEYWORD out SEMI
+    (26) comment -> . COMMENT
+    (27) cond_stat -> . KEYWORD LB condition RB block
+    (28) cond_stat -> . KEYWORD LB for_cond RB l_braces body r_braces
+
+    $end            reduce using rule 41 (empty -> .)
+    VARIABLE        shift and go to state 10
+    KEYWORD         shift and go to state 11
+    COMMENT         shift and go to state 12
+
+    body                           shift and go to state 1
+    statementlist                  shift and go to state 2
+    empty                          shift and go to state 3
+    statement                      shift and go to state 4
+    var_dec                        shift and go to state 5
+    function_call                  shift and go to state 6
+    output                         shift and go to state 7
+    comment                        shift and go to state 8
+    cond_stat                      shift and go to state 9
+
+state 1
+
+    (0) S' -> body .
+
+
+
+state 2
+
+    (1) body -> statementlist .
+    (4) statementlist -> statementlist . statement
+    (5) statement -> . var_dec
+    (6) statement -> . function_call
+    (7) statement -> . output
+    (8) statement -> . comment
+    (9) statement -> . cond_stat
+    (19) var_dec -> . VARIABLE EQUALS exp SEMI
+    (20) var_dec -> . VARIABLE EQUALS input SEMI
+    (14) function_call -> . KEYWORD LB argument RB SEMI
+    (10) output -> . KEYWORD out SEMI
+    (26) comment -> . COMMENT
+    (27) cond_stat -> . KEYWORD LB condition RB block
+    (28) cond_stat -> . KEYWORD LB for_cond RB l_braces body r_braces
+
+    $end            reduce using rule 1 (body -> statementlist .)
+    RFB             reduce using rule 1 (body -> statementlist .)
+    VARIABLE        shift and go to state 10
+    KEYWORD         shift and go to state 11
+    COMMENT         shift and go to state 12
+
+    statement                      shift and go to state 13
+    var_dec                        shift and go to state 5
+    function_call                  shift and go to state 6
+    output                         shift and go to state 7
+    comment                        shift and go to state 8
+    cond_stat                      shift and go to state 9
+
+state 3
+
+    (2) body -> empty .
+
+    $end            reduce using rule 2 (body -> empty .)
+    RFB             reduce using rule 2 (body -> empty .)
+
+
+state 4
+
+    (3) statementlist -> statement .
+
+    VARIABLE        reduce using rule 3 (statementlist -> statement .)
+    KEYWORD         reduce using rule 3 (statementlist -> statement .)
+    COMMENT         reduce using rule 3 (statementlist -> statement .)
+    $end            reduce using rule 3 (statementlist -> statement .)
+    RFB             reduce using rule 3 (statementlist -> statement .)
+
+
+state 5
+
+    (5) statement -> var_dec .
+
+    VARIABLE        reduce using rule 5 (statement -> var_dec .)
+    KEYWORD         reduce using rule 5 (statement -> var_dec .)
+    COMMENT         reduce using rule 5 (statement -> var_dec .)
+    $end            reduce using rule 5 (statement -> var_dec .)
+    RFB             reduce using rule 5 (statement -> var_dec .)
+
+
+state 6
+
+    (6) statement -> function_call .
+
+    VARIABLE        reduce using rule 6 (statement -> function_call .)
+    KEYWORD         reduce using rule 6 (statement -> function_call .)
+    COMMENT         reduce using rule 6 (statement -> function_call .)
+    $end            reduce using rule 6 (statement -> function_call .)
+    RFB             reduce using rule 6 (statement -> function_call .)
+
+
+state 7
+
+    (7) statement -> output .
+
+    VARIABLE        reduce using rule 7 (statement -> output .)
+    KEYWORD         reduce using rule 7 (statement -> output .)
+    COMMENT         reduce using rule 7 (statement -> output .)
+    $end            reduce using rule 7 (statement -> output .)
+    RFB             reduce using rule 7 (statement -> output .)
+
+
+state 8
+
+    (8) statement -> comment .
+
+    VARIABLE        reduce using rule 8 (statement -> comment .)
+    KEYWORD         reduce using rule 8 (statement -> comment .)
+    COMMENT         reduce using rule 8 (statement -> comment .)
+    $end            reduce using rule 8 (statement -> comment .)
+    RFB             reduce using rule 8 (statement -> comment .)
+
+
+state 9
+
+    (9) statement -> cond_stat .
+
+    VARIABLE        reduce using rule 9 (statement -> cond_stat .)
+    KEYWORD         reduce using rule 9 (statement -> cond_stat .)
+    COMMENT         reduce using rule 9 (statement -> cond_stat .)
+    $end            reduce using rule 9 (statement -> cond_stat .)
+    RFB             reduce using rule 9 (statement -> cond_stat .)
+
+
+state 10
+
+    (19) var_dec -> VARIABLE . EQUALS exp SEMI
+    (20) var_dec -> VARIABLE . EQUALS input SEMI
+
+    EQUALS          shift and go to state 14
+
+
+state 11
+
+    (14) function_call -> KEYWORD . LB argument RB SEMI
+    (10) output -> KEYWORD . out SEMI
+    (27) cond_stat -> KEYWORD . LB condition RB block
+    (28) cond_stat -> KEYWORD . LB for_cond RB l_braces body r_braces
+    (11) out -> . VARIABLE
+    (12) out -> . STRING
+    (13) out -> . out COMMA out
+
+    LB              shift and go to state 15
+    VARIABLE        shift and go to state 17
+    STRING          shift and go to state 18
+
+    out                            shift and go to state 16
+
+state 12
+
+    (26) comment -> COMMENT .
+
+    VARIABLE        reduce using rule 26 (comment -> COMMENT .)
+    KEYWORD         reduce using rule 26 (comment -> COMMENT .)
+    COMMENT         reduce using rule 26 (comment -> COMMENT .)
+    $end            reduce using rule 26 (comment -> COMMENT .)
+    RFB             reduce using rule 26 (comment -> COMMENT .)
+
+
+state 13
+
+    (4) statementlist -> statementlist statement .
+
+    VARIABLE        reduce using rule 4 (statementlist -> statementlist statement .)
+    KEYWORD         reduce using rule 4 (statementlist -> statementlist statement .)
+    COMMENT         reduce using rule 4 (statementlist -> statementlist statement .)
+    $end            reduce using rule 4 (statementlist -> statementlist statement .)
+    RFB             reduce using rule 4 (statementlist -> statementlist statement .)
+
+
+state 14
+
+    (19) var_dec -> VARIABLE EQUALS . exp SEMI
+    (20) var_dec -> VARIABLE EQUALS . input SEMI
+    (21) exp -> . NUMBER
+    (22) exp -> . VARIABLE
+    (23) exp -> . STRING
+    (24) exp -> . exp OPER exp
+    (25) input -> . ALB KEYWORD ARB
+
+    NUMBER          shift and go to state 22
+    VARIABLE        shift and go to state 19
+    STRING          shift and go to state 23
+    ALB             shift and go to state 24
+
+    exp                            shift and go to state 20
+    input                          shift and go to state 21
+
+state 15
+
+    (14) function_call -> KEYWORD LB . argument RB SEMI
+    (27) cond_stat -> KEYWORD LB . condition RB block
+    (28) cond_stat -> KEYWORD LB . for_cond RB l_braces body r_braces
+    (15) argument -> . VARIABLE
+    (16) argument -> . STRING
+    (17) argument -> . argument COMMA argument
+    (18) argument -> . empty
+    (35) condition -> . VARIABLE sign exp
+    (29) for_cond -> . VARIABLE EQUALS exp SEMI VARIABLE sign exp SEMI increment
+    (41) empty -> .
+
+    VARIABLE        shift and go to state 28
+    STRING          shift and go to state 29
+    RB              reduce using rule 41 (empty -> .)
+    COMMA           reduce using rule 41 (empty -> .)
+
+    argument                       shift and go to state 25
+    condition                      shift and go to state 26
+    for_cond                       shift and go to state 27
+    empty                          shift and go to state 30
+
+state 16
+
+    (10) output -> KEYWORD out . SEMI
+    (13) out -> out . COMMA out
+
+    SEMI            shift and go to state 31
+    COMMA           shift and go to state 32
+
+
+state 17
+
+    (11) out -> VARIABLE .
+
+    SEMI            reduce using rule 11 (out -> VARIABLE .)
+    COMMA           reduce using rule 11 (out -> VARIABLE .)
+
+
+state 18
+
+    (12) out -> STRING .
+
+    SEMI            reduce using rule 12 (out -> STRING .)
+    COMMA           reduce using rule 12 (out -> STRING .)
+
+
+state 19
+
+    (22) exp -> VARIABLE .
+
+    SEMI            reduce using rule 22 (exp -> VARIABLE .)
+    OPER            reduce using rule 22 (exp -> VARIABLE .)
+    RB              reduce using rule 22 (exp -> VARIABLE .)
+
+
+state 20
+
+    (19) var_dec -> VARIABLE EQUALS exp . SEMI
+    (24) exp -> exp . OPER exp
+
+    SEMI            shift and go to state 33
+    OPER            shift and go to state 34
+
+
+state 21
+
+    (20) var_dec -> VARIABLE EQUALS input . SEMI
+
+    SEMI            shift and go to state 35
+
+
+state 22
+
+    (21) exp -> NUMBER .
+
+    SEMI            reduce using rule 21 (exp -> NUMBER .)
+    OPER            reduce using rule 21 (exp -> NUMBER .)
+    RB              reduce using rule 21 (exp -> NUMBER .)
+
+
+state 23
+
+    (23) exp -> STRING .
+
+    SEMI            reduce using rule 23 (exp -> STRING .)
+    OPER            reduce using rule 23 (exp -> STRING .)
+    RB              reduce using rule 23 (exp -> STRING .)
+
+
+state 24
+
+    (25) input -> ALB . KEYWORD ARB
+
+    KEYWORD         shift and go to state 36
+
+
+state 25
+
+    (14) function_call -> KEYWORD LB argument . RB SEMI
+    (17) argument -> argument . COMMA argument
+
+    RB              shift and go to state 37
+    COMMA           shift and go to state 38
+
+
+state 26
+
+    (27) cond_stat -> KEYWORD LB condition . RB block
+
+    RB              shift and go to state 39
+
+
+state 27
+
+    (28) cond_stat -> KEYWORD LB for_cond . RB l_braces body r_braces
+
+    RB              shift and go to state 40
+
+
+state 28
+
+    (15) argument -> VARIABLE .
+    (35) condition -> VARIABLE . sign exp
+    (29) for_cond -> VARIABLE . EQUALS exp SEMI VARIABLE sign exp SEMI increment
+    (36) sign -> . EQUALS
+    (37) sign -> . OPER
+    (38) sign -> . ALB
+    (39) sign -> . ARB
+    (40) sign -> . sign sign
+
+    RB              reduce using rule 15 (argument -> VARIABLE .)
+    COMMA           reduce using rule 15 (argument -> VARIABLE .)
+    EQUALS          shift and go to state 42
+    OPER            shift and go to state 43
+    ALB             shift and go to state 44
+    ARB             shift and go to state 45
+
+    sign                           shift and go to state 41
+
+state 29
+
+    (16) argument -> STRING .
+
+    RB              reduce using rule 16 (argument -> STRING .)
+    COMMA           reduce using rule 16 (argument -> STRING .)
+
+
+state 30
+
+    (18) argument -> empty .
+
+    RB              reduce using rule 18 (argument -> empty .)
+    COMMA           reduce using rule 18 (argument -> empty .)
+
+
+state 31
+
+    (10) output -> KEYWORD out SEMI .
+
+    VARIABLE        reduce using rule 10 (output -> KEYWORD out SEMI .)
+    KEYWORD         reduce using rule 10 (output -> KEYWORD out SEMI .)
+    COMMENT         reduce using rule 10 (output -> KEYWORD out SEMI .)
+    $end            reduce using rule 10 (output -> KEYWORD out SEMI .)
+    RFB             reduce using rule 10 (output -> KEYWORD out SEMI .)
+
+
+state 32
+
+    (13) out -> out COMMA . out
+    (11) out -> . VARIABLE
+    (12) out -> . STRING
+    (13) out -> . out COMMA out
+
+    VARIABLE        shift and go to state 17
+    STRING          shift and go to state 18
+
+    out                            shift and go to state 46
+
+state 33
+
+    (19) var_dec -> VARIABLE EQUALS exp SEMI .
+
+    VARIABLE        reduce using rule 19 (var_dec -> VARIABLE EQUALS exp SEMI .)
+    KEYWORD         reduce using rule 19 (var_dec -> VARIABLE EQUALS exp SEMI .)
+    COMMENT         reduce using rule 19 (var_dec -> VARIABLE EQUALS exp SEMI .)
+    $end            reduce using rule 19 (var_dec -> VARIABLE EQUALS exp SEMI .)
+    RFB             reduce using rule 19 (var_dec -> VARIABLE EQUALS exp SEMI .)
+
+
+state 34
+
+    (24) exp -> exp OPER . exp
+    (21) exp -> . NUMBER
+    (22) exp -> . VARIABLE
+    (23) exp -> . STRING
+    (24) exp -> . exp OPER exp
+
+    NUMBER          shift and go to state 22
+    VARIABLE        shift and go to state 19
+    STRING          shift and go to state 23
+
+    exp                            shift and go to state 47
+
+state 35
+
+    (20) var_dec -> VARIABLE EQUALS input SEMI .
+
+    VARIABLE        reduce using rule 20 (var_dec -> VARIABLE EQUALS input SEMI .)
+    KEYWORD         reduce using rule 20 (var_dec -> VARIABLE EQUALS input SEMI .)
+    COMMENT         reduce using rule 20 (var_dec -> VARIABLE EQUALS input SEMI .)
+    $end            reduce using rule 20 (var_dec -> VARIABLE EQUALS input SEMI .)
+    RFB             reduce using rule 20 (var_dec -> VARIABLE EQUALS input SEMI .)
+
+
+state 36
+
+    (25) input -> ALB KEYWORD . ARB
+
+    ARB             shift and go to state 48
+
+
+state 37
+
+    (14) function_call -> KEYWORD LB argument RB . SEMI
+
+    SEMI            shift and go to state 49
+
+
+state 38
+
+    (17) argument -> argument COMMA . argument
+    (15) argument -> . VARIABLE
+    (16) argument -> . STRING
+    (17) argument -> . argument COMMA argument
+    (18) argument -> . empty
+    (41) empty -> .
+
+    VARIABLE        shift and go to state 51
+    STRING          shift and go to state 29
+    COMMA           reduce using rule 41 (empty -> .)
+    RB              reduce using rule 41 (empty -> .)
+
+    argument                       shift and go to state 50
+    empty                          shift and go to state 30
+
+state 39
+
+    (27) cond_stat -> KEYWORD LB condition RB . block
+    (32) block -> . l_braces body r_braces
+    (33) l_braces -> . LFB
+
+    LFB             shift and go to state 54
+
+    block                          shift and go to state 52
+    l_braces                       shift and go to state 53
+
+state 40
+
+    (28) cond_stat -> KEYWORD LB for_cond RB . l_braces body r_braces
+    (33) l_braces -> . LFB
+
+    LFB             shift and go to state 54
+
+    l_braces                       shift and go to state 55
+
+state 41
+
+    (35) condition -> VARIABLE sign . exp
+    (40) sign -> sign . sign
+    (21) exp -> . NUMBER
+    (22) exp -> . VARIABLE
+    (23) exp -> . STRING
+    (24) exp -> . exp OPER exp
+    (36) sign -> . EQUALS
+    (37) sign -> . OPER
+    (38) sign -> . ALB
+    (39) sign -> . ARB
+    (40) sign -> . sign sign
+
+    NUMBER          shift and go to state 22
+    VARIABLE        shift and go to state 19
+    STRING          shift and go to state 23
+    EQUALS          shift and go to state 58
+    OPER            shift and go to state 43
+    ALB             shift and go to state 44
+    ARB             shift and go to state 45
+
+    sign                           shift and go to state 56
+    exp                            shift and go to state 57
+
+state 42
+
+    (29) for_cond -> VARIABLE EQUALS . exp SEMI VARIABLE sign exp SEMI increment
+    (36) sign -> EQUALS .
+    (21) exp -> . NUMBER
+    (22) exp -> . VARIABLE
+    (23) exp -> . STRING
+    (24) exp -> . exp OPER exp
+
+  ! shift/reduce conflict for NUMBER resolved as shift
+  ! shift/reduce conflict for VARIABLE resolved as shift
+  ! shift/reduce conflict for STRING resolved as shift
+    EQUALS          reduce using rule 36 (sign -> EQUALS .)
+    OPER            reduce using rule 36 (sign -> EQUALS .)
+    ALB             reduce using rule 36 (sign -> EQUALS .)
+    ARB             reduce using rule 36 (sign -> EQUALS .)
+    NUMBER          shift and go to state 22
+    VARIABLE        shift and go to state 19
+    STRING          shift and go to state 23
+
+  ! NUMBER          [ reduce using rule 36 (sign -> EQUALS .) ]
+  ! VARIABLE        [ reduce using rule 36 (sign -> EQUALS .) ]
+  ! STRING          [ reduce using rule 36 (sign -> EQUALS .) ]
+
+    exp                            shift and go to state 59
+
+state 43
+
+    (37) sign -> OPER .
+
+    NUMBER          reduce using rule 37 (sign -> OPER .)
+    VARIABLE        reduce using rule 37 (sign -> OPER .)
+    STRING          reduce using rule 37 (sign -> OPER .)
+    EQUALS          reduce using rule 37 (sign -> OPER .)
+    OPER            reduce using rule 37 (sign -> OPER .)
+    ALB             reduce using rule 37 (sign -> OPER .)
+    ARB             reduce using rule 37 (sign -> OPER .)
+
+
+state 44
+
+    (38) sign -> ALB .
+
+    NUMBER          reduce using rule 38 (sign -> ALB .)
+    VARIABLE        reduce using rule 38 (sign -> ALB .)
+    STRING          reduce using rule 38 (sign -> ALB .)
+    EQUALS          reduce using rule 38 (sign -> ALB .)
+    OPER            reduce using rule 38 (sign -> ALB .)
+    ALB             reduce using rule 38 (sign -> ALB .)
+    ARB             reduce using rule 38 (sign -> ALB .)
+
+
+state 45
+
+    (39) sign -> ARB .
+
+    NUMBER          reduce using rule 39 (sign -> ARB .)
+    VARIABLE        reduce using rule 39 (sign -> ARB .)
+    STRING          reduce using rule 39 (sign -> ARB .)
+    EQUALS          reduce using rule 39 (sign -> ARB .)
+    OPER            reduce using rule 39 (sign -> ARB .)
+    ALB             reduce using rule 39 (sign -> ARB .)
+    ARB             reduce using rule 39 (sign -> ARB .)
+
+
+state 46
+
+    (13) out -> out COMMA out .
+    (13) out -> out . COMMA out
+
+  ! shift/reduce conflict for COMMA resolved as shift
+    SEMI            reduce using rule 13 (out -> out COMMA out .)
+    COMMA           shift and go to state 32
+
+  ! COMMA           [ reduce using rule 13 (out -> out COMMA out .) ]
+
+
+state 47
+
+    (24) exp -> exp OPER exp .
+    (24) exp -> exp . OPER exp
+
+  ! shift/reduce conflict for OPER resolved as shift
+    SEMI            reduce using rule 24 (exp -> exp OPER exp .)
+    RB              reduce using rule 24 (exp -> exp OPER exp .)
+    OPER            shift and go to state 34
+
+  ! OPER            [ reduce using rule 24 (exp -> exp OPER exp .) ]
+
+
+state 48
+
+    (25) input -> ALB KEYWORD ARB .
+
+    SEMI            reduce using rule 25 (input -> ALB KEYWORD ARB .)
+
+
+state 49
+
+    (14) function_call -> KEYWORD LB argument RB SEMI .
+
+    VARIABLE        reduce using rule 14 (function_call -> KEYWORD LB argument RB SEMI .)
+    KEYWORD         reduce using rule 14 (function_call -> KEYWORD LB argument RB SEMI .)
+    COMMENT         reduce using rule 14 (function_call -> KEYWORD LB argument RB SEMI .)
+    $end            reduce using rule 14 (function_call -> KEYWORD LB argument RB SEMI .)
+    RFB             reduce using rule 14 (function_call -> KEYWORD LB argument RB SEMI .)
+
+
+state 50
+
+    (17) argument -> argument COMMA argument .
+    (17) argument -> argument . COMMA argument
+
+  ! shift/reduce conflict for COMMA resolved as shift
+    RB              reduce using rule 17 (argument -> argument COMMA argument .)
+    COMMA           shift and go to state 38
+
+  ! COMMA           [ reduce using rule 17 (argument -> argument COMMA argument .) ]
+
+
+state 51
+
+    (15) argument -> VARIABLE .
+
+    COMMA           reduce using rule 15 (argument -> VARIABLE .)
+    RB              reduce using rule 15 (argument -> VARIABLE .)
+
+
+state 52
+
+    (27) cond_stat -> KEYWORD LB condition RB block .
+
+    VARIABLE        reduce using rule 27 (cond_stat -> KEYWORD LB condition RB block .)
+    KEYWORD         reduce using rule 27 (cond_stat -> KEYWORD LB condition RB block .)
+    COMMENT         reduce using rule 27 (cond_stat -> KEYWORD LB condition RB block .)
+    $end            reduce using rule 27 (cond_stat -> KEYWORD LB condition RB block .)
+    RFB             reduce using rule 27 (cond_stat -> KEYWORD LB condition RB block .)
+
+
+state 53
+
+    (32) block -> l_braces . body r_braces
+    (1) body -> . statementlist
+    (2) body -> . empty
+    (3) statementlist -> . statement
+    (4) statementlist -> . statementlist statement
+    (41) empty -> .
+    (5) statement -> . var_dec
+    (6) statement -> . function_call
+    (7) statement -> . output
+    (8) statement -> . comment
+    (9) statement -> . cond_stat
+    (19) var_dec -> . VARIABLE EQUALS exp SEMI
+    (20) var_dec -> . VARIABLE EQUALS input SEMI
+    (14) function_call -> . KEYWORD LB argument RB SEMI
+    (10) output -> . KEYWORD out SEMI
+    (26) comment -> . COMMENT
+    (27) cond_stat -> . KEYWORD LB condition RB block
+    (28) cond_stat -> . KEYWORD LB for_cond RB l_braces body r_braces
+
+    RFB             reduce using rule 41 (empty -> .)
+    VARIABLE        shift and go to state 10
+    KEYWORD         shift and go to state 11
+    COMMENT         shift and go to state 12
+
+    body                           shift and go to state 60
+    statementlist                  shift and go to state 2
+    empty                          shift and go to state 3
+    statement                      shift and go to state 4
+    var_dec                        shift and go to state 5
+    function_call                  shift and go to state 6
+    output                         shift and go to state 7
+    comment                        shift and go to state 8
+    cond_stat                      shift and go to state 9
+
+state 54
+
+    (33) l_braces -> LFB .
+
+    VARIABLE        reduce using rule 33 (l_braces -> LFB .)
+    KEYWORD         reduce using rule 33 (l_braces -> LFB .)
+    COMMENT         reduce using rule 33 (l_braces -> LFB .)
+    RFB             reduce using rule 33 (l_braces -> LFB .)
+
+
+state 55
+
+    (28) cond_stat -> KEYWORD LB for_cond RB l_braces . body r_braces
+    (1) body -> . statementlist
+    (2) body -> . empty
+    (3) statementlist -> . statement
+    (4) statementlist -> . statementlist statement
+    (41) empty -> .
+    (5) statement -> . var_dec
+    (6) statement -> . function_call
+    (7) statement -> . output
+    (8) statement -> . comment
+    (9) statement -> . cond_stat
+    (19) var_dec -> . VARIABLE EQUALS exp SEMI
+    (20) var_dec -> . VARIABLE EQUALS input SEMI
+    (14) function_call -> . KEYWORD LB argument RB SEMI
+    (10) output -> . KEYWORD out SEMI
+    (26) comment -> . COMMENT
+    (27) cond_stat -> . KEYWORD LB condition RB block
+    (28) cond_stat -> . KEYWORD LB for_cond RB l_braces body r_braces
+
+    RFB             reduce using rule 41 (empty -> .)
+    VARIABLE        shift and go to state 10
+    KEYWORD         shift and go to state 11
+    COMMENT         shift and go to state 12
+
+    body                           shift and go to state 61
+    statementlist                  shift and go to state 2
+    empty                          shift and go to state 3
+    statement                      shift and go to state 4
+    var_dec                        shift and go to state 5
+    function_call                  shift and go to state 6
+    output                         shift and go to state 7
+    comment                        shift and go to state 8
+    cond_stat                      shift and go to state 9
+
+state 56
+
+    (40) sign -> sign sign .
+    (40) sign -> sign . sign
+    (36) sign -> . EQUALS
+    (37) sign -> . OPER
+    (38) sign -> . ALB
+    (39) sign -> . ARB
+    (40) sign -> . sign sign
+
+  ! shift/reduce conflict for EQUALS resolved as shift
+  ! shift/reduce conflict for OPER resolved as shift
+  ! shift/reduce conflict for ALB resolved as shift
+  ! shift/reduce conflict for ARB resolved as shift
+    NUMBER          reduce using rule 40 (sign -> sign sign .)
+    VARIABLE        reduce using rule 40 (sign -> sign sign .)
+    STRING          reduce using rule 40 (sign -> sign sign .)
+    EQUALS          shift and go to state 58
+    OPER            shift and go to state 43
+    ALB             shift and go to state 44
+    ARB             shift and go to state 45
+
+  ! EQUALS          [ reduce using rule 40 (sign -> sign sign .) ]
+  ! OPER            [ reduce using rule 40 (sign -> sign sign .) ]
+  ! ALB             [ reduce using rule 40 (sign -> sign sign .) ]
+  ! ARB             [ reduce using rule 40 (sign -> sign sign .) ]
+
+    sign                           shift and go to state 56
+
+state 57
+
+    (35) condition -> VARIABLE sign exp .
+    (24) exp -> exp . OPER exp
+
+    RB              reduce using rule 35 (condition -> VARIABLE sign exp .)
+    OPER            shift and go to state 34
+
+
+state 58
+
+    (36) sign -> EQUALS .
+
+    EQUALS          reduce using rule 36 (sign -> EQUALS .)
+    OPER            reduce using rule 36 (sign -> EQUALS .)
+    ALB             reduce using rule 36 (sign -> EQUALS .)
+    ARB             reduce using rule 36 (sign -> EQUALS .)
+    NUMBER          reduce using rule 36 (sign -> EQUALS .)
+    VARIABLE        reduce using rule 36 (sign -> EQUALS .)
+    STRING          reduce using rule 36 (sign -> EQUALS .)
+
+
+state 59
+
+    (29) for_cond -> VARIABLE EQUALS exp . SEMI VARIABLE sign exp SEMI increment
+    (24) exp -> exp . OPER exp
+
+    SEMI            shift and go to state 62
+    OPER            shift and go to state 34
+
+
+state 60
+
+    (32) block -> l_braces body . r_braces
+    (34) r_braces -> . RFB
+
+    RFB             shift and go to state 64
+
+    r_braces                       shift and go to state 63
+
+state 61
+
+    (28) cond_stat -> KEYWORD LB for_cond RB l_braces body . r_braces
+    (34) r_braces -> . RFB
+
+    RFB             shift and go to state 64
+
+    r_braces                       shift and go to state 65
+
+state 62
+
+    (29) for_cond -> VARIABLE EQUALS exp SEMI . VARIABLE sign exp SEMI increment
+
+    VARIABLE        shift and go to state 66
+
+
+state 63
+
+    (32) block -> l_braces body r_braces .
+
+    VARIABLE        reduce using rule 32 (block -> l_braces body r_braces .)
+    KEYWORD         reduce using rule 32 (block -> l_braces body r_braces .)
+    COMMENT         reduce using rule 32 (block -> l_braces body r_braces .)
+    $end            reduce using rule 32 (block -> l_braces body r_braces .)
+    RFB             reduce using rule 32 (block -> l_braces body r_braces .)
+
+
+state 64
+
+    (34) r_braces -> RFB .
+
+    VARIABLE        reduce using rule 34 (r_braces -> RFB .)
+    KEYWORD         reduce using rule 34 (r_braces -> RFB .)
+    COMMENT         reduce using rule 34 (r_braces -> RFB .)
+    $end            reduce using rule 34 (r_braces -> RFB .)
+    RFB             reduce using rule 34 (r_braces -> RFB .)
+
+
+state 65
+
+    (28) cond_stat -> KEYWORD LB for_cond RB l_braces body r_braces .
+
+    VARIABLE        reduce using rule 28 (cond_stat -> KEYWORD LB for_cond RB l_braces body r_braces .)
+    KEYWORD         reduce using rule 28 (cond_stat -> KEYWORD LB for_cond RB l_braces body r_braces .)
+    COMMENT         reduce using rule 28 (cond_stat -> KEYWORD LB for_cond RB l_braces body r_braces .)
+    $end            reduce using rule 28 (cond_stat -> KEYWORD LB for_cond RB l_braces body r_braces .)
+    RFB             reduce using rule 28 (cond_stat -> KEYWORD LB for_cond RB l_braces body r_braces .)
+
+
+state 66
+
+    (29) for_cond -> VARIABLE EQUALS exp SEMI VARIABLE . sign exp SEMI increment
+    (36) sign -> . EQUALS
+    (37) sign -> . OPER
+    (38) sign -> . ALB
+    (39) sign -> . ARB
+    (40) sign -> . sign sign
+
+    EQUALS          shift and go to state 58
+    OPER            shift and go to state 43
+    ALB             shift and go to state 44
+    ARB             shift and go to state 45
+
+    sign                           shift and go to state 67
+
+state 67
+
+    (29) for_cond -> VARIABLE EQUALS exp SEMI VARIABLE sign . exp SEMI increment
+    (40) sign -> sign . sign
+    (21) exp -> . NUMBER
+    (22) exp -> . VARIABLE
+    (23) exp -> . STRING
+    (24) exp -> . exp OPER exp
+    (36) sign -> . EQUALS
+    (37) sign -> . OPER
+    (38) sign -> . ALB
+    (39) sign -> . ARB
+    (40) sign -> . sign sign
+
+    NUMBER          shift and go to state 22
+    VARIABLE        shift and go to state 19
+    STRING          shift and go to state 23
+    EQUALS          shift and go to state 58
+    OPER            shift and go to state 43
+    ALB             shift and go to state 44
+    ARB             shift and go to state 45
+
+    exp                            shift and go to state 68
+    sign                           shift and go to state 56
+
+state 68
+
+    (29) for_cond -> VARIABLE EQUALS exp SEMI VARIABLE sign exp . SEMI increment
+    (24) exp -> exp . OPER exp
+
+    SEMI            shift and go to state 69
+    OPER            shift and go to state 34
+
+
+state 69
+
+    (29) for_cond -> VARIABLE EQUALS exp SEMI VARIABLE sign exp SEMI . increment
+    (30) increment -> . VARIABLE OPER OPER
+    (31) increment -> . VARIABLE sign exp
+
+    VARIABLE        shift and go to state 70
+
+    increment                      shift and go to state 71
+
+state 70
+
+    (30) increment -> VARIABLE . OPER OPER
+    (31) increment -> VARIABLE . sign exp
+    (36) sign -> . EQUALS
+    (37) sign -> . OPER
+    (38) sign -> . ALB
+    (39) sign -> . ARB
+    (40) sign -> . sign sign
+
+    OPER            shift and go to state 72
+    EQUALS          shift and go to state 58
+    ALB             shift and go to state 44
+    ARB             shift and go to state 45
+
+    sign                           shift and go to state 73
+
+state 71
+
+    (29) for_cond -> VARIABLE EQUALS exp SEMI VARIABLE sign exp SEMI increment .
+
+    RB              reduce using rule 29 (for_cond -> VARIABLE EQUALS exp SEMI VARIABLE sign exp SEMI increment .)
+
+
+state 72
+
+    (30) increment -> VARIABLE OPER . OPER
+    (37) sign -> OPER .
+
+  ! shift/reduce conflict for OPER resolved as shift
+    OPER            shift and go to state 74
+    NUMBER          reduce using rule 37 (sign -> OPER .)
+    VARIABLE        reduce using rule 37 (sign -> OPER .)
+    STRING          reduce using rule 37 (sign -> OPER .)
+    EQUALS          reduce using rule 37 (sign -> OPER .)
+    ALB             reduce using rule 37 (sign -> OPER .)
+    ARB             reduce using rule 37 (sign -> OPER .)
+
+  ! OPER            [ reduce using rule 37 (sign -> OPER .) ]
+
+
+state 73
+
+    (31) increment -> VARIABLE sign . exp
+    (40) sign -> sign . sign
+    (21) exp -> . NUMBER
+    (22) exp -> . VARIABLE
+    (23) exp -> . STRING
+    (24) exp -> . exp OPER exp
+    (36) sign -> . EQUALS
+    (37) sign -> . OPER
+    (38) sign -> . ALB
+    (39) sign -> . ARB
+    (40) sign -> . sign sign
+
+    NUMBER          shift and go to state 22
+    VARIABLE        shift and go to state 19
+    STRING          shift and go to state 23
+    EQUALS          shift and go to state 58
+    OPER            shift and go to state 43
+    ALB             shift and go to state 44
+    ARB             shift and go to state 45
+
+    sign                           shift and go to state 56
+    exp                            shift and go to state 75
+
+state 74
+
+    (30) increment -> VARIABLE OPER OPER .
+
+    RB              reduce using rule 30 (increment -> VARIABLE OPER OPER .)
+
+
+state 75
+
+    (31) increment -> VARIABLE sign exp .
+    (24) exp -> exp . OPER exp
+
+    RB              reduce using rule 31 (increment -> VARIABLE sign exp .)
+    OPER            shift and go to state 34
+
+WARNING: 
+WARNING: Conflicts:
+WARNING: 
+WARNING: shift/reduce conflict for NUMBER in state 42 resolved as shift
+WARNING: shift/reduce conflict for VARIABLE in state 42 resolved as shift
+WARNING: shift/reduce conflict for STRING in state 42 resolved as shift
+WARNING: shift/reduce conflict for COMMA in state 46 resolved as shift
+WARNING: shift/reduce conflict for OPER in state 47 resolved as shift
+WARNING: shift/reduce conflict for COMMA in state 50 resolved as shift
+WARNING: shift/reduce conflict for EQUALS in state 56 resolved as shift
+WARNING: shift/reduce conflict for OPER in state 56 resolved as shift
+WARNING: shift/reduce conflict for ALB in state 56 resolved as shift
+WARNING: shift/reduce conflict for ARB in state 56 resolved as shift
+WARNING: shift/reduce conflict for OPER in state 72 resolved as shift
