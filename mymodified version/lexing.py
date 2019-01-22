@@ -1,8 +1,19 @@
 import ply.lex as lex
 
 #lexing part
+
+# for reserved keywords
+reserved = {
+    'package' : 'PACKAGE',
+    'sub' : 'SUB',
+    'my' : 'MY',
+    'shift' : 'SHIFT',
+    'return' : 'RETURN',
+    'new' : 'NEW'
+}
+
 #token names
-tokens = (
+tokens = [
     'NUMBER',
     'OPER',
     'VARIABLE',
@@ -19,7 +30,7 @@ tokens = (
     'RB',
     'ALB',
     'ARB'
-)
+]+list(reserved.values())
 
 #rules
 t_ignore = " \t"
@@ -41,6 +52,7 @@ def t_STRING(t):
     return t
 def t_KEYWORD(t):
     r'[a-zA-Z]+'
+    t.type = reserved.get(t.value,'KEYWORD')
     return t
 def t_VARIABLE(t):
     r'(@|\$|%)[^ \t\n(){}<>;=!\+\*/-]+'
@@ -71,3 +83,6 @@ def lexing(data):
         file.write(str(tok))
         file.write("\n")
 
+inp_file = open("mymodified version/PERL/testing.pl","r")
+data = inp_file.read()
+lexing(data)
