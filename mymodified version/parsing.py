@@ -2,14 +2,15 @@ import ply.yacc as yacc
 from lexing import tokens, lexing
 
 indent = 0
+fLine = 0
 
 #defining the module
-def p_module(p):
+"""def p_module(p):
     '''p_module : package_dec
                 | body
                 | empty'''
     print("module: ",p[0:])
-    p[0] = p[1]
+    p[0] = p[1]"""
 
 # defining the body of the context
 
@@ -34,7 +35,10 @@ def p_statement(p):
                 | function_call
                 | output
                 | comment
-                | cond_stat'''
+                | cond_stat
+                | package_dec
+                | function_def
+                | return_st'''
     print("statement: ", p[0:])
     p[0] = "\t" * indent + str(p[1])
 
@@ -55,8 +59,15 @@ def p_upind(p):
 def p_lowind(p):
     '''lowind :'''
     global indent
-    indent+=1
+    indent-=1
     p[0] = ""
+
+# defining the function definition of the class
+def p_function_def(p):
+    '''function_def : SUB KEYWORD block'''
+    p[0] = "def " + p[2] + "(*argv)" + ":\n" + p[3]
+    global fLine
+    fLine = 0
 
 # for print statement
 def p_output(p):
@@ -93,11 +104,33 @@ def p_argument(p):
 
 # defining variable declaration
 def p_var_dec(p):
-    '''var_dec : VARIABLE EQUALS exp SEMI
-                | VARIABLE EQUALS input SEMI'''
+    '''var_dec : variable EQUALS exp SEMI
+                | variable EQUALS input SEMI
+                | variable EQUALS SHIFT SEMI'''
     print(p[0:])
-    p[0] = (str(p[1]) + str(p[2]) + p[3])
+    if p[3] == "shift":
+        global fLine
+        fLine +=1
+        if fLine == 1:
+            p[0] = "arg = (list(argv)[1:]).reverse()"
+        else:
+            p[0] = p[1] + p[2] + "arg.pop()"
+    else:
+        p[0] = str(p[1]) + str(p[2]) + p[3]
 
+# defining variable
+def p_variable(p):
+    '''variable : MY VARIABLE
+                | VARIABLE'''
+    if p[1] == "my":
+        p[0] = p[2]
+    else:
+        p[0] = p[1]
+
+# defining return statement
+def p_return_st(p):
+    '''return_st : RETURN exp SEMI'''
+    p[0] = p[1] + " " + p[2]
 
 # right hand side of var dec
 def p_exp(p):
@@ -129,7 +162,7 @@ def p_comment(p):
 # checking for conditional statements
 def p_cond_stat(p):
     '''cond_stat : KEYWORD LB condition RB block
-                    | KEYWORD LB for_cond RB l_braces body r_braces'''
+                    | KEYWORD LB for_cond RB block'''
     print(p[0:])
     p[0] = (str(p[1]) + " " + p[3] + ":\n" + str(p[6]))
 
@@ -191,11 +224,6 @@ def p_sign(p):
     print(p[0:])
     p[0] = "".join(p[1:])
 
-def hello():
-    a =[20,30,10]
-    b= sorted(a)
-    print(b)
-
 # general error
 def p_error(p):
     print(p)
@@ -205,12 +233,12 @@ def p_error(p):
 # empty body
 def p_empty(p):
     '''empty :'''
-    pass
+    p[0] =  ""
 
 
 # function which does the parsing
 def parsing():
-    inp_file = open("mymodified version/PERL/testing.pl", "r")
+    inp_file = open("mymodified version/PERL/mod.pm", "r")
     inp_data = inp_file.read()
     lexing(inp_data)
     parser = yacc.yacc()
