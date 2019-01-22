@@ -8,3 +8,4 @@ for(@i = 0 ; @i<=@n ; @i++)
 {
 	$j = 1;
 }
+package hello;
