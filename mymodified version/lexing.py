@@ -74,7 +74,7 @@ def t_error(t):
 def lexing(data):
     lexer = lex.lex()
     #testing
-    lexer.input(data);
+    lexer.input(data)
     file = open("mymodified version/PERL/lexout","w+")
     while True:
         tok = lexer.token()
@@ -83,6 +83,6 @@ def lexing(data):
         file.write(str(tok))
         file.write("\n")
 
-inp_file = open("mymodified version/PERL/testing.pl","r")
+inp_file = open("mymodified version/PERL/mod.pm","r")
 data = inp_file.read()
 lexing(data)
