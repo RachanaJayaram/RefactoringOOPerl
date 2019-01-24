@@ -4,16 +4,7 @@ from lexing import tokens, lexing
 indent = 0
 fLine = 0
 
-#defining the module
-"""def p_module(p):
-    '''p_module : package_dec
-                | body
-                | empty'''
-    print("module: ",p[0:])
-    p[0] = p[1]"""
-
 # defining the body of the context
-
 def p_body(p):
     '''body : statementlist
             | empty'''
@@ -65,7 +56,7 @@ def p_lowind(p):
 # defining the function definition of the class
 def p_function_def(p):
     '''function_def : SUB KEYWORD block'''
-    p[0] = "def " + p[2] + "(*argv)" + ":\n" + p[3]
+    p[0] = "def " + p[2] + "(self,*argv)" + ":\n" + p[3]
     global fLine
     fLine = 0
 
@@ -134,9 +125,10 @@ def p_return_st(p):
 
 # right hand side of var dec
 def p_exp(p):
-    '''exp : NUMBER
+    '''exp : scalar
             | VARIABLE
-            | STRING
+            | array
+            | hash
             | exp OPER exp'''
     print(p[0:])
     try:
@@ -144,6 +136,9 @@ def p_exp(p):
     except:
         p[0] = str(p[1])
 
+# defining the types of variables
+def p_scalar(p):
+    
 
 # to handle stdin (perl input)
 def p_input(p):
