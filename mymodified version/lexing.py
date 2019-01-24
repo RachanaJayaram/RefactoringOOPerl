@@ -8,8 +8,10 @@ reserved = {
     'sub' : 'SUB',
     'my' : 'MY',
     'shift' : 'SHIFT',
+    '@_' : 'SHIFT',
     'return' : 'RETURN',
-    'new' : 'NEW'
+    'new' : 'NEW',
+    'bless' : 'BLESS',
 }
 
 #token names
@@ -43,7 +45,7 @@ t_RB = r'\)'
 t_LB = r'\('
 t_ALB = r'<'
 t_ARB = r'>'
-t_OPER = r'(\+|\*|/|-|%|!)'
+t_OPER = r'(\+|\*|/|-|%|!|&&|\|\|)'
 t_COMMENT = r'\#.*'
 
 #token definitions
@@ -56,6 +58,7 @@ def t_KEYWORD(t):
     return t
 def t_VARIABLE(t):
     r'(@|\$|%)[^ \t\n(){}<>;=!\+\*/-]+'
+    t.type = reserved.get(t.value,'VARIABLE')
     t.value = str(t.value)[1:]
     return t
 def t_NUMBER(t):
