@@ -69,7 +69,7 @@ def p_output(p):
 
 # arguments for print statement
 def p_out(p):
-    ''' out : VARIABLE
+    ''' out : variable
             | STRING
             | out COMMA out'''
     print(p[0:])
@@ -85,8 +85,9 @@ def p_function_call(p):
 
 # arguments for the function call
 def p_argument(p):
-    '''argument : VARIABLE
+    '''argument : variable
                 | STRING
+                | NUMBER
                 | argument COMMA argument
                 | empty'''
     print(p[0:])
@@ -95,9 +96,11 @@ def p_argument(p):
 
 # defining variable declaration
 def p_var_dec(p):
-    '''var_dec : variable EQUALS exp SEMI
+    '''var_dec : scalar_var EQUALS exp SEMI
                 | variable EQUALS input SEMI
-                | variable EQUALS SHIFT SEMI'''
+                | variable EQUALS SHIFT SEMI
+                | arr_var EQUALS arr_exp SEMI
+                | hash_var EQUALS hash_exp SEMI'''
     print(p[0:])
     if p[3] == "shift":
         global fLine
@@ -109,14 +112,39 @@ def p_var_dec(p):
     else:
         p[0] = str(p[1]) + str(p[2]) + p[3]
 
-# defining variable
+# variable decider
 def p_variable(p):
-    '''variable : MY VARIABLE
-                | VARIABLE'''
+    '''variable : scalar_var
+                | arr_var
+                | hash_var'''
+    p[0] = p[1]
+
+# defining scalar variable
+def p_scalar_var(p):
+    '''scalar_var : MY SCALAR
+                | SCALAR'''
     if p[1] == "my":
         p[0] = p[2]
     else:
         p[0] = p[1]
+
+# defining array variable
+def p_arr_var(p):
+    '''arr_var : MY ARRAY
+                | ARRAY'''
+    if p[1] == "my":
+        p[0] = p[2]
+    else:
+        p[0] = p[1]
+
+# defining hash variable
+def p_hash_var(p):
+    '''hash_var : MY HASH
+                | HASH'''
+    if p[1] == "my":
+        p[0] = p[2]
+    else:
+        p[0] = p[1] 
 
 # defining return statement
 def p_return_st(p):
@@ -125,10 +153,9 @@ def p_return_st(p):
 
 # right hand side of var dec
 def p_exp(p):
-    '''exp : scalar
-            | VARIABLE
-            | array
-            | hash
+    '''exp : NUMBER
+            | STRING
+            | var
             | exp OPER exp'''
     print(p[0:])
     try:
@@ -136,9 +163,15 @@ def p_exp(p):
     except:
         p[0] = str(p[1])
 
-# defining the types of variables
-def p_scalar(p):
-    
+# definig the array
+def p_arr_exp(p):
+    '''arr_exp :  LB argument RB'''
+    p[0] = "[" + p[2] + "]"
+
+# defining the hash
+def p_hash_exp(p):
+    '''hash_exp : LB argument RB
+                | '''
 
 # to handle stdin (perl input)
 def p_input(p):
@@ -233,7 +266,7 @@ def p_empty(p):
 
 # function which does the parsing
 def parsing():
-    inp_file = open("mymodified version/PERL/mod.pm", "r")
+    inp_file = open("mymodified version/PERL/testing.pl", "r")
     inp_data = inp_file.read()
     lexing(inp_data)
     parser = yacc.yacc()
