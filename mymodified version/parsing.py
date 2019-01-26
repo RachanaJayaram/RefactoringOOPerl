@@ -1,5 +1,6 @@
 import ply.yacc as yacc
 from lexing import tokens, lexing
+import re
 
 indent = 0
 fLine = 0
@@ -28,12 +29,17 @@ def p_statement(p):
                 | comment
                 | cond_stat
                 | package_dec
+                | cons_dec
                 | function_def
                 | return_st'''
     print("statement: ", p[0:])
     p[0] = "\t" * indent + str(p[1])
 
-#defining the package
+# defining the constructor
+def p_cons_dec(p):
+    '''cons_dec : '''
+
+# defining the package
 def p_package_dec(p):
     '''package_dec : PACKAGE KEYWORD SEMI upind body lowind NUMBER SEMI'''
     print("package: ",p[0:])
@@ -170,8 +176,45 @@ def p_arr_exp(p):
 
 # defining the hash
 def p_hash_exp(p):
-    '''hash_exp : LB argument RB
-                | '''
+    '''hash_exp : first_hash
+                | second_hash'''
+    p[0] = p[1]
+
+# defining first type of hash declaration
+def p_first_hash(p):
+    '''first_hand : LB argument RB'''
+    p[0] = "{"
+    key = True
+    for i in p[2].split(","):
+        if key:
+            p[0] = p[0] + str(i) + ":"
+            key = False
+        else:
+            p[0] = p[0] + str(i) + ","
+            key = True
+    p[0] = p[:-1] + "}"
+
+# defining second type of hash declaration
+def p_second_hand(p):
+    '''second_hand : LB hash_arg RB'''
+    p[0] ="{"
+    key = True
+    for i in re.split("=>|,",p[2]):
+        if key:
+            p[0] = p[0] + str(i) + ":"
+            key = False
+        else:
+            p[0] = p[0] + str(i) + ","
+            key = True
+    p[0] = p[:-1] + "}"
+ 
+# defining hash argument
+def p_hash_arg(p):
+    '''hash_arg : STRING
+                | NUMBER
+                | hash_arg HASH_OP hash_arg
+                | hash_arg COMMA hash_arg'''
+    p[0] = "".join(p[1:])
 
 # to handle stdin (perl input)
 def p_input(p):
