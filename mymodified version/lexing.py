@@ -21,6 +21,7 @@ tokens = [
     'OPER',
     'SCALAR',
     'STRING',
+    'HASH_OP'
     'COMMA',
     'SEMI',
     'EQUALS',
@@ -37,6 +38,7 @@ tokens = [
 
 #rules
 t_ignore = " \t"
+t_HASH_op = r'=>' 
 t_COMMA = r','
 t_SEMI = r';'
 t_EQUALS = r'='
