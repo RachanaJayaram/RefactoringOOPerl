@@ -1,3 +1,1 @@
-package hello;
-$abc = 10;
-1;
+@array = (20,30,40,50);
