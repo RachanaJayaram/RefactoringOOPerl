@@ -2,8 +2,6 @@ Created by PLY version 3.11 (http://www.dabeaz.com/ply)
 
 Unused terminals:
 
-    BLESS
-    NEW
     newl
 
 Grammar
@@ -19,109 +17,2526 @@ Rule 7     statement -> output
 Rule 8     statement -> comment
 Rule 9     statement -> cond_stat
 Rule 10    statement -> package_dec
-Rule 11    statement -> function_def
-Rule 12    statement -> return_st
-Rule 13    package_dec -> PACKAGE KEYWORD SEMI upind body lowind NUMBER SEMI
-Rule 14    upind -> <empty>
-Rule 15    lowind -> <empty>
-Rule 16    function_def -> SUB KEYWORD block
-Rule 17    output -> KEYWORD out SEMI
-Rule 18    out -> VARIABLE
-Rule 19    out -> STRING
-Rule 20    out -> out COMMA out
-Rule 21    function_call -> KEYWORD LB argument RB SEMI
-Rule 22    argument -> VARIABLE
-Rule 23    argument -> STRING
-Rule 24    argument -> argument COMMA argument
-Rule 25    argument -> empty
-Rule 26    var_dec -> variable EQUALS exp SEMI
-Rule 27    var_dec -> variable EQUALS input SEMI
-Rule 28    var_dec -> variable EQUALS SHIFT SEMI
-Rule 29    variable -> MY VARIABLE
-Rule 30    variable -> VARIABLE
-Rule 31    return_st -> RETURN exp SEMI
-Rule 32    exp -> scalar
-Rule 33    exp -> VARIABLE
-Rule 34    exp -> array
-Rule 35    exp -> hash
-Rule 36    exp -> exp OPER exp
-Rule 37    scalar -> NUMBER
-Rule 38    scalar -> STRING
-Rule 39    array -> LB argument RB
-Rule 40    input -> ALB KEYWORD ARB
-Rule 41    comment -> COMMENT
-Rule 42    cond_stat -> KEYWORD LB condition RB block
-Rule 43    cond_stat -> KEYWORD LB for_cond RB block
-Rule 44    for_cond -> VARIABLE EQUALS exp SEMI VARIABLE sign exp SEMI increment
-Rule 45    increment -> VARIABLE OPER OPER
-Rule 46    increment -> VARIABLE sign exp
-Rule 47    block -> l_braces body r_braces
-Rule 48    l_braces -> LFB
-Rule 49    r_braces -> RFB
-Rule 50    condition -> VARIABLE sign exp
-Rule 51    sign -> EQUALS
-Rule 52    sign -> OPER
-Rule 53    sign -> ALB
-Rule 54    sign -> ARB
-Rule 55    sign -> sign sign
-Rule 56    empty -> <empty>
+Rule 11    statement -> cons_dec
+Rule 12    statement -> function_def
+Rule 13    statement -> bless_st
+Rule 14    statement -> return_st
+Rule 15    package_dec -> PACKAGE KEYWORD SEMI upind body lowind NUMBER SEMI
+Rule 16    cons_dec -> SUB NEW block
+Rule 17    bless_st -> BLESS LB argument RB SEMI
+Rule 18    upind -> <empty>
+Rule 19    lowind -> <empty>
+Rule 20    function_def -> SUB KEYWORD block
+Rule 21    output -> KEYWORD out SEMI
+Rule 22    out -> variable
+Rule 23    out -> STRING
+Rule 24    out -> out COMMA out
+Rule 25    function_call -> KEYWORD LB argument RB SEMI
+Rule 26    argument -> variable
+Rule 27    argument -> STRING
+Rule 28    argument -> NUMBER
+Rule 29    argument -> argument COMMA argument
+Rule 30    argument -> empty
+Rule 31    var_dec -> scalar_var EQUALS exp SEMI
+Rule 32    var_dec -> variable EQUALS input SEMI
+Rule 33    var_dec -> variable EQUALS SHIFT SEMI
+Rule 34    var_dec -> arr_var EQUALS arr_exp SEMI
+Rule 35    var_dec -> hash_var EQUALS hash_exp SEMI
+Rule 36    variable -> scalar_var
+Rule 37    variable -> arr_var
+Rule 38    variable -> hash_var
+Rule 39    scalar_var -> MY SCALAR
+Rule 40    scalar_var -> SCALAR
+Rule 41    arr_var -> MY ARRAY
+Rule 42    arr_var -> ARRAY
+Rule 43    hash_var -> MY HASH
+Rule 44    hash_var -> HASH
+Rule 45    return_st -> RETURN exp SEMI
+Rule 46    exp -> NUMBER
+Rule 47    exp -> STRING
+Rule 48    exp -> variable
+Rule 49    exp -> exp OPER exp
+Rule 50    arr_exp -> LB argument RB
+Rule 51    hash_exp -> first_hash
+Rule 52    hash_exp -> second_hash
+Rule 53    first_hash -> LB hash_arg RB
+Rule 54    second_hash -> LFB hash_arg RFB
+Rule 55    hash_arg -> STRING
+Rule 56    hash_arg -> NUMBER
+Rule 57    hash_arg -> SHIFT
+Rule 58    hash_arg -> hash_arg HASH_OP hash_arg
+Rule 59    hash_arg -> hash_arg COMMA hash_arg
+Rule 60    input -> ALB KEYWORD ARB
+Rule 61    comment -> COMMENT
+Rule 62    cond_stat -> KEYWORD LB condition RB block
+Rule 63    cond_stat -> KEYWORD LB for_cond RB block
+Rule 64    for_cond -> variable EQUALS exp SEMI variable sign exp SEMI increment
+Rule 65    increment -> variable OPER OPER
+Rule 66    increment -> variable sign exp
+Rule 67    block -> l_braces body r_braces
+Rule 68    l_braces -> LFB
+Rule 69    r_braces -> RFB
+Rule 70    condition -> variable sign exp
+Rule 71    sign -> EQUALS
+Rule 72    sign -> OPER
+Rule 73    sign -> ALB
+Rule 74    sign -> ARB
+Rule 75    sign -> sign sign
+Rule 76    empty -> <empty>
 
 Terminals, with rules where they appear
 
-ALB                  : 40 53
-ARB                  : 40 54
-BLESS                : 
-COMMA                : 20 24
-COMMENT              : 41
-EQUALS               : 26 27 28 44 51
-KEYWORD              : 13 16 17 21 40 42 43
-LB                   : 21 39 42 43
-LFB                  : 48
-MY                   : 29
-NEW                  : 
-NUMBER               : 13 37
-OPER                 : 36 45 45 52
-PACKAGE              : 13
-RB                   : 21 39 42 43
-RETURN               : 31
-RFB                  : 49
-SEMI                 : 13 13 17 21 26 27 28 31 44 44
-SHIFT                : 28
-STRING               : 19 23 38
-SUB                  : 16
-VARIABLE             : 18 22 29 30 33 44 44 45 46 50
+ALB                  : 60 73
+ARB                  : 60 74
+ARRAY                : 41 42
+BLESS                : 17
+COMMA                : 24 29 59
+COMMENT              : 61
+EQUALS               : 31 32 33 34 35 64 71
+HASH                 : 43 44
+HASH_OP              : 58
+KEYWORD              : 15 20 21 25 60 62 63
+LB                   : 17 25 50 53 62 63
+LFB                  : 54 68
+MY                   : 39 41 43
+NEW                  : 16
+NUMBER               : 15 28 46 56
+OPER                 : 49 65 65 72
+PACKAGE              : 15
+RB                   : 17 25 50 53 62 63
+RETURN               : 45
+RFB                  : 54 69
+SCALAR               : 39 40
+SEMI                 : 15 15 17 21 25 31 32 33 34 35 45 64 64
+SHIFT                : 33 57
+STRING               : 23 27 47 55
+SUB                  : 16 20
 error                : 
 newl                 : 
 
 Nonterminals, with rules where they appear
 
-argument             : 21 24 24 39
-array                : 34
-block                : 16 42 43
-body                 : 13 47 0
+argument             : 17 25 29 29 50
+arr_exp              : 34
+arr_var              : 34 37
+bless_st             : 13
+block                : 16 20 62 63
+body                 : 15 67 0
 comment              : 8
 cond_stat            : 9
-condition            : 42
-empty                : 2 25
-exp                  : 26 31 36 36 44 44 46 50
-for_cond             : 43
+condition            : 62
+cons_dec             : 11
+empty                : 2 30
+exp                  : 31 45 49 49 64 64 66 70
+first_hash           : 51
+for_cond             : 63
 function_call        : 6
-function_def         : 11
-hash                 : 35
-increment            : 44
-input                : 27
-l_braces             : 47
-lowind               : 13
-out                  : 17 20 20
+function_def         : 12
+hash_arg             : 53 54 58 58 59 59
+hash_exp             : 35
+hash_var             : 35 38
+increment            : 64
+input                : 32
+l_braces             : 67
+lowind               : 15
+out                  : 21 24 24
 output               : 7
 package_dec          : 10
-r_braces             : 47
-return_st            : 12
-scalar               : 32
-sign                 : 44 46 50 55 55
+r_braces             : 67
+return_st            : 14
+scalar_var           : 31 36
+second_hash          : 52
+sign                 : 64 66 70 75 75
 statement            : 3 4
 statementlist        : 1 4
-upind                : 13
+upind                : 15
 var_dec              : 5
-variable             : 26 27 28
+variable             : 22 26 32 33 48 64 64 65 66 70
 
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . body
+    (1) body -> . statementlist
+    (2) body -> . empty
+    (3) statementlist -> . statement
+    (4) statementlist -> . statementlist statement
+    (76) empty -> .
+    (5) statement -> . var_dec
+    (6) statement -> . function_call
+    (7) statement -> . output
+    (8) statement -> . comment
+    (9) statement -> . cond_stat
+    (10) statement -> . package_dec
+    (11) statement -> . cons_dec
+    (12) statement -> . function_def
+    (13) statement -> . bless_st
+    (14) statement -> . return_st
+    (31) var_dec -> . scalar_var EQUALS exp SEMI
+    (32) var_dec -> . variable EQUALS input SEMI
+    (33) var_dec -> . variable EQUALS SHIFT SEMI
+    (34) var_dec -> . arr_var EQUALS arr_exp SEMI
+    (35) var_dec -> . hash_var EQUALS hash_exp SEMI
+    (25) function_call -> . KEYWORD LB argument RB SEMI
+    (21) output -> . KEYWORD out SEMI
+    (61) comment -> . COMMENT
+    (62) cond_stat -> . KEYWORD LB condition RB block
+    (63) cond_stat -> . KEYWORD LB for_cond RB block
+    (15) package_dec -> . PACKAGE KEYWORD SEMI upind body lowind NUMBER SEMI
+    (16) cons_dec -> . SUB NEW block
+    (20) function_def -> . SUB KEYWORD block
+    (17) bless_st -> . BLESS LB argument RB SEMI
+    (45) return_st -> . RETURN exp SEMI
+    (39) scalar_var -> . MY SCALAR
+    (40) scalar_var -> . SCALAR
+    (36) variable -> . scalar_var
+    (37) variable -> . arr_var
+    (38) variable -> . hash_var
+    (41) arr_var -> . MY ARRAY
+    (42) arr_var -> . ARRAY
+    (43) hash_var -> . MY HASH
+    (44) hash_var -> . HASH
+
+    $end            reduce using rule 76 (empty -> .)
+    KEYWORD         shift and go to state 19
+    COMMENT         shift and go to state 20
+    PACKAGE         shift and go to state 21
+    SUB             shift and go to state 22
+    BLESS           shift and go to state 23
+    RETURN          shift and go to state 24
+    MY              shift and go to state 25
+    SCALAR          shift and go to state 26
+    ARRAY           shift and go to state 27
+    HASH            shift and go to state 28
+
+    body                           shift and go to state 1
+    statementlist                  shift and go to state 2
+    empty                          shift and go to state 3
+    statement                      shift and go to state 4
+    var_dec                        shift and go to state 5
+    function_call                  shift and go to state 6
+    output                         shift and go to state 7
+    comment                        shift and go to state 8
+    cond_stat                      shift and go to state 9
+    package_dec                    shift and go to state 10
+    cons_dec                       shift and go to state 11
+    function_def                   shift and go to state 12
+    bless_st                       shift and go to state 13
+    return_st                      shift and go to state 14
+    scalar_var                     shift and go to state 15
+    variable                       shift and go to state 16
+    arr_var                        shift and go to state 17
+    hash_var                       shift and go to state 18
+
+state 1
+
+    (0) S' -> body .
+
+
+
+state 2
+
+    (1) body -> statementlist .
+    (4) statementlist -> statementlist . statement
+    (5) statement -> . var_dec
+    (6) statement -> . function_call
+    (7) statement -> . output
+    (8) statement -> . comment
+    (9) statement -> . cond_stat
+    (10) statement -> . package_dec
+    (11) statement -> . cons_dec
+    (12) statement -> . function_def
+    (13) statement -> . bless_st
+    (14) statement -> . return_st
+    (31) var_dec -> . scalar_var EQUALS exp SEMI
+    (32) var_dec -> . variable EQUALS input SEMI
+    (33) var_dec -> . variable EQUALS SHIFT SEMI
+    (34) var_dec -> . arr_var EQUALS arr_exp SEMI
+    (35) var_dec -> . hash_var EQUALS hash_exp SEMI
+    (25) function_call -> . KEYWORD LB argument RB SEMI
+    (21) output -> . KEYWORD out SEMI
+    (61) comment -> . COMMENT
+    (62) cond_stat -> . KEYWORD LB condition RB block
+    (63) cond_stat -> . KEYWORD LB for_cond RB block
+    (15) package_dec -> . PACKAGE KEYWORD SEMI upind body lowind NUMBER SEMI
+    (16) cons_dec -> . SUB NEW block
+    (20) function_def -> . SUB KEYWORD block
+    (17) bless_st -> . BLESS LB argument RB SEMI
+    (45) return_st -> . RETURN exp SEMI
+    (39) scalar_var -> . MY SCALAR
+    (40) scalar_var -> . SCALAR
+    (36) variable -> . scalar_var
+    (37) variable -> . arr_var
+    (38) variable -> . hash_var
+    (41) arr_var -> . MY ARRAY
+    (42) arr_var -> . ARRAY
+    (43) hash_var -> . MY HASH
+    (44) hash_var -> . HASH
+
+    $end            reduce using rule 1 (body -> statementlist .)
+    RFB             reduce using rule 1 (body -> statementlist .)
+    NUMBER          reduce using rule 1 (body -> statementlist .)
+    KEYWORD         shift and go to state 19
+    COMMENT         shift and go to state 20
+    PACKAGE         shift and go to state 21
+    SUB             shift and go to state 22
+    BLESS           shift and go to state 23
+    RETURN          shift and go to state 24
+    MY              shift and go to state 25
+    SCALAR          shift and go to state 26
+    ARRAY           shift and go to state 27
+    HASH            shift and go to state 28
+
+    statement                      shift and go to state 29
+    var_dec                        shift and go to state 5
+    function_call                  shift and go to state 6
+    output                         shift and go to state 7
+    comment                        shift and go to state 8
+    cond_stat                      shift and go to state 9
+    package_dec                    shift and go to state 10
+    cons_dec                       shift and go to state 11
+    function_def                   shift and go to state 12
+    bless_st                       shift and go to state 13
+    return_st                      shift and go to state 14
+    scalar_var                     shift and go to state 15
+    variable                       shift and go to state 16
+    arr_var                        shift and go to state 17
+    hash_var                       shift and go to state 18
+
+state 3
+
+    (2) body -> empty .
+
+    $end            reduce using rule 2 (body -> empty .)
+    RFB             reduce using rule 2 (body -> empty .)
+    NUMBER          reduce using rule 2 (body -> empty .)
+
+
+state 4
+
+    (3) statementlist -> statement .
+
+    KEYWORD         reduce using rule 3 (statementlist -> statement .)
+    COMMENT         reduce using rule 3 (statementlist -> statement .)
+    PACKAGE         reduce using rule 3 (statementlist -> statement .)
+    SUB             reduce using rule 3 (statementlist -> statement .)
+    BLESS           reduce using rule 3 (statementlist -> statement .)
+    RETURN          reduce using rule 3 (statementlist -> statement .)
+    MY              reduce using rule 3 (statementlist -> statement .)
+    SCALAR          reduce using rule 3 (statementlist -> statement .)
+    ARRAY           reduce using rule 3 (statementlist -> statement .)
+    HASH            reduce using rule 3 (statementlist -> statement .)
+    $end            reduce using rule 3 (statementlist -> statement .)
+    RFB             reduce using rule 3 (statementlist -> statement .)
+    NUMBER          reduce using rule 3 (statementlist -> statement .)
+
+
+state 5
+
+    (5) statement -> var_dec .
+
+    KEYWORD         reduce using rule 5 (statement -> var_dec .)
+    COMMENT         reduce using rule 5 (statement -> var_dec .)
+    PACKAGE         reduce using rule 5 (statement -> var_dec .)
+    SUB             reduce using rule 5 (statement -> var_dec .)
+    BLESS           reduce using rule 5 (statement -> var_dec .)
+    RETURN          reduce using rule 5 (statement -> var_dec .)
+    MY              reduce using rule 5 (statement -> var_dec .)
+    SCALAR          reduce using rule 5 (statement -> var_dec .)
+    ARRAY           reduce using rule 5 (statement -> var_dec .)
+    HASH            reduce using rule 5 (statement -> var_dec .)
+    $end            reduce using rule 5 (statement -> var_dec .)
+    RFB             reduce using rule 5 (statement -> var_dec .)
+    NUMBER          reduce using rule 5 (statement -> var_dec .)
+
+
+state 6
+
+    (6) statement -> function_call .
+
+    KEYWORD         reduce using rule 6 (statement -> function_call .)
+    COMMENT         reduce using rule 6 (statement -> function_call .)
+    PACKAGE         reduce using rule 6 (statement -> function_call .)
+    SUB             reduce using rule 6 (statement -> function_call .)
+    BLESS           reduce using rule 6 (statement -> function_call .)
+    RETURN          reduce using rule 6 (statement -> function_call .)
+    MY              reduce using rule 6 (statement -> function_call .)
+    SCALAR          reduce using rule 6 (statement -> function_call .)
+    ARRAY           reduce using rule 6 (statement -> function_call .)
+    HASH            reduce using rule 6 (statement -> function_call .)
+    $end            reduce using rule 6 (statement -> function_call .)
+    RFB             reduce using rule 6 (statement -> function_call .)
+    NUMBER          reduce using rule 6 (statement -> function_call .)
+
+
+state 7
+
+    (7) statement -> output .
+
+    KEYWORD         reduce using rule 7 (statement -> output .)
+    COMMENT         reduce using rule 7 (statement -> output .)
+    PACKAGE         reduce using rule 7 (statement -> output .)
+    SUB             reduce using rule 7 (statement -> output .)
+    BLESS           reduce using rule 7 (statement -> output .)
+    RETURN          reduce using rule 7 (statement -> output .)
+    MY              reduce using rule 7 (statement -> output .)
+    SCALAR          reduce using rule 7 (statement -> output .)
+    ARRAY           reduce using rule 7 (statement -> output .)
+    HASH            reduce using rule 7 (statement -> output .)
+    $end            reduce using rule 7 (statement -> output .)
+    RFB             reduce using rule 7 (statement -> output .)
+    NUMBER          reduce using rule 7 (statement -> output .)
+
+
+state 8
+
+    (8) statement -> comment .
+
+    KEYWORD         reduce using rule 8 (statement -> comment .)
+    COMMENT         reduce using rule 8 (statement -> comment .)
+    PACKAGE         reduce using rule 8 (statement -> comment .)
+    SUB             reduce using rule 8 (statement -> comment .)
+    BLESS           reduce using rule 8 (statement -> comment .)
+    RETURN          reduce using rule 8 (statement -> comment .)
+    MY              reduce using rule 8 (statement -> comment .)
+    SCALAR          reduce using rule 8 (statement -> comment .)
+    ARRAY           reduce using rule 8 (statement -> comment .)
+    HASH            reduce using rule 8 (statement -> comment .)
+    $end            reduce using rule 8 (statement -> comment .)
+    RFB             reduce using rule 8 (statement -> comment .)
+    NUMBER          reduce using rule 8 (statement -> comment .)
+
+
+state 9
+
+    (9) statement -> cond_stat .
+
+    KEYWORD         reduce using rule 9 (statement -> cond_stat .)
+    COMMENT         reduce using rule 9 (statement -> cond_stat .)
+    PACKAGE         reduce using rule 9 (statement -> cond_stat .)
+    SUB             reduce using rule 9 (statement -> cond_stat .)
+    BLESS           reduce using rule 9 (statement -> cond_stat .)
+    RETURN          reduce using rule 9 (statement -> cond_stat .)
+    MY              reduce using rule 9 (statement -> cond_stat .)
+    SCALAR          reduce using rule 9 (statement -> cond_stat .)
+    ARRAY           reduce using rule 9 (statement -> cond_stat .)
+    HASH            reduce using rule 9 (statement -> cond_stat .)
+    $end            reduce using rule 9 (statement -> cond_stat .)
+    RFB             reduce using rule 9 (statement -> cond_stat .)
+    NUMBER          reduce using rule 9 (statement -> cond_stat .)
+
+
+state 10
+
+    (10) statement -> package_dec .
+
+    KEYWORD         reduce using rule 10 (statement -> package_dec .)
+    COMMENT         reduce using rule 10 (statement -> package_dec .)
+    PACKAGE         reduce using rule 10 (statement -> package_dec .)
+    SUB             reduce using rule 10 (statement -> package_dec .)
+    BLESS           reduce using rule 10 (statement -> package_dec .)
+    RETURN          reduce using rule 10 (statement -> package_dec .)
+    MY              reduce using rule 10 (statement -> package_dec .)
+    SCALAR          reduce using rule 10 (statement -> package_dec .)
+    ARRAY           reduce using rule 10 (statement -> package_dec .)
+    HASH            reduce using rule 10 (statement -> package_dec .)
+    $end            reduce using rule 10 (statement -> package_dec .)
+    RFB             reduce using rule 10 (statement -> package_dec .)
+    NUMBER          reduce using rule 10 (statement -> package_dec .)
+
+
+state 11
+
+    (11) statement -> cons_dec .
+
+    KEYWORD         reduce using rule 11 (statement -> cons_dec .)
+    COMMENT         reduce using rule 11 (statement -> cons_dec .)
+    PACKAGE         reduce using rule 11 (statement -> cons_dec .)
+    SUB             reduce using rule 11 (statement -> cons_dec .)
+    BLESS           reduce using rule 11 (statement -> cons_dec .)
+    RETURN          reduce using rule 11 (statement -> cons_dec .)
+    MY              reduce using rule 11 (statement -> cons_dec .)
+    SCALAR          reduce using rule 11 (statement -> cons_dec .)
+    ARRAY           reduce using rule 11 (statement -> cons_dec .)
+    HASH            reduce using rule 11 (statement -> cons_dec .)
+    $end            reduce using rule 11 (statement -> cons_dec .)
+    RFB             reduce using rule 11 (statement -> cons_dec .)
+    NUMBER          reduce using rule 11 (statement -> cons_dec .)
+
+
+state 12
+
+    (12) statement -> function_def .
+
+    KEYWORD         reduce using rule 12 (statement -> function_def .)
+    COMMENT         reduce using rule 12 (statement -> function_def .)
+    PACKAGE         reduce using rule 12 (statement -> function_def .)
+    SUB             reduce using rule 12 (statement -> function_def .)
+    BLESS           reduce using rule 12 (statement -> function_def .)
+    RETURN          reduce using rule 12 (statement -> function_def .)
+    MY              reduce using rule 12 (statement -> function_def .)
+    SCALAR          reduce using rule 12 (statement -> function_def .)
+    ARRAY           reduce using rule 12 (statement -> function_def .)
+    HASH            reduce using rule 12 (statement -> function_def .)
+    $end            reduce using rule 12 (statement -> function_def .)
+    RFB             reduce using rule 12 (statement -> function_def .)
+    NUMBER          reduce using rule 12 (statement -> function_def .)
+
+
+state 13
+
+    (13) statement -> bless_st .
+
+    KEYWORD         reduce using rule 13 (statement -> bless_st .)
+    COMMENT         reduce using rule 13 (statement -> bless_st .)
+    PACKAGE         reduce using rule 13 (statement -> bless_st .)
+    SUB             reduce using rule 13 (statement -> bless_st .)
+    BLESS           reduce using rule 13 (statement -> bless_st .)
+    RETURN          reduce using rule 13 (statement -> bless_st .)
+    MY              reduce using rule 13 (statement -> bless_st .)
+    SCALAR          reduce using rule 13 (statement -> bless_st .)
+    ARRAY           reduce using rule 13 (statement -> bless_st .)
+    HASH            reduce using rule 13 (statement -> bless_st .)
+    $end            reduce using rule 13 (statement -> bless_st .)
+    RFB             reduce using rule 13 (statement -> bless_st .)
+    NUMBER          reduce using rule 13 (statement -> bless_st .)
+
+
+state 14
+
+    (14) statement -> return_st .
+
+    KEYWORD         reduce using rule 14 (statement -> return_st .)
+    COMMENT         reduce using rule 14 (statement -> return_st .)
+    PACKAGE         reduce using rule 14 (statement -> return_st .)
+    SUB             reduce using rule 14 (statement -> return_st .)
+    BLESS           reduce using rule 14 (statement -> return_st .)
+    RETURN          reduce using rule 14 (statement -> return_st .)
+    MY              reduce using rule 14 (statement -> return_st .)
+    SCALAR          reduce using rule 14 (statement -> return_st .)
+    ARRAY           reduce using rule 14 (statement -> return_st .)
+    HASH            reduce using rule 14 (statement -> return_st .)
+    $end            reduce using rule 14 (statement -> return_st .)
+    RFB             reduce using rule 14 (statement -> return_st .)
+    NUMBER          reduce using rule 14 (statement -> return_st .)
+
+
+state 15
+
+    (31) var_dec -> scalar_var . EQUALS exp SEMI
+    (36) variable -> scalar_var .
+
+  ! shift/reduce conflict for EQUALS resolved as shift
+    EQUALS          shift and go to state 30
+
+  ! EQUALS          [ reduce using rule 36 (variable -> scalar_var .) ]
+
+
+state 16
+
+    (32) var_dec -> variable . EQUALS input SEMI
+    (33) var_dec -> variable . EQUALS SHIFT SEMI
+
+    EQUALS          shift and go to state 31
+
+
+state 17
+
+    (34) var_dec -> arr_var . EQUALS arr_exp SEMI
+    (37) variable -> arr_var .
+
+  ! shift/reduce conflict for EQUALS resolved as shift
+    EQUALS          shift and go to state 32
+
+  ! EQUALS          [ reduce using rule 37 (variable -> arr_var .) ]
+
+
+state 18
+
+    (35) var_dec -> hash_var . EQUALS hash_exp SEMI
+    (38) variable -> hash_var .
+
+  ! shift/reduce conflict for EQUALS resolved as shift
+    EQUALS          shift and go to state 33
+
+  ! EQUALS          [ reduce using rule 38 (variable -> hash_var .) ]
+
+
+state 19
+
+    (25) function_call -> KEYWORD . LB argument RB SEMI
+    (21) output -> KEYWORD . out SEMI
+    (62) cond_stat -> KEYWORD . LB condition RB block
+    (63) cond_stat -> KEYWORD . LB for_cond RB block
+    (22) out -> . variable
+    (23) out -> . STRING
+    (24) out -> . out COMMA out
+    (36) variable -> . scalar_var
+    (37) variable -> . arr_var
+    (38) variable -> . hash_var
+    (39) scalar_var -> . MY SCALAR
+    (40) scalar_var -> . SCALAR
+    (41) arr_var -> . MY ARRAY
+    (42) arr_var -> . ARRAY
+    (43) hash_var -> . MY HASH
+    (44) hash_var -> . HASH
+
+    LB              shift and go to state 34
+    STRING          shift and go to state 37
+    MY              shift and go to state 25
+    SCALAR          shift and go to state 26
+    ARRAY           shift and go to state 27
+    HASH            shift and go to state 28
+
+    out                            shift and go to state 35
+    variable                       shift and go to state 36
+    scalar_var                     shift and go to state 38
+    arr_var                        shift and go to state 39
+    hash_var                       shift and go to state 40
+
+state 20
+
+    (61) comment -> COMMENT .
+
+    KEYWORD         reduce using rule 61 (comment -> COMMENT .)
+    COMMENT         reduce using rule 61 (comment -> COMMENT .)
+    PACKAGE         reduce using rule 61 (comment -> COMMENT .)
+    SUB             reduce using rule 61 (comment -> COMMENT .)
+    BLESS           reduce using rule 61 (comment -> COMMENT .)
+    RETURN          reduce using rule 61 (comment -> COMMENT .)
+    MY              reduce using rule 61 (comment -> COMMENT .)
+    SCALAR          reduce using rule 61 (comment -> COMMENT .)
+    ARRAY           reduce using rule 61 (comment -> COMMENT .)
+    HASH            reduce using rule 61 (comment -> COMMENT .)
+    $end            reduce using rule 61 (comment -> COMMENT .)
+    RFB             reduce using rule 61 (comment -> COMMENT .)
+    NUMBER          reduce using rule 61 (comment -> COMMENT .)
+
+
+state 21
+
+    (15) package_dec -> PACKAGE . KEYWORD SEMI upind body lowind NUMBER SEMI
+
+    KEYWORD         shift and go to state 41
+
+
+state 22
+
+    (16) cons_dec -> SUB . NEW block
+    (20) function_def -> SUB . KEYWORD block
+
+    NEW             shift and go to state 42
+    KEYWORD         shift and go to state 43
+
+
+state 23
+
+    (17) bless_st -> BLESS . LB argument RB SEMI
+
+    LB              shift and go to state 44
+
+
+state 24
+
+    (45) return_st -> RETURN . exp SEMI
+    (46) exp -> . NUMBER
+    (47) exp -> . STRING
+    (48) exp -> . variable
+    (49) exp -> . exp OPER exp
+    (36) variable -> . scalar_var
+    (37) variable -> . arr_var
+    (38) variable -> . hash_var
+    (39) scalar_var -> . MY SCALAR
+    (40) scalar_var -> . SCALAR
+    (41) arr_var -> . MY ARRAY
+    (42) arr_var -> . ARRAY
+    (43) hash_var -> . MY HASH
+    (44) hash_var -> . HASH
+
+    NUMBER          shift and go to state 46
+    STRING          shift and go to state 47
+    MY              shift and go to state 25
+    SCALAR          shift and go to state 26
+    ARRAY           shift and go to state 27
+    HASH            shift and go to state 28
+
+    exp                            shift and go to state 45
+    variable                       shift and go to state 48
+    scalar_var                     shift and go to state 38
+    arr_var                        shift and go to state 39
+    hash_var                       shift and go to state 40
+
+state 25
+
+    (39) scalar_var -> MY . SCALAR
+    (41) arr_var -> MY . ARRAY
+    (43) hash_var -> MY . HASH
+
+    SCALAR          shift and go to state 49
+    ARRAY           shift and go to state 50
+    HASH            shift and go to state 51
+
+
+state 26
+
+    (40) scalar_var -> SCALAR .
+
+    EQUALS          reduce using rule 40 (scalar_var -> SCALAR .)
+    SEMI            reduce using rule 40 (scalar_var -> SCALAR .)
+    COMMA           reduce using rule 40 (scalar_var -> SCALAR .)
+    OPER            reduce using rule 40 (scalar_var -> SCALAR .)
+    ALB             reduce using rule 40 (scalar_var -> SCALAR .)
+    ARB             reduce using rule 40 (scalar_var -> SCALAR .)
+    RB              reduce using rule 40 (scalar_var -> SCALAR .)
+
+
+state 27
+
+    (42) arr_var -> ARRAY .
+
+    EQUALS          reduce using rule 42 (arr_var -> ARRAY .)
+    SEMI            reduce using rule 42 (arr_var -> ARRAY .)
+    COMMA           reduce using rule 42 (arr_var -> ARRAY .)
+    OPER            reduce using rule 42 (arr_var -> ARRAY .)
+    ALB             reduce using rule 42 (arr_var -> ARRAY .)
+    ARB             reduce using rule 42 (arr_var -> ARRAY .)
+    RB              reduce using rule 42 (arr_var -> ARRAY .)
+
+
+state 28
+
+    (44) hash_var -> HASH .
+
+    EQUALS          reduce using rule 44 (hash_var -> HASH .)
+    SEMI            reduce using rule 44 (hash_var -> HASH .)
+    COMMA           reduce using rule 44 (hash_var -> HASH .)
+    OPER            reduce using rule 44 (hash_var -> HASH .)
+    ALB             reduce using rule 44 (hash_var -> HASH .)
+    ARB             reduce using rule 44 (hash_var -> HASH .)
+    RB              reduce using rule 44 (hash_var -> HASH .)
+
+
+state 29
+
+    (4) statementlist -> statementlist statement .
+
+    KEYWORD         reduce using rule 4 (statementlist -> statementlist statement .)
+    COMMENT         reduce using rule 4 (statementlist -> statementlist statement .)
+    PACKAGE         reduce using rule 4 (statementlist -> statementlist statement .)
+    SUB             reduce using rule 4 (statementlist -> statementlist statement .)
+    BLESS           reduce using rule 4 (statementlist -> statementlist statement .)
+    RETURN          reduce using rule 4 (statementlist -> statementlist statement .)
+    MY              reduce using rule 4 (statementlist -> statementlist statement .)
+    SCALAR          reduce using rule 4 (statementlist -> statementlist statement .)
+    ARRAY           reduce using rule 4 (statementlist -> statementlist statement .)
+    HASH            reduce using rule 4 (statementlist -> statementlist statement .)
+    $end            reduce using rule 4 (statementlist -> statementlist statement .)
+    RFB             reduce using rule 4 (statementlist -> statementlist statement .)
+    NUMBER          reduce using rule 4 (statementlist -> statementlist statement .)
+
+
+state 30
+
+    (31) var_dec -> scalar_var EQUALS . exp SEMI
+    (46) exp -> . NUMBER
+    (47) exp -> . STRING
+    (48) exp -> . variable
+    (49) exp -> . exp OPER exp
+    (36) variable -> . scalar_var
+    (37) variable -> . arr_var
+    (38) variable -> . hash_var
+    (39) scalar_var -> . MY SCALAR
+    (40) scalar_var -> . SCALAR
+    (41) arr_var -> . MY ARRAY
+    (42) arr_var -> . ARRAY
+    (43) hash_var -> . MY HASH
+    (44) hash_var -> . HASH
+
+    NUMBER          shift and go to state 46
+    STRING          shift and go to state 47
+    MY              shift and go to state 25
+    SCALAR          shift and go to state 26
+    ARRAY           shift and go to state 27
+    HASH            shift and go to state 28
+
+    scalar_var                     shift and go to state 38
+    exp                            shift and go to state 52
+    variable                       shift and go to state 48
+    arr_var                        shift and go to state 39
+    hash_var                       shift and go to state 40
+
+state 31
+
+    (32) var_dec -> variable EQUALS . input SEMI
+    (33) var_dec -> variable EQUALS . SHIFT SEMI
+    (60) input -> . ALB KEYWORD ARB
+
+    SHIFT           shift and go to state 54
+    ALB             shift and go to state 55
+
+    input                          shift and go to state 53
+
+state 32
+
+    (34) var_dec -> arr_var EQUALS . arr_exp SEMI
+    (50) arr_exp -> . LB argument RB
+
+    LB              shift and go to state 57
+
+    arr_exp                        shift and go to state 56
+
+state 33
+
+    (35) var_dec -> hash_var EQUALS . hash_exp SEMI
+    (51) hash_exp -> . first_hash
+    (52) hash_exp -> . second_hash
+    (53) first_hash -> . LB hash_arg RB
+    (54) second_hash -> . LFB hash_arg RFB
+
+    LB              shift and go to state 61
+    LFB             shift and go to state 62
+
+    hash_exp                       shift and go to state 58
+    first_hash                     shift and go to state 59
+    second_hash                    shift and go to state 60
+
+state 34
+
+    (25) function_call -> KEYWORD LB . argument RB SEMI
+    (62) cond_stat -> KEYWORD LB . condition RB block
+    (63) cond_stat -> KEYWORD LB . for_cond RB block
+    (26) argument -> . variable
+    (27) argument -> . STRING
+    (28) argument -> . NUMBER
+    (29) argument -> . argument COMMA argument
+    (30) argument -> . empty
+    (70) condition -> . variable sign exp
+    (64) for_cond -> . variable EQUALS exp SEMI variable sign exp SEMI increment
+    (36) variable -> . scalar_var
+    (37) variable -> . arr_var
+    (38) variable -> . hash_var
+    (76) empty -> .
+    (39) scalar_var -> . MY SCALAR
+    (40) scalar_var -> . SCALAR
+    (41) arr_var -> . MY ARRAY
+    (42) arr_var -> . ARRAY
+    (43) hash_var -> . MY HASH
+    (44) hash_var -> . HASH
+
+    STRING          shift and go to state 67
+    NUMBER          shift and go to state 68
+    RB              reduce using rule 76 (empty -> .)
+    COMMA           reduce using rule 76 (empty -> .)
+    MY              shift and go to state 25
+    SCALAR          shift and go to state 26
+    ARRAY           shift and go to state 27
+    HASH            shift and go to state 28
+
+    argument                       shift and go to state 63
+    condition                      shift and go to state 64
+    for_cond                       shift and go to state 65
+    variable                       shift and go to state 66
+    empty                          shift and go to state 69
+    scalar_var                     shift and go to state 38
+    arr_var                        shift and go to state 39
+    hash_var                       shift and go to state 40
+
+state 35
+
+    (21) output -> KEYWORD out . SEMI
+    (24) out -> out . COMMA out
+
+    SEMI            shift and go to state 70
+    COMMA           shift and go to state 71
+
+
+state 36
+
+    (22) out -> variable .
+
+    SEMI            reduce using rule 22 (out -> variable .)
+    COMMA           reduce using rule 22 (out -> variable .)
+
+
+state 37
+
+    (23) out -> STRING .
+
+    SEMI            reduce using rule 23 (out -> STRING .)
+    COMMA           reduce using rule 23 (out -> STRING .)
+
+
+state 38
+
+    (36) variable -> scalar_var .
+
+    SEMI            reduce using rule 36 (variable -> scalar_var .)
+    COMMA           reduce using rule 36 (variable -> scalar_var .)
+    OPER            reduce using rule 36 (variable -> scalar_var .)
+    EQUALS          reduce using rule 36 (variable -> scalar_var .)
+    ALB             reduce using rule 36 (variable -> scalar_var .)
+    ARB             reduce using rule 36 (variable -> scalar_var .)
+    RB              reduce using rule 36 (variable -> scalar_var .)
+
+
+state 39
+
+    (37) variable -> arr_var .
+
+    SEMI            reduce using rule 37 (variable -> arr_var .)
+    COMMA           reduce using rule 37 (variable -> arr_var .)
+    OPER            reduce using rule 37 (variable -> arr_var .)
+    EQUALS          reduce using rule 37 (variable -> arr_var .)
+    ALB             reduce using rule 37 (variable -> arr_var .)
+    ARB             reduce using rule 37 (variable -> arr_var .)
+    RB              reduce using rule 37 (variable -> arr_var .)
+
+
+state 40
+
+    (38) variable -> hash_var .
+
+    SEMI            reduce using rule 38 (variable -> hash_var .)
+    COMMA           reduce using rule 38 (variable -> hash_var .)
+    OPER            reduce using rule 38 (variable -> hash_var .)
+    EQUALS          reduce using rule 38 (variable -> hash_var .)
+    ALB             reduce using rule 38 (variable -> hash_var .)
+    ARB             reduce using rule 38 (variable -> hash_var .)
+    RB              reduce using rule 38 (variable -> hash_var .)
+
+
+state 41
+
+    (15) package_dec -> PACKAGE KEYWORD . SEMI upind body lowind NUMBER SEMI
+
+    SEMI            shift and go to state 72
+
+
+state 42
+
+    (16) cons_dec -> SUB NEW . block
+    (67) block -> . l_braces body r_braces
+    (68) l_braces -> . LFB
+
+    LFB             shift and go to state 75
+
+    block                          shift and go to state 73
+    l_braces                       shift and go to state 74
+
+state 43
+
+    (20) function_def -> SUB KEYWORD . block
+    (67) block -> . l_braces body r_braces
+    (68) l_braces -> . LFB
+
+    LFB             shift and go to state 75
+
+    block                          shift and go to state 76
+    l_braces                       shift and go to state 74
+
+state 44
+
+    (17) bless_st -> BLESS LB . argument RB SEMI
+    (26) argument -> . variable
+    (27) argument -> . STRING
+    (28) argument -> . NUMBER
+    (29) argument -> . argument COMMA argument
+    (30) argument -> . empty
+    (36) variable -> . scalar_var
+    (37) variable -> . arr_var
+    (38) variable -> . hash_var
+    (76) empty -> .
+    (39) scalar_var -> . MY SCALAR
+    (40) scalar_var -> . SCALAR
+    (41) arr_var -> . MY ARRAY
+    (42) arr_var -> . ARRAY
+    (43) hash_var -> . MY HASH
+    (44) hash_var -> . HASH
+
+    STRING          shift and go to state 67
+    NUMBER          shift and go to state 68
+    RB              reduce using rule 76 (empty -> .)
+    COMMA           reduce using rule 76 (empty -> .)
+    MY              shift and go to state 25
+    SCALAR          shift and go to state 26
+    ARRAY           shift and go to state 27
+    HASH            shift and go to state 28
+
+    argument                       shift and go to state 77
+    variable                       shift and go to state 78
+    empty                          shift and go to state 69
+    scalar_var                     shift and go to state 38
+    arr_var                        shift and go to state 39
+    hash_var                       shift and go to state 40
+
+state 45
+
+    (45) return_st -> RETURN exp . SEMI
+    (49) exp -> exp . OPER exp
+
+    SEMI            shift and go to state 79
+    OPER            shift and go to state 80
+
+
+state 46
+
+    (46) exp -> NUMBER .
+
+    SEMI            reduce using rule 46 (exp -> NUMBER .)
+    OPER            reduce using rule 46 (exp -> NUMBER .)
+    RB              reduce using rule 46 (exp -> NUMBER .)
+
+
+state 47
+
+    (47) exp -> STRING .
+
+    SEMI            reduce using rule 47 (exp -> STRING .)
+    OPER            reduce using rule 47 (exp -> STRING .)
+    RB              reduce using rule 47 (exp -> STRING .)
+
+
+state 48
+
+    (48) exp -> variable .
+
+    SEMI            reduce using rule 48 (exp -> variable .)
+    OPER            reduce using rule 48 (exp -> variable .)
+    RB              reduce using rule 48 (exp -> variable .)
+
+
+state 49
+
+    (39) scalar_var -> MY SCALAR .
+
+    EQUALS          reduce using rule 39 (scalar_var -> MY SCALAR .)
+    SEMI            reduce using rule 39 (scalar_var -> MY SCALAR .)
+    COMMA           reduce using rule 39 (scalar_var -> MY SCALAR .)
+    OPER            reduce using rule 39 (scalar_var -> MY SCALAR .)
+    ALB             reduce using rule 39 (scalar_var -> MY SCALAR .)
+    ARB             reduce using rule 39 (scalar_var -> MY SCALAR .)
+    RB              reduce using rule 39 (scalar_var -> MY SCALAR .)
+
+
+state 50
+
+    (41) arr_var -> MY ARRAY .
+
+    EQUALS          reduce using rule 41 (arr_var -> MY ARRAY .)
+    SEMI            reduce using rule 41 (arr_var -> MY ARRAY .)
+    COMMA           reduce using rule 41 (arr_var -> MY ARRAY .)
+    OPER            reduce using rule 41 (arr_var -> MY ARRAY .)
+    ALB             reduce using rule 41 (arr_var -> MY ARRAY .)
+    ARB             reduce using rule 41 (arr_var -> MY ARRAY .)
+    RB              reduce using rule 41 (arr_var -> MY ARRAY .)
+
+
+state 51
+
+    (43) hash_var -> MY HASH .
+
+    EQUALS          reduce using rule 43 (hash_var -> MY HASH .)
+    SEMI            reduce using rule 43 (hash_var -> MY HASH .)
+    COMMA           reduce using rule 43 (hash_var -> MY HASH .)
+    OPER            reduce using rule 43 (hash_var -> MY HASH .)
+    ALB             reduce using rule 43 (hash_var -> MY HASH .)
+    ARB             reduce using rule 43 (hash_var -> MY HASH .)
+    RB              reduce using rule 43 (hash_var -> MY HASH .)
+
+
+state 52
+
+    (31) var_dec -> scalar_var EQUALS exp . SEMI
+    (49) exp -> exp . OPER exp
+
+    SEMI            shift and go to state 81
+    OPER            shift and go to state 80
+
+
+state 53
+
+    (32) var_dec -> variable EQUALS input . SEMI
+
+    SEMI            shift and go to state 82
+
+
+state 54
+
+    (33) var_dec -> variable EQUALS SHIFT . SEMI
+
+    SEMI            shift and go to state 83
+
+
+state 55
+
+    (60) input -> ALB . KEYWORD ARB
+
+    KEYWORD         shift and go to state 84
+
+
+state 56
+
+    (34) var_dec -> arr_var EQUALS arr_exp . SEMI
+
+    SEMI            shift and go to state 85
+
+
+state 57
+
+    (50) arr_exp -> LB . argument RB
+    (26) argument -> . variable
+    (27) argument -> . STRING
+    (28) argument -> . NUMBER
+    (29) argument -> . argument COMMA argument
+    (30) argument -> . empty
+    (36) variable -> . scalar_var
+    (37) variable -> . arr_var
+    (38) variable -> . hash_var
+    (76) empty -> .
+    (39) scalar_var -> . MY SCALAR
+    (40) scalar_var -> . SCALAR
+    (41) arr_var -> . MY ARRAY
+    (42) arr_var -> . ARRAY
+    (43) hash_var -> . MY HASH
+    (44) hash_var -> . HASH
+
+    STRING          shift and go to state 67
+    NUMBER          shift and go to state 68
+    RB              reduce using rule 76 (empty -> .)
+    COMMA           reduce using rule 76 (empty -> .)
+    MY              shift and go to state 25
+    SCALAR          shift and go to state 26
+    ARRAY           shift and go to state 27
+    HASH            shift and go to state 28
+
+    argument                       shift and go to state 86
+    variable                       shift and go to state 78
+    empty                          shift and go to state 69
+    scalar_var                     shift and go to state 38
+    arr_var                        shift and go to state 39
+    hash_var                       shift and go to state 40
+
+state 58
+
+    (35) var_dec -> hash_var EQUALS hash_exp . SEMI
+
+    SEMI            shift and go to state 87
+
+
+state 59
+
+    (51) hash_exp -> first_hash .
+
+    SEMI            reduce using rule 51 (hash_exp -> first_hash .)
+
+
+state 60
+
+    (52) hash_exp -> second_hash .
+
+    SEMI            reduce using rule 52 (hash_exp -> second_hash .)
+
+
+state 61
+
+    (53) first_hash -> LB . hash_arg RB
+    (55) hash_arg -> . STRING
+    (56) hash_arg -> . NUMBER
+    (57) hash_arg -> . SHIFT
+    (58) hash_arg -> . hash_arg HASH_OP hash_arg
+    (59) hash_arg -> . hash_arg COMMA hash_arg
+
+    STRING          shift and go to state 89
+    NUMBER          shift and go to state 90
+    SHIFT           shift and go to state 91
+
+    hash_arg                       shift and go to state 88
+
+state 62
+
+    (54) second_hash -> LFB . hash_arg RFB
+    (55) hash_arg -> . STRING
+    (56) hash_arg -> . NUMBER
+    (57) hash_arg -> . SHIFT
+    (58) hash_arg -> . hash_arg HASH_OP hash_arg
+    (59) hash_arg -> . hash_arg COMMA hash_arg
+
+    STRING          shift and go to state 89
+    NUMBER          shift and go to state 90
+    SHIFT           shift and go to state 91
+
+    hash_arg                       shift and go to state 92
+
+state 63
+
+    (25) function_call -> KEYWORD LB argument . RB SEMI
+    (29) argument -> argument . COMMA argument
+
+    RB              shift and go to state 93
+    COMMA           shift and go to state 94
+
+
+state 64
+
+    (62) cond_stat -> KEYWORD LB condition . RB block
+
+    RB              shift and go to state 95
+
+
+state 65
+
+    (63) cond_stat -> KEYWORD LB for_cond . RB block
+
+    RB              shift and go to state 96
+
+
+state 66
+
+    (26) argument -> variable .
+    (70) condition -> variable . sign exp
+    (64) for_cond -> variable . EQUALS exp SEMI variable sign exp SEMI increment
+    (71) sign -> . EQUALS
+    (72) sign -> . OPER
+    (73) sign -> . ALB
+    (74) sign -> . ARB
+    (75) sign -> . sign sign
+
+    RB              reduce using rule 26 (argument -> variable .)
+    COMMA           reduce using rule 26 (argument -> variable .)
+    EQUALS          shift and go to state 98
+    OPER            shift and go to state 99
+    ALB             shift and go to state 100
+    ARB             shift and go to state 101
+
+    sign                           shift and go to state 97
+
+state 67
+
+    (27) argument -> STRING .
+
+    RB              reduce using rule 27 (argument -> STRING .)
+    COMMA           reduce using rule 27 (argument -> STRING .)
+
+
+state 68
+
+    (28) argument -> NUMBER .
+
+    RB              reduce using rule 28 (argument -> NUMBER .)
+    COMMA           reduce using rule 28 (argument -> NUMBER .)
+
+
+state 69
+
+    (30) argument -> empty .
+
+    RB              reduce using rule 30 (argument -> empty .)
+    COMMA           reduce using rule 30 (argument -> empty .)
+
+
+state 70
+
+    (21) output -> KEYWORD out SEMI .
+
+    KEYWORD         reduce using rule 21 (output -> KEYWORD out SEMI .)
+    COMMENT         reduce using rule 21 (output -> KEYWORD out SEMI .)
+    PACKAGE         reduce using rule 21 (output -> KEYWORD out SEMI .)
+    SUB             reduce using rule 21 (output -> KEYWORD out SEMI .)
+    BLESS           reduce using rule 21 (output -> KEYWORD out SEMI .)
+    RETURN          reduce using rule 21 (output -> KEYWORD out SEMI .)
+    MY              reduce using rule 21 (output -> KEYWORD out SEMI .)
+    SCALAR          reduce using rule 21 (output -> KEYWORD out SEMI .)
+    ARRAY           reduce using rule 21 (output -> KEYWORD out SEMI .)
+    HASH            reduce using rule 21 (output -> KEYWORD out SEMI .)
+    $end            reduce using rule 21 (output -> KEYWORD out SEMI .)
+    RFB             reduce using rule 21 (output -> KEYWORD out SEMI .)
+    NUMBER          reduce using rule 21 (output -> KEYWORD out SEMI .)
+
+
+state 71
+
+    (24) out -> out COMMA . out
+    (22) out -> . variable
+    (23) out -> . STRING
+    (24) out -> . out COMMA out
+    (36) variable -> . scalar_var
+    (37) variable -> . arr_var
+    (38) variable -> . hash_var
+    (39) scalar_var -> . MY SCALAR
+    (40) scalar_var -> . SCALAR
+    (41) arr_var -> . MY ARRAY
+    (42) arr_var -> . ARRAY
+    (43) hash_var -> . MY HASH
+    (44) hash_var -> . HASH
+
+    STRING          shift and go to state 37
+    MY              shift and go to state 25
+    SCALAR          shift and go to state 26
+    ARRAY           shift and go to state 27
+    HASH            shift and go to state 28
+
+    out                            shift and go to state 102
+    variable                       shift and go to state 36
+    scalar_var                     shift and go to state 38
+    arr_var                        shift and go to state 39
+    hash_var                       shift and go to state 40
+
+state 72
+
+    (15) package_dec -> PACKAGE KEYWORD SEMI . upind body lowind NUMBER SEMI
+    (18) upind -> .
+
+    KEYWORD         reduce using rule 18 (upind -> .)
+    COMMENT         reduce using rule 18 (upind -> .)
+    PACKAGE         reduce using rule 18 (upind -> .)
+    SUB             reduce using rule 18 (upind -> .)
+    BLESS           reduce using rule 18 (upind -> .)
+    RETURN          reduce using rule 18 (upind -> .)
+    MY              reduce using rule 18 (upind -> .)
+    SCALAR          reduce using rule 18 (upind -> .)
+    ARRAY           reduce using rule 18 (upind -> .)
+    HASH            reduce using rule 18 (upind -> .)
+    NUMBER          reduce using rule 18 (upind -> .)
+
+    upind                          shift and go to state 103
+
+state 73
+
+    (16) cons_dec -> SUB NEW block .
+
+    KEYWORD         reduce using rule 16 (cons_dec -> SUB NEW block .)
+    COMMENT         reduce using rule 16 (cons_dec -> SUB NEW block .)
+    PACKAGE         reduce using rule 16 (cons_dec -> SUB NEW block .)
+    SUB             reduce using rule 16 (cons_dec -> SUB NEW block .)
+    BLESS           reduce using rule 16 (cons_dec -> SUB NEW block .)
+    RETURN          reduce using rule 16 (cons_dec -> SUB NEW block .)
+    MY              reduce using rule 16 (cons_dec -> SUB NEW block .)
+    SCALAR          reduce using rule 16 (cons_dec -> SUB NEW block .)
+    ARRAY           reduce using rule 16 (cons_dec -> SUB NEW block .)
+    HASH            reduce using rule 16 (cons_dec -> SUB NEW block .)
+    $end            reduce using rule 16 (cons_dec -> SUB NEW block .)
+    RFB             reduce using rule 16 (cons_dec -> SUB NEW block .)
+    NUMBER          reduce using rule 16 (cons_dec -> SUB NEW block .)
+
+
+state 74
+
+    (67) block -> l_braces . body r_braces
+    (1) body -> . statementlist
+    (2) body -> . empty
+    (3) statementlist -> . statement
+    (4) statementlist -> . statementlist statement
+    (76) empty -> .
+    (5) statement -> . var_dec
+    (6) statement -> . function_call
+    (7) statement -> . output
+    (8) statement -> . comment
+    (9) statement -> . cond_stat
+    (10) statement -> . package_dec
+    (11) statement -> . cons_dec
+    (12) statement -> . function_def
+    (13) statement -> . bless_st
+    (14) statement -> . return_st
+    (31) var_dec -> . scalar_var EQUALS exp SEMI
+    (32) var_dec -> . variable EQUALS input SEMI
+    (33) var_dec -> . variable EQUALS SHIFT SEMI
+    (34) var_dec -> . arr_var EQUALS arr_exp SEMI
+    (35) var_dec -> . hash_var EQUALS hash_exp SEMI
+    (25) function_call -> . KEYWORD LB argument RB SEMI
+    (21) output -> . KEYWORD out SEMI
+    (61) comment -> . COMMENT
+    (62) cond_stat -> . KEYWORD LB condition RB block
+    (63) cond_stat -> . KEYWORD LB for_cond RB block
+    (15) package_dec -> . PACKAGE KEYWORD SEMI upind body lowind NUMBER SEMI
+    (16) cons_dec -> . SUB NEW block
+    (20) function_def -> . SUB KEYWORD block
+    (17) bless_st -> . BLESS LB argument RB SEMI
+    (45) return_st -> . RETURN exp SEMI
+    (39) scalar_var -> . MY SCALAR
+    (40) scalar_var -> . SCALAR
+    (36) variable -> . scalar_var
+    (37) variable -> . arr_var
+    (38) variable -> . hash_var
+    (41) arr_var -> . MY ARRAY
+    (42) arr_var -> . ARRAY
+    (43) hash_var -> . MY HASH
+    (44) hash_var -> . HASH
+
+    RFB             reduce using rule 76 (empty -> .)
+    KEYWORD         shift and go to state 19
+    COMMENT         shift and go to state 20
+    PACKAGE         shift and go to state 21
+    SUB             shift and go to state 22
+    BLESS           shift and go to state 23
+    RETURN          shift and go to state 24
+    MY              shift and go to state 25
+    SCALAR          shift and go to state 26
+    ARRAY           shift and go to state 27
+    HASH            shift and go to state 28
+
+    body                           shift and go to state 104
+    statementlist                  shift and go to state 2
+    empty                          shift and go to state 3
+    statement                      shift and go to state 4
+    var_dec                        shift and go to state 5
+    function_call                  shift and go to state 6
+    output                         shift and go to state 7
+    comment                        shift and go to state 8
+    cond_stat                      shift and go to state 9
+    package_dec                    shift and go to state 10
+    cons_dec                       shift and go to state 11
+    function_def                   shift and go to state 12
+    bless_st                       shift and go to state 13
+    return_st                      shift and go to state 14
+    scalar_var                     shift and go to state 15
+    variable                       shift and go to state 16
+    arr_var                        shift and go to state 17
+    hash_var                       shift and go to state 18
+
+state 75
+
+    (68) l_braces -> LFB .
+
+    KEYWORD         reduce using rule 68 (l_braces -> LFB .)
+    COMMENT         reduce using rule 68 (l_braces -> LFB .)
+    PACKAGE         reduce using rule 68 (l_braces -> LFB .)
+    SUB             reduce using rule 68 (l_braces -> LFB .)
+    BLESS           reduce using rule 68 (l_braces -> LFB .)
+    RETURN          reduce using rule 68 (l_braces -> LFB .)
+    MY              reduce using rule 68 (l_braces -> LFB .)
+    SCALAR          reduce using rule 68 (l_braces -> LFB .)
+    ARRAY           reduce using rule 68 (l_braces -> LFB .)
+    HASH            reduce using rule 68 (l_braces -> LFB .)
+    RFB             reduce using rule 68 (l_braces -> LFB .)
+
+
+state 76
+
+    (20) function_def -> SUB KEYWORD block .
+
+    KEYWORD         reduce using rule 20 (function_def -> SUB KEYWORD block .)
+    COMMENT         reduce using rule 20 (function_def -> SUB KEYWORD block .)
+    PACKAGE         reduce using rule 20 (function_def -> SUB KEYWORD block .)
+    SUB             reduce using rule 20 (function_def -> SUB KEYWORD block .)
+    BLESS           reduce using rule 20 (function_def -> SUB KEYWORD block .)
+    RETURN          reduce using rule 20 (function_def -> SUB KEYWORD block .)
+    MY              reduce using rule 20 (function_def -> SUB KEYWORD block .)
+    SCALAR          reduce using rule 20 (function_def -> SUB KEYWORD block .)
+    ARRAY           reduce using rule 20 (function_def -> SUB KEYWORD block .)
+    HASH            reduce using rule 20 (function_def -> SUB KEYWORD block .)
+    $end            reduce using rule 20 (function_def -> SUB KEYWORD block .)
+    RFB             reduce using rule 20 (function_def -> SUB KEYWORD block .)
+    NUMBER          reduce using rule 20 (function_def -> SUB KEYWORD block .)
+
+
+state 77
+
+    (17) bless_st -> BLESS LB argument . RB SEMI
+    (29) argument -> argument . COMMA argument
+
+    RB              shift and go to state 105
+    COMMA           shift and go to state 94
+
+
+state 78
+
+    (26) argument -> variable .
+
+    RB              reduce using rule 26 (argument -> variable .)
+    COMMA           reduce using rule 26 (argument -> variable .)
+
+
+state 79
+
+    (45) return_st -> RETURN exp SEMI .
+
+    KEYWORD         reduce using rule 45 (return_st -> RETURN exp SEMI .)
+    COMMENT         reduce using rule 45 (return_st -> RETURN exp SEMI .)
+    PACKAGE         reduce using rule 45 (return_st -> RETURN exp SEMI .)
+    SUB             reduce using rule 45 (return_st -> RETURN exp SEMI .)
+    BLESS           reduce using rule 45 (return_st -> RETURN exp SEMI .)
+    RETURN          reduce using rule 45 (return_st -> RETURN exp SEMI .)
+    MY              reduce using rule 45 (return_st -> RETURN exp SEMI .)
+    SCALAR          reduce using rule 45 (return_st -> RETURN exp SEMI .)
+    ARRAY           reduce using rule 45 (return_st -> RETURN exp SEMI .)
+    HASH            reduce using rule 45 (return_st -> RETURN exp SEMI .)
+    $end            reduce using rule 45 (return_st -> RETURN exp SEMI .)
+    RFB             reduce using rule 45 (return_st -> RETURN exp SEMI .)
+    NUMBER          reduce using rule 45 (return_st -> RETURN exp SEMI .)
+
+
+state 80
+
+    (49) exp -> exp OPER . exp
+    (46) exp -> . NUMBER
+    (47) exp -> . STRING
+    (48) exp -> . variable
+    (49) exp -> . exp OPER exp
+    (36) variable -> . scalar_var
+    (37) variable -> . arr_var
+    (38) variable -> . hash_var
+    (39) scalar_var -> . MY SCALAR
+    (40) scalar_var -> . SCALAR
+    (41) arr_var -> . MY ARRAY
+    (42) arr_var -> . ARRAY
+    (43) hash_var -> . MY HASH
+    (44) hash_var -> . HASH
+
+    NUMBER          shift and go to state 46
+    STRING          shift and go to state 47
+    MY              shift and go to state 25
+    SCALAR          shift and go to state 26
+    ARRAY           shift and go to state 27
+    HASH            shift and go to state 28
+
+    exp                            shift and go to state 106
+    variable                       shift and go to state 48
+    scalar_var                     shift and go to state 38
+    arr_var                        shift and go to state 39
+    hash_var                       shift and go to state 40
+
+state 81
+
+    (31) var_dec -> scalar_var EQUALS exp SEMI .
+
+    KEYWORD         reduce using rule 31 (var_dec -> scalar_var EQUALS exp SEMI .)
+    COMMENT         reduce using rule 31 (var_dec -> scalar_var EQUALS exp SEMI .)
+    PACKAGE         reduce using rule 31 (var_dec -> scalar_var EQUALS exp SEMI .)
+    SUB             reduce using rule 31 (var_dec -> scalar_var EQUALS exp SEMI .)
+    BLESS           reduce using rule 31 (var_dec -> scalar_var EQUALS exp SEMI .)
+    RETURN          reduce using rule 31 (var_dec -> scalar_var EQUALS exp SEMI .)
+    MY              reduce using rule 31 (var_dec -> scalar_var EQUALS exp SEMI .)
+    SCALAR          reduce using rule 31 (var_dec -> scalar_var EQUALS exp SEMI .)
+    ARRAY           reduce using rule 31 (var_dec -> scalar_var EQUALS exp SEMI .)
+    HASH            reduce using rule 31 (var_dec -> scalar_var EQUALS exp SEMI .)
+    $end            reduce using rule 31 (var_dec -> scalar_var EQUALS exp SEMI .)
+    RFB             reduce using rule 31 (var_dec -> scalar_var EQUALS exp SEMI .)
+    NUMBER          reduce using rule 31 (var_dec -> scalar_var EQUALS exp SEMI .)
+
+
+state 82
+
+    (32) var_dec -> variable EQUALS input SEMI .
+
+    KEYWORD         reduce using rule 32 (var_dec -> variable EQUALS input SEMI .)
+    COMMENT         reduce using rule 32 (var_dec -> variable EQUALS input SEMI .)
+    PACKAGE         reduce using rule 32 (var_dec -> variable EQUALS input SEMI .)
+    SUB             reduce using rule 32 (var_dec -> variable EQUALS input SEMI .)
+    BLESS           reduce using rule 32 (var_dec -> variable EQUALS input SEMI .)
+    RETURN          reduce using rule 32 (var_dec -> variable EQUALS input SEMI .)
+    MY              reduce using rule 32 (var_dec -> variable EQUALS input SEMI .)
+    SCALAR          reduce using rule 32 (var_dec -> variable EQUALS input SEMI .)
+    ARRAY           reduce using rule 32 (var_dec -> variable EQUALS input SEMI .)
+    HASH            reduce using rule 32 (var_dec -> variable EQUALS input SEMI .)
+    $end            reduce using rule 32 (var_dec -> variable EQUALS input SEMI .)
+    RFB             reduce using rule 32 (var_dec -> variable EQUALS input SEMI .)
+    NUMBER          reduce using rule 32 (var_dec -> variable EQUALS input SEMI .)
+
+
+state 83
+
+    (33) var_dec -> variable EQUALS SHIFT SEMI .
+
+    KEYWORD         reduce using rule 33 (var_dec -> variable EQUALS SHIFT SEMI .)
+    COMMENT         reduce using rule 33 (var_dec -> variable EQUALS SHIFT SEMI .)
+    PACKAGE         reduce using rule 33 (var_dec -> variable EQUALS SHIFT SEMI .)
+    SUB             reduce using rule 33 (var_dec -> variable EQUALS SHIFT SEMI .)
+    BLESS           reduce using rule 33 (var_dec -> variable EQUALS SHIFT SEMI .)
+    RETURN          reduce using rule 33 (var_dec -> variable EQUALS SHIFT SEMI .)
+    MY              reduce using rule 33 (var_dec -> variable EQUALS SHIFT SEMI .)
+    SCALAR          reduce using rule 33 (var_dec -> variable EQUALS SHIFT SEMI .)
+    ARRAY           reduce using rule 33 (var_dec -> variable EQUALS SHIFT SEMI .)
+    HASH            reduce using rule 33 (var_dec -> variable EQUALS SHIFT SEMI .)
+    $end            reduce using rule 33 (var_dec -> variable EQUALS SHIFT SEMI .)
+    RFB             reduce using rule 33 (var_dec -> variable EQUALS SHIFT SEMI .)
+    NUMBER          reduce using rule 33 (var_dec -> variable EQUALS SHIFT SEMI .)
+
+
+state 84
+
+    (60) input -> ALB KEYWORD . ARB
+
+    ARB             shift and go to state 107
+
+
+state 85
+
+    (34) var_dec -> arr_var EQUALS arr_exp SEMI .
+
+    KEYWORD         reduce using rule 34 (var_dec -> arr_var EQUALS arr_exp SEMI .)
+    COMMENT         reduce using rule 34 (var_dec -> arr_var EQUALS arr_exp SEMI .)
+    PACKAGE         reduce using rule 34 (var_dec -> arr_var EQUALS arr_exp SEMI .)
+    SUB             reduce using rule 34 (var_dec -> arr_var EQUALS arr_exp SEMI .)
+    BLESS           reduce using rule 34 (var_dec -> arr_var EQUALS arr_exp SEMI .)
+    RETURN          reduce using rule 34 (var_dec -> arr_var EQUALS arr_exp SEMI .)
+    MY              reduce using rule 34 (var_dec -> arr_var EQUALS arr_exp SEMI .)
+    SCALAR          reduce using rule 34 (var_dec -> arr_var EQUALS arr_exp SEMI .)
+    ARRAY           reduce using rule 34 (var_dec -> arr_var EQUALS arr_exp SEMI .)
+    HASH            reduce using rule 34 (var_dec -> arr_var EQUALS arr_exp SEMI .)
+    $end            reduce using rule 34 (var_dec -> arr_var EQUALS arr_exp SEMI .)
+    RFB             reduce using rule 34 (var_dec -> arr_var EQUALS arr_exp SEMI .)
+    NUMBER          reduce using rule 34 (var_dec -> arr_var EQUALS arr_exp SEMI .)
+
+
+state 86
+
+    (50) arr_exp -> LB argument . RB
+    (29) argument -> argument . COMMA argument
+
+    RB              shift and go to state 108
+    COMMA           shift and go to state 94
+
+
+state 87
+
+    (35) var_dec -> hash_var EQUALS hash_exp SEMI .
+
+    KEYWORD         reduce using rule 35 (var_dec -> hash_var EQUALS hash_exp SEMI .)
+    COMMENT         reduce using rule 35 (var_dec -> hash_var EQUALS hash_exp SEMI .)
+    PACKAGE         reduce using rule 35 (var_dec -> hash_var EQUALS hash_exp SEMI .)
+    SUB             reduce using rule 35 (var_dec -> hash_var EQUALS hash_exp SEMI .)
+    BLESS           reduce using rule 35 (var_dec -> hash_var EQUALS hash_exp SEMI .)
+    RETURN          reduce using rule 35 (var_dec -> hash_var EQUALS hash_exp SEMI .)
+    MY              reduce using rule 35 (var_dec -> hash_var EQUALS hash_exp SEMI .)
+    SCALAR          reduce using rule 35 (var_dec -> hash_var EQUALS hash_exp SEMI .)
+    ARRAY           reduce using rule 35 (var_dec -> hash_var EQUALS hash_exp SEMI .)
+    HASH            reduce using rule 35 (var_dec -> hash_var EQUALS hash_exp SEMI .)
+    $end            reduce using rule 35 (var_dec -> hash_var EQUALS hash_exp SEMI .)
+    RFB             reduce using rule 35 (var_dec -> hash_var EQUALS hash_exp SEMI .)
+    NUMBER          reduce using rule 35 (var_dec -> hash_var EQUALS hash_exp SEMI .)
+
+
+state 88
+
+    (53) first_hash -> LB hash_arg . RB
+    (58) hash_arg -> hash_arg . HASH_OP hash_arg
+    (59) hash_arg -> hash_arg . COMMA hash_arg
+
+    RB              shift and go to state 109
+    HASH_OP         shift and go to state 110
+    COMMA           shift and go to state 111
+
+
+state 89
+
+    (55) hash_arg -> STRING .
+
+    RB              reduce using rule 55 (hash_arg -> STRING .)
+    HASH_OP         reduce using rule 55 (hash_arg -> STRING .)
+    COMMA           reduce using rule 55 (hash_arg -> STRING .)
+    RFB             reduce using rule 55 (hash_arg -> STRING .)
+
+
+state 90
+
+    (56) hash_arg -> NUMBER .
+
+    RB              reduce using rule 56 (hash_arg -> NUMBER .)
+    HASH_OP         reduce using rule 56 (hash_arg -> NUMBER .)
+    COMMA           reduce using rule 56 (hash_arg -> NUMBER .)
+    RFB             reduce using rule 56 (hash_arg -> NUMBER .)
+
+
+state 91
+
+    (57) hash_arg -> SHIFT .
+
+    RB              reduce using rule 57 (hash_arg -> SHIFT .)
+    HASH_OP         reduce using rule 57 (hash_arg -> SHIFT .)
+    COMMA           reduce using rule 57 (hash_arg -> SHIFT .)
+    RFB             reduce using rule 57 (hash_arg -> SHIFT .)
+
+
+state 92
+
+    (54) second_hash -> LFB hash_arg . RFB
+    (58) hash_arg -> hash_arg . HASH_OP hash_arg
+    (59) hash_arg -> hash_arg . COMMA hash_arg
+
+    RFB             shift and go to state 112
+    HASH_OP         shift and go to state 110
+    COMMA           shift and go to state 111
+
+
+state 93
+
+    (25) function_call -> KEYWORD LB argument RB . SEMI
+
+    SEMI            shift and go to state 113
+
+
+state 94
+
+    (29) argument -> argument COMMA . argument
+    (26) argument -> . variable
+    (27) argument -> . STRING
+    (28) argument -> . NUMBER
+    (29) argument -> . argument COMMA argument
+    (30) argument -> . empty
+    (36) variable -> . scalar_var
+    (37) variable -> . arr_var
+    (38) variable -> . hash_var
+    (76) empty -> .
+    (39) scalar_var -> . MY SCALAR
+    (40) scalar_var -> . SCALAR
+    (41) arr_var -> . MY ARRAY
+    (42) arr_var -> . ARRAY
+    (43) hash_var -> . MY HASH
+    (44) hash_var -> . HASH
+
+    STRING          shift and go to state 67
+    NUMBER          shift and go to state 68
+    COMMA           reduce using rule 76 (empty -> .)
+    RB              reduce using rule 76 (empty -> .)
+    MY              shift and go to state 25
+    SCALAR          shift and go to state 26
+    ARRAY           shift and go to state 27
+    HASH            shift and go to state 28
+
+    argument                       shift and go to state 114
+    variable                       shift and go to state 78
+    empty                          shift and go to state 69
+    scalar_var                     shift and go to state 38
+    arr_var                        shift and go to state 39
+    hash_var                       shift and go to state 40
+
+state 95
+
+    (62) cond_stat -> KEYWORD LB condition RB . block
+    (67) block -> . l_braces body r_braces
+    (68) l_braces -> . LFB
+
+    LFB             shift and go to state 75
+
+    block                          shift and go to state 115
+    l_braces                       shift and go to state 74
+
+state 96
+
+    (63) cond_stat -> KEYWORD LB for_cond RB . block
+    (67) block -> . l_braces body r_braces
+    (68) l_braces -> . LFB
+
+    LFB             shift and go to state 75
+
+    block                          shift and go to state 116
+    l_braces                       shift and go to state 74
+
+state 97
+
+    (70) condition -> variable sign . exp
+    (75) sign -> sign . sign
+    (46) exp -> . NUMBER
+    (47) exp -> . STRING
+    (48) exp -> . variable
+    (49) exp -> . exp OPER exp
+    (71) sign -> . EQUALS
+    (72) sign -> . OPER
+    (73) sign -> . ALB
+    (74) sign -> . ARB
+    (75) sign -> . sign sign
+    (36) variable -> . scalar_var
+    (37) variable -> . arr_var
+    (38) variable -> . hash_var
+    (39) scalar_var -> . MY SCALAR
+    (40) scalar_var -> . SCALAR
+    (41) arr_var -> . MY ARRAY
+    (42) arr_var -> . ARRAY
+    (43) hash_var -> . MY HASH
+    (44) hash_var -> . HASH
+
+    NUMBER          shift and go to state 46
+    STRING          shift and go to state 47
+    EQUALS          shift and go to state 119
+    OPER            shift and go to state 99
+    ALB             shift and go to state 100
+    ARB             shift and go to state 101
+    MY              shift and go to state 25
+    SCALAR          shift and go to state 26
+    ARRAY           shift and go to state 27
+    HASH            shift and go to state 28
+
+    variable                       shift and go to state 48
+    sign                           shift and go to state 117
+    exp                            shift and go to state 118
+    scalar_var                     shift and go to state 38
+    arr_var                        shift and go to state 39
+    hash_var                       shift and go to state 40
+
+state 98
+
+    (64) for_cond -> variable EQUALS . exp SEMI variable sign exp SEMI increment
+    (71) sign -> EQUALS .
+    (46) exp -> . NUMBER
+    (47) exp -> . STRING
+    (48) exp -> . variable
+    (49) exp -> . exp OPER exp
+    (36) variable -> . scalar_var
+    (37) variable -> . arr_var
+    (38) variable -> . hash_var
+    (39) scalar_var -> . MY SCALAR
+    (40) scalar_var -> . SCALAR
+    (41) arr_var -> . MY ARRAY
+    (42) arr_var -> . ARRAY
+    (43) hash_var -> . MY HASH
+    (44) hash_var -> . HASH
+
+  ! shift/reduce conflict for NUMBER resolved as shift
+  ! shift/reduce conflict for STRING resolved as shift
+  ! shift/reduce conflict for MY resolved as shift
+  ! shift/reduce conflict for SCALAR resolved as shift
+  ! shift/reduce conflict for ARRAY resolved as shift
+  ! shift/reduce conflict for HASH resolved as shift
+    EQUALS          reduce using rule 71 (sign -> EQUALS .)
+    OPER            reduce using rule 71 (sign -> EQUALS .)
+    ALB             reduce using rule 71 (sign -> EQUALS .)
+    ARB             reduce using rule 71 (sign -> EQUALS .)
+    NUMBER          shift and go to state 46
+    STRING          shift and go to state 47
+    MY              shift and go to state 25
+    SCALAR          shift and go to state 26
+    ARRAY           shift and go to state 27
+    HASH            shift and go to state 28
+
+  ! NUMBER          [ reduce using rule 71 (sign -> EQUALS .) ]
+  ! STRING          [ reduce using rule 71 (sign -> EQUALS .) ]
+  ! MY              [ reduce using rule 71 (sign -> EQUALS .) ]
+  ! SCALAR          [ reduce using rule 71 (sign -> EQUALS .) ]
+  ! ARRAY           [ reduce using rule 71 (sign -> EQUALS .) ]
+  ! HASH            [ reduce using rule 71 (sign -> EQUALS .) ]
+
+    variable                       shift and go to state 48
+    exp                            shift and go to state 120
+    scalar_var                     shift and go to state 38
+    arr_var                        shift and go to state 39
+    hash_var                       shift and go to state 40
+
+state 99
+
+    (72) sign -> OPER .
+
+    NUMBER          reduce using rule 72 (sign -> OPER .)
+    STRING          reduce using rule 72 (sign -> OPER .)
+    EQUALS          reduce using rule 72 (sign -> OPER .)
+    OPER            reduce using rule 72 (sign -> OPER .)
+    ALB             reduce using rule 72 (sign -> OPER .)
+    ARB             reduce using rule 72 (sign -> OPER .)
+    MY              reduce using rule 72 (sign -> OPER .)
+    SCALAR          reduce using rule 72 (sign -> OPER .)
+    ARRAY           reduce using rule 72 (sign -> OPER .)
+    HASH            reduce using rule 72 (sign -> OPER .)
+
+
+state 100
+
+    (73) sign -> ALB .
+
+    NUMBER          reduce using rule 73 (sign -> ALB .)
+    STRING          reduce using rule 73 (sign -> ALB .)
+    EQUALS          reduce using rule 73 (sign -> ALB .)
+    OPER            reduce using rule 73 (sign -> ALB .)
+    ALB             reduce using rule 73 (sign -> ALB .)
+    ARB             reduce using rule 73 (sign -> ALB .)
+    MY              reduce using rule 73 (sign -> ALB .)
+    SCALAR          reduce using rule 73 (sign -> ALB .)
+    ARRAY           reduce using rule 73 (sign -> ALB .)
+    HASH            reduce using rule 73 (sign -> ALB .)
+
+
+state 101
+
+    (74) sign -> ARB .
+
+    NUMBER          reduce using rule 74 (sign -> ARB .)
+    STRING          reduce using rule 74 (sign -> ARB .)
+    EQUALS          reduce using rule 74 (sign -> ARB .)
+    OPER            reduce using rule 74 (sign -> ARB .)
+    ALB             reduce using rule 74 (sign -> ARB .)
+    ARB             reduce using rule 74 (sign -> ARB .)
+    MY              reduce using rule 74 (sign -> ARB .)
+    SCALAR          reduce using rule 74 (sign -> ARB .)
+    ARRAY           reduce using rule 74 (sign -> ARB .)
+    HASH            reduce using rule 74 (sign -> ARB .)
+
+
+state 102
+
+    (24) out -> out COMMA out .
+    (24) out -> out . COMMA out
+
+  ! shift/reduce conflict for COMMA resolved as shift
+    SEMI            reduce using rule 24 (out -> out COMMA out .)
+    COMMA           shift and go to state 71
+
+  ! COMMA           [ reduce using rule 24 (out -> out COMMA out .) ]
+
+
+state 103
+
+    (15) package_dec -> PACKAGE KEYWORD SEMI upind . body lowind NUMBER SEMI
+    (1) body -> . statementlist
+    (2) body -> . empty
+    (3) statementlist -> . statement
+    (4) statementlist -> . statementlist statement
+    (76) empty -> .
+    (5) statement -> . var_dec
+    (6) statement -> . function_call
+    (7) statement -> . output
+    (8) statement -> . comment
+    (9) statement -> . cond_stat
+    (10) statement -> . package_dec
+    (11) statement -> . cons_dec
+    (12) statement -> . function_def
+    (13) statement -> . bless_st
+    (14) statement -> . return_st
+    (31) var_dec -> . scalar_var EQUALS exp SEMI
+    (32) var_dec -> . variable EQUALS input SEMI
+    (33) var_dec -> . variable EQUALS SHIFT SEMI
+    (34) var_dec -> . arr_var EQUALS arr_exp SEMI
+    (35) var_dec -> . hash_var EQUALS hash_exp SEMI
+    (25) function_call -> . KEYWORD LB argument RB SEMI
+    (21) output -> . KEYWORD out SEMI
+    (61) comment -> . COMMENT
+    (62) cond_stat -> . KEYWORD LB condition RB block
+    (63) cond_stat -> . KEYWORD LB for_cond RB block
+    (15) package_dec -> . PACKAGE KEYWORD SEMI upind body lowind NUMBER SEMI
+    (16) cons_dec -> . SUB NEW block
+    (20) function_def -> . SUB KEYWORD block
+    (17) bless_st -> . BLESS LB argument RB SEMI
+    (45) return_st -> . RETURN exp SEMI
+    (39) scalar_var -> . MY SCALAR
+    (40) scalar_var -> . SCALAR
+    (36) variable -> . scalar_var
+    (37) variable -> . arr_var
+    (38) variable -> . hash_var
+    (41) arr_var -> . MY ARRAY
+    (42) arr_var -> . ARRAY
+    (43) hash_var -> . MY HASH
+    (44) hash_var -> . HASH
+
+    NUMBER          reduce using rule 76 (empty -> .)
+    KEYWORD         shift and go to state 19
+    COMMENT         shift and go to state 20
+    PACKAGE         shift and go to state 21
+    SUB             shift and go to state 22
+    BLESS           shift and go to state 23
+    RETURN          shift and go to state 24
+    MY              shift and go to state 25
+    SCALAR          shift and go to state 26
+    ARRAY           shift and go to state 27
+    HASH            shift and go to state 28
+
+    body                           shift and go to state 121
+    statementlist                  shift and go to state 2
+    empty                          shift and go to state 3
+    statement                      shift and go to state 4
+    var_dec                        shift and go to state 5
+    function_call                  shift and go to state 6
+    output                         shift and go to state 7
+    comment                        shift and go to state 8
+    cond_stat                      shift and go to state 9
+    package_dec                    shift and go to state 10
+    cons_dec                       shift and go to state 11
+    function_def                   shift and go to state 12
+    bless_st                       shift and go to state 13
+    return_st                      shift and go to state 14
+    scalar_var                     shift and go to state 15
+    variable                       shift and go to state 16
+    arr_var                        shift and go to state 17
+    hash_var                       shift and go to state 18
+
+state 104
+
+    (67) block -> l_braces body . r_braces
+    (69) r_braces -> . RFB
+
+    RFB             shift and go to state 123
+
+    r_braces                       shift and go to state 122
+
+state 105
+
+    (17) bless_st -> BLESS LB argument RB . SEMI
+
+    SEMI            shift and go to state 124
+
+
+state 106
+
+    (49) exp -> exp OPER exp .
+    (49) exp -> exp . OPER exp
+
+  ! shift/reduce conflict for OPER resolved as shift
+    SEMI            reduce using rule 49 (exp -> exp OPER exp .)
+    RB              reduce using rule 49 (exp -> exp OPER exp .)
+    OPER            shift and go to state 80
+
+  ! OPER            [ reduce using rule 49 (exp -> exp OPER exp .) ]
+
+
+state 107
+
+    (60) input -> ALB KEYWORD ARB .
+
+    SEMI            reduce using rule 60 (input -> ALB KEYWORD ARB .)
+
+
+state 108
+
+    (50) arr_exp -> LB argument RB .
+
+    SEMI            reduce using rule 50 (arr_exp -> LB argument RB .)
+
+
+state 109
+
+    (53) first_hash -> LB hash_arg RB .
+
+    SEMI            reduce using rule 53 (first_hash -> LB hash_arg RB .)
+
+
+state 110
+
+    (58) hash_arg -> hash_arg HASH_OP . hash_arg
+    (55) hash_arg -> . STRING
+    (56) hash_arg -> . NUMBER
+    (57) hash_arg -> . SHIFT
+    (58) hash_arg -> . hash_arg HASH_OP hash_arg
+    (59) hash_arg -> . hash_arg COMMA hash_arg
+
+    STRING          shift and go to state 89
+    NUMBER          shift and go to state 90
+    SHIFT           shift and go to state 91
+
+    hash_arg                       shift and go to state 125
+
+state 111
+
+    (59) hash_arg -> hash_arg COMMA . hash_arg
+    (55) hash_arg -> . STRING
+    (56) hash_arg -> . NUMBER
+    (57) hash_arg -> . SHIFT
+    (58) hash_arg -> . hash_arg HASH_OP hash_arg
+    (59) hash_arg -> . hash_arg COMMA hash_arg
+
+    STRING          shift and go to state 89
+    NUMBER          shift and go to state 90
+    SHIFT           shift and go to state 91
+
+    hash_arg                       shift and go to state 126
+
+state 112
+
+    (54) second_hash -> LFB hash_arg RFB .
+
+    SEMI            reduce using rule 54 (second_hash -> LFB hash_arg RFB .)
+
+
+state 113
+
+    (25) function_call -> KEYWORD LB argument RB SEMI .
+
+    KEYWORD         reduce using rule 25 (function_call -> KEYWORD LB argument RB SEMI .)
+    COMMENT         reduce using rule 25 (function_call -> KEYWORD LB argument RB SEMI .)
+    PACKAGE         reduce using rule 25 (function_call -> KEYWORD LB argument RB SEMI .)
+    SUB             reduce using rule 25 (function_call -> KEYWORD LB argument RB SEMI .)
+    BLESS           reduce using rule 25 (function_call -> KEYWORD LB argument RB SEMI .)
+    RETURN          reduce using rule 25 (function_call -> KEYWORD LB argument RB SEMI .)
+    MY              reduce using rule 25 (function_call -> KEYWORD LB argument RB SEMI .)
+    SCALAR          reduce using rule 25 (function_call -> KEYWORD LB argument RB SEMI .)
+    ARRAY           reduce using rule 25 (function_call -> KEYWORD LB argument RB SEMI .)
+    HASH            reduce using rule 25 (function_call -> KEYWORD LB argument RB SEMI .)
+    $end            reduce using rule 25 (function_call -> KEYWORD LB argument RB SEMI .)
+    RFB             reduce using rule 25 (function_call -> KEYWORD LB argument RB SEMI .)
+    NUMBER          reduce using rule 25 (function_call -> KEYWORD LB argument RB SEMI .)
+
+
+state 114
+
+    (29) argument -> argument COMMA argument .
+    (29) argument -> argument . COMMA argument
+
+  ! shift/reduce conflict for COMMA resolved as shift
+    RB              reduce using rule 29 (argument -> argument COMMA argument .)
+    COMMA           shift and go to state 94
+
+  ! COMMA           [ reduce using rule 29 (argument -> argument COMMA argument .) ]
+
+
+state 115
+
+    (62) cond_stat -> KEYWORD LB condition RB block .
+
+    KEYWORD         reduce using rule 62 (cond_stat -> KEYWORD LB condition RB block .)
+    COMMENT         reduce using rule 62 (cond_stat -> KEYWORD LB condition RB block .)
+    PACKAGE         reduce using rule 62 (cond_stat -> KEYWORD LB condition RB block .)
+    SUB             reduce using rule 62 (cond_stat -> KEYWORD LB condition RB block .)
+    BLESS           reduce using rule 62 (cond_stat -> KEYWORD LB condition RB block .)
+    RETURN          reduce using rule 62 (cond_stat -> KEYWORD LB condition RB block .)
+    MY              reduce using rule 62 (cond_stat -> KEYWORD LB condition RB block .)
+    SCALAR          reduce using rule 62 (cond_stat -> KEYWORD LB condition RB block .)
+    ARRAY           reduce using rule 62 (cond_stat -> KEYWORD LB condition RB block .)
+    HASH            reduce using rule 62 (cond_stat -> KEYWORD LB condition RB block .)
+    $end            reduce using rule 62 (cond_stat -> KEYWORD LB condition RB block .)
+    RFB             reduce using rule 62 (cond_stat -> KEYWORD LB condition RB block .)
+    NUMBER          reduce using rule 62 (cond_stat -> KEYWORD LB condition RB block .)
+
+
+state 116
+
+    (63) cond_stat -> KEYWORD LB for_cond RB block .
+
+    KEYWORD         reduce using rule 63 (cond_stat -> KEYWORD LB for_cond RB block .)
+    COMMENT         reduce using rule 63 (cond_stat -> KEYWORD LB for_cond RB block .)
+    PACKAGE         reduce using rule 63 (cond_stat -> KEYWORD LB for_cond RB block .)
+    SUB             reduce using rule 63 (cond_stat -> KEYWORD LB for_cond RB block .)
+    BLESS           reduce using rule 63 (cond_stat -> KEYWORD LB for_cond RB block .)
+    RETURN          reduce using rule 63 (cond_stat -> KEYWORD LB for_cond RB block .)
+    MY              reduce using rule 63 (cond_stat -> KEYWORD LB for_cond RB block .)
+    SCALAR          reduce using rule 63 (cond_stat -> KEYWORD LB for_cond RB block .)
+    ARRAY           reduce using rule 63 (cond_stat -> KEYWORD LB for_cond RB block .)
+    HASH            reduce using rule 63 (cond_stat -> KEYWORD LB for_cond RB block .)
+    $end            reduce using rule 63 (cond_stat -> KEYWORD LB for_cond RB block .)
+    RFB             reduce using rule 63 (cond_stat -> KEYWORD LB for_cond RB block .)
+    NUMBER          reduce using rule 63 (cond_stat -> KEYWORD LB for_cond RB block .)
+
+
+state 117
+
+    (75) sign -> sign sign .
+    (75) sign -> sign . sign
+    (71) sign -> . EQUALS
+    (72) sign -> . OPER
+    (73) sign -> . ALB
+    (74) sign -> . ARB
+    (75) sign -> . sign sign
+
+  ! shift/reduce conflict for EQUALS resolved as shift
+  ! shift/reduce conflict for OPER resolved as shift
+  ! shift/reduce conflict for ALB resolved as shift
+  ! shift/reduce conflict for ARB resolved as shift
+    NUMBER          reduce using rule 75 (sign -> sign sign .)
+    STRING          reduce using rule 75 (sign -> sign sign .)
+    MY              reduce using rule 75 (sign -> sign sign .)
+    SCALAR          reduce using rule 75 (sign -> sign sign .)
+    ARRAY           reduce using rule 75 (sign -> sign sign .)
+    HASH            reduce using rule 75 (sign -> sign sign .)
+    EQUALS          shift and go to state 119
+    OPER            shift and go to state 99
+    ALB             shift and go to state 100
+    ARB             shift and go to state 101
+
+  ! EQUALS          [ reduce using rule 75 (sign -> sign sign .) ]
+  ! OPER            [ reduce using rule 75 (sign -> sign sign .) ]
+  ! ALB             [ reduce using rule 75 (sign -> sign sign .) ]
+  ! ARB             [ reduce using rule 75 (sign -> sign sign .) ]
+
+    sign                           shift and go to state 117
+
+state 118
+
+    (70) condition -> variable sign exp .
+    (49) exp -> exp . OPER exp
+
+    RB              reduce using rule 70 (condition -> variable sign exp .)
+    OPER            shift and go to state 80
+
+
+state 119
+
+    (71) sign -> EQUALS .
+
+    EQUALS          reduce using rule 71 (sign -> EQUALS .)
+    OPER            reduce using rule 71 (sign -> EQUALS .)
+    ALB             reduce using rule 71 (sign -> EQUALS .)
+    ARB             reduce using rule 71 (sign -> EQUALS .)
+    NUMBER          reduce using rule 71 (sign -> EQUALS .)
+    STRING          reduce using rule 71 (sign -> EQUALS .)
+    MY              reduce using rule 71 (sign -> EQUALS .)
+    SCALAR          reduce using rule 71 (sign -> EQUALS .)
+    ARRAY           reduce using rule 71 (sign -> EQUALS .)
+    HASH            reduce using rule 71 (sign -> EQUALS .)
+
+
+state 120
+
+    (64) for_cond -> variable EQUALS exp . SEMI variable sign exp SEMI increment
+    (49) exp -> exp . OPER exp
+
+    SEMI            shift and go to state 127
+    OPER            shift and go to state 80
+
+
+state 121
+
+    (15) package_dec -> PACKAGE KEYWORD SEMI upind body . lowind NUMBER SEMI
+    (19) lowind -> .
+
+    NUMBER          reduce using rule 19 (lowind -> .)
+
+    lowind                         shift and go to state 128
+
+state 122
+
+    (67) block -> l_braces body r_braces .
+
+    KEYWORD         reduce using rule 67 (block -> l_braces body r_braces .)
+    COMMENT         reduce using rule 67 (block -> l_braces body r_braces .)
+    PACKAGE         reduce using rule 67 (block -> l_braces body r_braces .)
+    SUB             reduce using rule 67 (block -> l_braces body r_braces .)
+    BLESS           reduce using rule 67 (block -> l_braces body r_braces .)
+    RETURN          reduce using rule 67 (block -> l_braces body r_braces .)
+    MY              reduce using rule 67 (block -> l_braces body r_braces .)
+    SCALAR          reduce using rule 67 (block -> l_braces body r_braces .)
+    ARRAY           reduce using rule 67 (block -> l_braces body r_braces .)
+    HASH            reduce using rule 67 (block -> l_braces body r_braces .)
+    $end            reduce using rule 67 (block -> l_braces body r_braces .)
+    RFB             reduce using rule 67 (block -> l_braces body r_braces .)
+    NUMBER          reduce using rule 67 (block -> l_braces body r_braces .)
+
+
+state 123
+
+    (69) r_braces -> RFB .
+
+    KEYWORD         reduce using rule 69 (r_braces -> RFB .)
+    COMMENT         reduce using rule 69 (r_braces -> RFB .)
+    PACKAGE         reduce using rule 69 (r_braces -> RFB .)
+    SUB             reduce using rule 69 (r_braces -> RFB .)
+    BLESS           reduce using rule 69 (r_braces -> RFB .)
+    RETURN          reduce using rule 69 (r_braces -> RFB .)
+    MY              reduce using rule 69 (r_braces -> RFB .)
+    SCALAR          reduce using rule 69 (r_braces -> RFB .)
+    ARRAY           reduce using rule 69 (r_braces -> RFB .)
+    HASH            reduce using rule 69 (r_braces -> RFB .)
+    $end            reduce using rule 69 (r_braces -> RFB .)
+    RFB             reduce using rule 69 (r_braces -> RFB .)
+    NUMBER          reduce using rule 69 (r_braces -> RFB .)
+
+
+state 124
+
+    (17) bless_st -> BLESS LB argument RB SEMI .
+
+    KEYWORD         reduce using rule 17 (bless_st -> BLESS LB argument RB SEMI .)
+    COMMENT         reduce using rule 17 (bless_st -> BLESS LB argument RB SEMI .)
+    PACKAGE         reduce using rule 17 (bless_st -> BLESS LB argument RB SEMI .)
+    SUB             reduce using rule 17 (bless_st -> BLESS LB argument RB SEMI .)
+    BLESS           reduce using rule 17 (bless_st -> BLESS LB argument RB SEMI .)
+    RETURN          reduce using rule 17 (bless_st -> BLESS LB argument RB SEMI .)
+    MY              reduce using rule 17 (bless_st -> BLESS LB argument RB SEMI .)
+    SCALAR          reduce using rule 17 (bless_st -> BLESS LB argument RB SEMI .)
+    ARRAY           reduce using rule 17 (bless_st -> BLESS LB argument RB SEMI .)
+    HASH            reduce using rule 17 (bless_st -> BLESS LB argument RB SEMI .)
+    $end            reduce using rule 17 (bless_st -> BLESS LB argument RB SEMI .)
+    RFB             reduce using rule 17 (bless_st -> BLESS LB argument RB SEMI .)
+    NUMBER          reduce using rule 17 (bless_st -> BLESS LB argument RB SEMI .)
+
+
+state 125
+
+    (58) hash_arg -> hash_arg HASH_OP hash_arg .
+    (58) hash_arg -> hash_arg . HASH_OP hash_arg
+    (59) hash_arg -> hash_arg . COMMA hash_arg
+
+  ! shift/reduce conflict for HASH_OP resolved as shift
+  ! shift/reduce conflict for COMMA resolved as shift
+    RB              reduce using rule 58 (hash_arg -> hash_arg HASH_OP hash_arg .)
+    RFB             reduce using rule 58 (hash_arg -> hash_arg HASH_OP hash_arg .)
+    HASH_OP         shift and go to state 110
+    COMMA           shift and go to state 111
+
+  ! HASH_OP         [ reduce using rule 58 (hash_arg -> hash_arg HASH_OP hash_arg .) ]
+  ! COMMA           [ reduce using rule 58 (hash_arg -> hash_arg HASH_OP hash_arg .) ]
+
+
+state 126
+
+    (59) hash_arg -> hash_arg COMMA hash_arg .
+    (58) hash_arg -> hash_arg . HASH_OP hash_arg
+    (59) hash_arg -> hash_arg . COMMA hash_arg
+
+  ! shift/reduce conflict for HASH_OP resolved as shift
+  ! shift/reduce conflict for COMMA resolved as shift
+    RB              reduce using rule 59 (hash_arg -> hash_arg COMMA hash_arg .)
+    RFB             reduce using rule 59 (hash_arg -> hash_arg COMMA hash_arg .)
+    HASH_OP         shift and go to state 110
+    COMMA           shift and go to state 111
+
+  ! HASH_OP         [ reduce using rule 59 (hash_arg -> hash_arg COMMA hash_arg .) ]
+  ! COMMA           [ reduce using rule 59 (hash_arg -> hash_arg COMMA hash_arg .) ]
+
+
+state 127
+
+    (64) for_cond -> variable EQUALS exp SEMI . variable sign exp SEMI increment
+    (36) variable -> . scalar_var
+    (37) variable -> . arr_var
+    (38) variable -> . hash_var
+    (39) scalar_var -> . MY SCALAR
+    (40) scalar_var -> . SCALAR
+    (41) arr_var -> . MY ARRAY
+    (42) arr_var -> . ARRAY
+    (43) hash_var -> . MY HASH
+    (44) hash_var -> . HASH
+
+    MY              shift and go to state 25
+    SCALAR          shift and go to state 26
+    ARRAY           shift and go to state 27
+    HASH            shift and go to state 28
+
+    variable                       shift and go to state 129
+    scalar_var                     shift and go to state 38
+    arr_var                        shift and go to state 39
+    hash_var                       shift and go to state 40
+
+state 128
+
+    (15) package_dec -> PACKAGE KEYWORD SEMI upind body lowind . NUMBER SEMI
+
+    NUMBER          shift and go to state 130
+
+
+state 129
+
+    (64) for_cond -> variable EQUALS exp SEMI variable . sign exp SEMI increment
+    (71) sign -> . EQUALS
+    (72) sign -> . OPER
+    (73) sign -> . ALB
+    (74) sign -> . ARB
+    (75) sign -> . sign sign
+
+    EQUALS          shift and go to state 119
+    OPER            shift and go to state 99
+    ALB             shift and go to state 100
+    ARB             shift and go to state 101
+
+    sign                           shift and go to state 131
+
+state 130
+
+    (15) package_dec -> PACKAGE KEYWORD SEMI upind body lowind NUMBER . SEMI
+
+    SEMI            shift and go to state 132
+
+
+state 131
+
+    (64) for_cond -> variable EQUALS exp SEMI variable sign . exp SEMI increment
+    (75) sign -> sign . sign
+    (46) exp -> . NUMBER
+    (47) exp -> . STRING
+    (48) exp -> . variable
+    (49) exp -> . exp OPER exp
+    (71) sign -> . EQUALS
+    (72) sign -> . OPER
+    (73) sign -> . ALB
+    (74) sign -> . ARB
+    (75) sign -> . sign sign
+    (36) variable -> . scalar_var
+    (37) variable -> . arr_var
+    (38) variable -> . hash_var
+    (39) scalar_var -> . MY SCALAR
+    (40) scalar_var -> . SCALAR
+    (41) arr_var -> . MY ARRAY
+    (42) arr_var -> . ARRAY
+    (43) hash_var -> . MY HASH
+    (44) hash_var -> . HASH
+
+    NUMBER          shift and go to state 46
+    STRING          shift and go to state 47
+    EQUALS          shift and go to state 119
+    OPER            shift and go to state 99
+    ALB             shift and go to state 100
+    ARB             shift and go to state 101
+    MY              shift and go to state 25
+    SCALAR          shift and go to state 26
+    ARRAY           shift and go to state 27
+    HASH            shift and go to state 28
+
+    variable                       shift and go to state 48
+    exp                            shift and go to state 133
+    sign                           shift and go to state 117
+    scalar_var                     shift and go to state 38
+    arr_var                        shift and go to state 39
+    hash_var                       shift and go to state 40
+
+state 132
+
+    (15) package_dec -> PACKAGE KEYWORD SEMI upind body lowind NUMBER SEMI .
+
+    KEYWORD         reduce using rule 15 (package_dec -> PACKAGE KEYWORD SEMI upind body lowind NUMBER SEMI .)
+    COMMENT         reduce using rule 15 (package_dec -> PACKAGE KEYWORD SEMI upind body lowind NUMBER SEMI .)
+    PACKAGE         reduce using rule 15 (package_dec -> PACKAGE KEYWORD SEMI upind body lowind NUMBER SEMI .)
+    SUB             reduce using rule 15 (package_dec -> PACKAGE KEYWORD SEMI upind body lowind NUMBER SEMI .)
+    BLESS           reduce using rule 15 (package_dec -> PACKAGE KEYWORD SEMI upind body lowind NUMBER SEMI .)
+    RETURN          reduce using rule 15 (package_dec -> PACKAGE KEYWORD SEMI upind body lowind NUMBER SEMI .)
+    MY              reduce using rule 15 (package_dec -> PACKAGE KEYWORD SEMI upind body lowind NUMBER SEMI .)
+    SCALAR          reduce using rule 15 (package_dec -> PACKAGE KEYWORD SEMI upind body lowind NUMBER SEMI .)
+    ARRAY           reduce using rule 15 (package_dec -> PACKAGE KEYWORD SEMI upind body lowind NUMBER SEMI .)
+    HASH            reduce using rule 15 (package_dec -> PACKAGE KEYWORD SEMI upind body lowind NUMBER SEMI .)
+    $end            reduce using rule 15 (package_dec -> PACKAGE KEYWORD SEMI upind body lowind NUMBER SEMI .)
+    RFB             reduce using rule 15 (package_dec -> PACKAGE KEYWORD SEMI upind body lowind NUMBER SEMI .)
+    NUMBER          reduce using rule 15 (package_dec -> PACKAGE KEYWORD SEMI upind body lowind NUMBER SEMI .)
+
+
+state 133
+
+    (64) for_cond -> variable EQUALS exp SEMI variable sign exp . SEMI increment
+    (49) exp -> exp . OPER exp
+
+    SEMI            shift and go to state 134
+    OPER            shift and go to state 80
+
+
+state 134
+
+    (64) for_cond -> variable EQUALS exp SEMI variable sign exp SEMI . increment
+    (65) increment -> . variable OPER OPER
+    (66) increment -> . variable sign exp
+    (36) variable -> . scalar_var
+    (37) variable -> . arr_var
+    (38) variable -> . hash_var
+    (39) scalar_var -> . MY SCALAR
+    (40) scalar_var -> . SCALAR
+    (41) arr_var -> . MY ARRAY
+    (42) arr_var -> . ARRAY
+    (43) hash_var -> . MY HASH
+    (44) hash_var -> . HASH
+
+    MY              shift and go to state 25
+    SCALAR          shift and go to state 26
+    ARRAY           shift and go to state 27
+    HASH            shift and go to state 28
+
+    variable                       shift and go to state 135
+    increment                      shift and go to state 136
+    scalar_var                     shift and go to state 38
+    arr_var                        shift and go to state 39
+    hash_var                       shift and go to state 40
+
+state 135
+
+    (65) increment -> variable . OPER OPER
+    (66) increment -> variable . sign exp
+    (71) sign -> . EQUALS
+    (72) sign -> . OPER
+    (73) sign -> . ALB
+    (74) sign -> . ARB
+    (75) sign -> . sign sign
+
+    OPER            shift and go to state 137
+    EQUALS          shift and go to state 119
+    ALB             shift and go to state 100
+    ARB             shift and go to state 101
+
+    sign                           shift and go to state 138
+
+state 136
+
+    (64) for_cond -> variable EQUALS exp SEMI variable sign exp SEMI increment .
+
+    RB              reduce using rule 64 (for_cond -> variable EQUALS exp SEMI variable sign exp SEMI increment .)
+
+
+state 137
+
+    (65) increment -> variable OPER . OPER
+    (72) sign -> OPER .
+
+  ! shift/reduce conflict for OPER resolved as shift
+    OPER            shift and go to state 139
+    NUMBER          reduce using rule 72 (sign -> OPER .)
+    STRING          reduce using rule 72 (sign -> OPER .)
+    EQUALS          reduce using rule 72 (sign -> OPER .)
+    ALB             reduce using rule 72 (sign -> OPER .)
+    ARB             reduce using rule 72 (sign -> OPER .)
+    MY              reduce using rule 72 (sign -> OPER .)
+    SCALAR          reduce using rule 72 (sign -> OPER .)
+    ARRAY           reduce using rule 72 (sign -> OPER .)
+    HASH            reduce using rule 72 (sign -> OPER .)
+
+  ! OPER            [ reduce using rule 72 (sign -> OPER .) ]
+
+
+state 138
+
+    (66) increment -> variable sign . exp
+    (75) sign -> sign . sign
+    (46) exp -> . NUMBER
+    (47) exp -> . STRING
+    (48) exp -> . variable
+    (49) exp -> . exp OPER exp
+    (71) sign -> . EQUALS
+    (72) sign -> . OPER
+    (73) sign -> . ALB
+    (74) sign -> . ARB
+    (75) sign -> . sign sign
+    (36) variable -> . scalar_var
+    (37) variable -> . arr_var
+    (38) variable -> . hash_var
+    (39) scalar_var -> . MY SCALAR
+    (40) scalar_var -> . SCALAR
+    (41) arr_var -> . MY ARRAY
+    (42) arr_var -> . ARRAY
+    (43) hash_var -> . MY HASH
+    (44) hash_var -> . HASH
+
+    NUMBER          shift and go to state 46
+    STRING          shift and go to state 47
+    EQUALS          shift and go to state 119
+    OPER            shift and go to state 99
+    ALB             shift and go to state 100
+    ARB             shift and go to state 101
+    MY              shift and go to state 25
+    SCALAR          shift and go to state 26
+    ARRAY           shift and go to state 27
+    HASH            shift and go to state 28
+
+    variable                       shift and go to state 48
+    sign                           shift and go to state 117
+    exp                            shift and go to state 140
+    scalar_var                     shift and go to state 38
+    arr_var                        shift and go to state 39
+    hash_var                       shift and go to state 40
+
+state 139
+
+    (65) increment -> variable OPER OPER .
+
+    RB              reduce using rule 65 (increment -> variable OPER OPER .)
+
+
+state 140
+
+    (66) increment -> variable sign exp .
+    (49) exp -> exp . OPER exp
+
+    RB              reduce using rule 66 (increment -> variable sign exp .)
+    OPER            shift and go to state 80
+
+WARNING: 
+WARNING: Conflicts:
+WARNING: 
+WARNING: shift/reduce conflict for EQUALS in state 15 resolved as shift
+WARNING: shift/reduce conflict for EQUALS in state 17 resolved as shift
+WARNING: shift/reduce conflict for EQUALS in state 18 resolved as shift
+WARNING: shift/reduce conflict for NUMBER in state 98 resolved as shift
+WARNING: shift/reduce conflict for STRING in state 98 resolved as shift
+WARNING: shift/reduce conflict for MY in state 98 resolved as shift
+WARNING: shift/reduce conflict for SCALAR in state 98 resolved as shift
+WARNING: shift/reduce conflict for ARRAY in state 98 resolved as shift
+WARNING: shift/reduce conflict for HASH in state 98 resolved as shift
+WARNING: shift/reduce conflict for COMMA in state 102 resolved as shift
+WARNING: shift/reduce conflict for OPER in state 106 resolved as shift
+WARNING: shift/reduce conflict for COMMA in state 114 resolved as shift
+WARNING: shift/reduce conflict for EQUALS in state 117 resolved as shift
+WARNING: shift/reduce conflict for OPER in state 117 resolved as shift
+WARNING: shift/reduce conflict for ALB in state 117 resolved as shift
+WARNING: shift/reduce conflict for ARB in state 117 resolved as shift
+WARNING: shift/reduce conflict for HASH_OP in state 125 resolved as shift
+WARNING: shift/reduce conflict for COMMA in state 125 resolved as shift
+WARNING: shift/reduce conflict for HASH_OP in state 126 resolved as shift
+WARNING: shift/reduce conflict for COMMA in state 126 resolved as shift
+WARNING: shift/reduce conflict for OPER in state 137 resolved as shift

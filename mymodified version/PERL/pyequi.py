@@ -1,7 +1,3 @@
-class mod:
-	def add(*argv):
-		arg = (list(argv)[1:]).reverse()
-		a=arg.pop()
-		b=arg.pop()
-		c=a+b
-		return c
+array={20:30,40:50}
+hash={"hello":5,"four":4}
+h={"one":1,"two":2}
