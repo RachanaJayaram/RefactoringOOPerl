@@ -1,3 +1,19 @@
-%array = (20,30,40,50);
-%hash = ("hello",5,"four",4);
-%h = {"one"=>1,"two"=>2};
+package date;
+sub new{
+    my $class = shift;
+    my %self =
+    {
+        "dd" => shift,
+        "mm" => shift,
+        "yy" => shift
+    };
+    bless($self, $class);
+    return $self;
+}
+
+sub dispdate
+{
+    my $self = shift;
+    my $date = shift;
+}
+1;

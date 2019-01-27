@@ -1,3 +1,9 @@
-array={20:30,40:50}
-hash={"hello":5,"four":4}
-h={"one":1,"two":2}
+class date:
+	def __init__(self,*argv):
+		arg = (list(argv)[1:]).reverse()
+		self.self={"dd":arg.pop(),"mm":arg.pop(),"yy":arg.pop()}
+		
+		
+	def dispdate(self,*argv):
+		self.self=arg.pop()
+		self.date=arg.pop()

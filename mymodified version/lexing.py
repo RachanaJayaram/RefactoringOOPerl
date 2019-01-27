@@ -63,7 +63,7 @@ def t_SHIFT(t):
     r'@_'
     return t
 def t_SCALAR(t):
-    r'(@|\$|%)[^ \t\n(){}<>;=!\+\*/-]+'
+    r'(@|\$|%)[^ ,\t\n(){}<>;=!\+\*/-]+'
     t.type = reserved.get(str(t.value)[0],'SCALAR')
     t.value = str(t.value)[1:]
     return t

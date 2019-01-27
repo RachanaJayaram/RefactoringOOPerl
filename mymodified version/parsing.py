@@ -4,6 +4,7 @@ import re
 
 indent = 0
 fLine = 0
+#incons = False
 
 # defining the body of the context
 def p_body(p):
@@ -44,9 +45,17 @@ def p_package_dec(p):
 
 # defining the constructor
 def p_cons_dec(p):
-    '''cons_dec : SUB NEW block'''
+    '''cons_dec : SUB NEW  set_cons block'''
     print("Constructor_dec: ",p[0:])
-    p[0] = "def __init__(self,*argv):\n" + p[3]
+    p[0] = "def __init__(self,*argv):\n" + p[4]
+    global incons
+    incons = False
+
+# defining that we are part of constructor
+def p_set_cons(p):
+    '''set_cons : '''
+    global incons
+    incons = True
 
 # defining the blessing part
 def p_bless_st(p):
@@ -104,7 +113,9 @@ def p_argument(p):
     '''argument : variable
                 | STRING
                 | NUMBER
+                | SHIFT
                 | argument COMMA argument
+                | argument HASH_OP argument
                 | empty'''
     print("argument: ",p[0:])
     p[0] = "".join(str(x) for x in p[1:])
@@ -114,17 +125,18 @@ def p_argument(p):
 def p_var_dec(p):
     '''var_dec : scalar_var EQUALS exp SEMI
                 | variable EQUALS input SEMI
-                | variable EQUALS SHIFT SEMI
                 | arr_var EQUALS arr_exp SEMI
                 | hash_var EQUALS hash_exp SEMI'''
     print("var_dec: ",p[0:])
-    if p[3] == "shift":
+    if "shift" in p[3]:
         global fLine
         fLine +=1
         if fLine == 1:
             p[0] = "arg = (list(argv)[1:]).reverse()"
         else:
             p[0] = "self." + p[1] + p[2] + "arg.pop()"
+    elif "arg.pop()" in p[3]:
+        p[0] = "self." + p[1] + p[2] + p[3]
     else:
         p[0] = str(p[1]) + str(p[2]) + p[3]
 
@@ -170,13 +182,17 @@ def p_hash_var(p):
 def p_return_st(p):
     '''return_st : RETURN exp SEMI'''
     print("return_st: ",p[0:])
-    p[0] = p[1] + " " + p[2]
+    if not incons:
+        p[0] = p[1] + " " + p[2]
+    else:
+        p[0] = ""
 
 # right hand side of var dec
 def p_exp(p):
     '''exp : NUMBER
             | STRING
             | variable
+            | SHIFT
             | exp OPER exp'''
     print("exp: ",p[0:])
     try:
@@ -199,7 +215,7 @@ def p_hash_exp(p):
 
 # defining first type of hash declaration
 def p_first_hash(p):
-    '''first_hash : LB hash_arg RB'''
+    '''first_hash : LB argument RB'''
     print("first_hash: ",p[0:])
     p[0] = "{"
     key = True
@@ -217,7 +233,7 @@ def p_first_hash(p):
 
 # defining second type of hash declaration
 def p_second_hash(p):
-    '''second_hash : LFB hash_arg RFB'''
+    '''second_hash : LFB argument RFB'''
     print("second_hash: ",p[0:])
     p[0] ="{"
     key = True
@@ -232,16 +248,6 @@ def p_second_hash(p):
                 p[0] = p[0] + str(i) + ","
             key = True
     p[0] = p[0][:-1] + "}"
- 
-# defining hash argument
-def p_hash_arg(p):
-    '''hash_arg : STRING
-                | NUMBER
-                | SHIFT
-                | hash_arg HASH_OP hash_arg
-                | hash_arg COMMA hash_arg'''
-    print("hash_arg",p[0:])
-    p[0] = "".join(str(x) for x in p[1:])
 
 # to handle stdin (perl input)
 def p_input(p):
