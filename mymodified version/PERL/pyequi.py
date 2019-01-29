@@ -1,8 +1,9 @@
-value=10+20
-var=30
-string="hello"
-inp=input()
-chomp(inp)
-print("hello",inp)
-for i in range(0,n+1,+1):
-	j=1
+class date:
+	def __init__(self,*argv):
+		arg = (list(argv)[1:]).reverse()
+		self.self={"dd":arg.pop(),"mm":arg.pop(),"yy":arg.pop()}
+		
+		
+	def dispdate(self,*argv):
+		self.self=arg.pop()
+		self.date=arg.pop()

@@ -1,10 +1,19 @@
-@value = 10 + 20;
-@var = 30;
-@string = "hello";
-@inp = <STDIN>;
-chomp(@inp);
-print "hello",@inp;
-for(@i = 0 ; @i<=@n ; @i++)
-{
-	$j = 1;
+package date;
+sub new{
+    my $class = shift;
+    my %self =
+    {
+        "dd" => shift,
+        "mm" => shift,
+        "yy" => shift
+    };
+    bless($self, $class);
+    return $self;
 }
+
+sub dispdate
+{
+    my $self = shift;
+    my $date = shift;
+}
+1;
