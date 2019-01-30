@@ -11,3 +11,12 @@ Check week2 files for latest code ->written by me
 <h5>
 Week 3 used parse tree built by yacc instead of a list. This made ordering the elements easier.
 </h5>
+Week 4
+#skanda
+I have implemented all expressions. There is ternary expression left which has to be implemented. Expressions like unary preincrement/post increment which don't have support in python have been implemented as function instead. Also perl unlike python attempts to convert strings to int and this conversion is not similar to python. That has also been implemented. <h5> All these have been implemented in ctools module. </h5>
+
+Hashes have to be integrated from Gaurav's module. Also changes have to be made to function declaration depending on whether it is written in a package or not. Even constructors have to be properly integrated.
+
+<h5> I have given comments whereever necessary for easy completion of the incomplete integration work of mine ! </h5>
+
+
