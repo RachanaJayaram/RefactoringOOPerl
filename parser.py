@@ -202,17 +202,18 @@ def p_termunop(p):
 
 def p_term(p):
     '''term : termbinop
-	       | termunop
+	   | termunop
            | PARANTHESIS_L term PARANTHESIS_R
            | NAME
            | NUMBER
            | STRING
            | INPUT
            | PRINT
-           | hash_exp       
+           | hash_exp      
            | Q BRACES_LEFT NAME BRACES_RIGHT
            | QQ BRACES_LEFT NAME BRACES_RIGHT
            | QX BRACES_LEFT NAME BRACES_RIGHT'''
+ 	#can integrate the ternary operator here
     if p[1]=='(':
         p[0]="("+str(p[2])+")"
     elif len(p)==5:
