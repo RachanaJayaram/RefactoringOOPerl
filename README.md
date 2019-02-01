@@ -22,3 +22,6 @@ Hashes have to be integrated from Gaurav's module. Also changes have to be made 
 I have uploaded 4 files. lexer.py , parser.py, ctools.py and input_code.pm. Also for easy coordination next time, I think it would be better to use uniform token names and grammer rules.
 
 
+Found one bug in the code.
+Skanda : In the lexing you gave higher priority to <,> when compared to <=,>= .
+          
