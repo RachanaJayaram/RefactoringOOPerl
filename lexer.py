@@ -56,7 +56,7 @@ def t_DORDOR(t):
      r'//'
      return t
 def t_RELOP(t):
-     r'(>)|(<)|(>=)|(<=)|(gt)|(lt)|(le)|(ge)'
+     r'(>=)|(<=)|(>)|(<)|(gt)|(lt)|(le)|(ge)'
      return t
 
 def t_EQOP(t):
