@@ -1,12 +1,12 @@
 package date;
-sub hello {
+sub new {
     my $class = shift;
-   # my %self =
-    #{
-     #   "dd" => shift,
-      #  "mm" => shift,
-       # "yy" => shift
-    #};
+   my %self =
+    {
+        "dd" => shift,
+        "mm" => shift,
+        "yy" => shift
+    };
     #the hash is not working. have to fix the errors
     bless($self, $class);
     return $self;
@@ -15,7 +15,7 @@ sub hello {
 sub dispdate
 {
     my $self = shift;
-    my $date = shift;
+    my $dat = shift;
 }
-
+1;
    

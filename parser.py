@@ -1,8 +1,10 @@
+# Dependencies
 import ply.yacc as yacc
 from lexer import tokens , my_lexer
 import re
+
+# variables
 output=[]
-indent=1
 stack=[]
 addmulop=['+','-','**','*','/','%','x','.']
 match={'gt':'>','lt':'<','ge':'>=','le':'<=','eq':'==','ne':'!=','&&':'and','||':'or'}
@@ -11,8 +13,14 @@ intops=['<<','>>','~'] #work only on ints
 iss=lambda x: (type(x)==str) and (("'" in x) or ('"' in x)) #check if term is string
 iv=lambda x: (type(x) == str) and (("$" in x) or ('%' in x) or ('@' in x) ) #check if term is variable 
 start ='body'
+
+# in variables
 indent = 0
+pac = False
 incons = False
+inpac = False
+fline = 0
+
 precedence = ( #operator precedence and associativity table 
      ('left', 'WOR', 'WXOR'),
      ('left', 'WAND'),
@@ -36,6 +44,7 @@ precedence = ( #operator precedence and associativity table
      ('left','DEREF'),
 )
 
+# Grammer
 def p_body( p ):
     '''body : statementlist
             | empty          
@@ -50,7 +59,7 @@ def p_statementlist(p):
 # all types of statements
 
 def p_statement(p):
-    '''statement : package_dec
+    '''statement : package_dec           
                  | var_dec
                  | function_dec
                  | function_call
@@ -58,8 +67,15 @@ def p_statement(p):
                  | cons_dec
                  | bless_st
                  | return_st
-                 | term'''
-    p[0]=p[1]
+                 | term
+                 | package_end'''
+    global pac
+    if pac:
+        pac =False
+        ind = 0
+    else:
+        ind = indent
+    p[0]= "\t"*ind + str(p[1])
 
 # binary operators
 def p_termbinop(p):  
@@ -202,14 +218,14 @@ def p_termunop(p):
 
 def p_term(p):
     '''term : termbinop
-	   | termunop
+	       | termunop
+           | hash_exp 
            | PARANTHESIS_L term PARANTHESIS_R
            | NAME
            | NUMBER
            | STRING
            | INPUT
-           | PRINT
-           | hash_exp      
+           | PRINT     
            | Q BRACES_LEFT NAME BRACES_RIGHT
            | QQ BRACES_LEFT NAME BRACES_RIGHT
            | QX BRACES_LEFT NAME BRACES_RIGHT'''
@@ -223,16 +239,28 @@ def p_term(p):
             p[0]="\""+p[3]+"\""
         elif ('qx' in p[1]):
             p[0]="`"+p[3]+"`"
+    # this elif will always fail
     elif len(p)==4 and (p[2]==',' or p[2]=='=>'):
         p[0]=str(p[1])+p[2]+str(p[3]) 
     else :
         p[0]=p[1]
 
+# object oriented part
+# defining the package
 def p_package_dec( p ) :
     'package_dec : PACKAGE NAME SEMI'
-    global indent
-    indent = 1
-    p[0] = "class "+str(p[2])+" :\n"
+    global indent, inpac, pac
+    indent += 1
+    inpac = True
+    pac = True
+    p[0] = "class "+str(p[2])+" :"
+
+# defining end of package
+def p_package_end(p):
+    '''package_end : NUMBER SEMI'''
+    p[0] = ""
+    global inpac
+    inpac = False
 
 # defining the constructor
 def p_cons_dec(p):
@@ -248,38 +276,40 @@ def p_set_cons(p):
     incons = True
 
 # defining the blessing part
-
 def p_bless_st(p):
     '''bless_st : BLESS PARANTHESIS_L argument PARANTHESIS_R SEMI'''
     #print("bless_st: ", p[0:])
     p[0] = ""
 
 # defing the block
-
-
 def p_block(p):
-    '''block : BRACES_LEFT body BRACES_RIGHT'''
+    '''block : braces_left body BRACES_RIGHT'''
     #print("block: ", p[0:])
     p[0] = p[2]
-
+    global indent
+    indent -= 1
 
 def p_function_dec( p ):
-    '''function_dec : SUB NAME  braces_left body braces_right'''
-    p[0]="\t"*indent+"def "+str(p[2])+" (self,*argv) : \n"+"\t"*(indent+1)+"i=0 "+"\n"+p[4] # modifications have to be made here for functions written without using packages
+    '''function_dec : SUB NAME  block'''
+    # modifications have to be made here for functions written without using packages
+    # the required modifications
+    if inpac:
+        extra = "self,"
+    else:
+        extra = ""
+    p[0] = "def " + str(p[2]) + "(" + extra + "argv):\n" + p[3]
+    global fline
+    fline = 0
 
 # defining return statement
-
-
 def p_return_st(p):
     '''return_st : RETURN term SEMI'''
     if not incons:
-        p[0] = "\t"*indent+p[1] + " " + p[2]
+        p[0] = p[1] + " " + p[2][1:]
     else:
         p[0] = ""
 
 # defining function calls
-
-
 def p_function_call(p):
     ''' function_call : NAME PARANTHESIS_L argument PARANTHESIS_R SEMI'''
     p[0] = "".join(p[1:5])
@@ -288,10 +318,10 @@ def p_function_call(p):
     
 
 def p_var_dec( p ):
-    '''var_dec : MY NAME ASSIGNOP term SEMI
-               | MY NAME ASSIGNOP SHIFT SEMI
-               | NAME ASSIGNOP term SEMI'''
-    if len(p)==6 and p[4]=='shift':
+    '''var_dec : my NAME ASSIGNOP term SEMI
+               | my NAME ASSIGNOP SHIFT SEMI'''
+               #| NAME ASSIGNOP term SEMI
+    """if len(p)==6 and p[4]=='shift':
         if(p[2][0]=='$'):
             p[0]="\t"*indent+p[2][1:]+' = argv[i]\n'+"\t"*indent+"i+=1" # have to add support for hashes here
     if len(p)==6 and p[4]!='shift':
@@ -299,8 +329,32 @@ def p_var_dec( p ):
             p[0]="\t"*indent+p[2][1:]+" "+p[3]+" "+str(p[4])
     else:
         if(p[1][0] == '$'):
-            p[0]="\t"*indent+p[1][1:]+" "+p[2]+" "+str(p[3])
+            p[0]="\t"*indent+p[1][1:]+" "+p[2]+" "+str(p[3])"""
+    if p[4] == 'shift':
+        global fline
+        fline += 1
+        if (fline == 1 and inpac and incons) or (fline == 1 and not inpac):
+            p[0] = "arg = list(argv).reverse()"
+        elif fline == 1 and inpac:
+            p[0] = p[2][1:] + p[3] + "self\n" + "\t"*indent
+            p[0] += "arg = list(argv).reverse()" 
+        elif incons and p[2][0] == "$":
+            p[0] = "self." + p[2][1:] + p[3] + "arg.pop()"
+        elif incons:
+            p[0] = "self." + p[2][1:] + p[3] + p[4]
+        else:
+            p[0] = p[2][1:] + p[3] + "arg.pop()"
+    elif incons:
+        p[0] = "self." + p[2][1:] + p[3] + p[4]
+    else:
+        p[0] = p[2][1:] + p[3] + p[4]
+        
 
+# defining my
+def p_my(p):
+    '''my : MY
+            | empty'''
+    p[0] = p[1]
 
 def p_hash_exp(p):
     '''hash_exp : first_hash
@@ -308,8 +362,6 @@ def p_hash_exp(p):
     p[0] = p[1]
 
 # defining first type of hash declaration
-
-
 def p_first_hash(p):
     '''first_hash : PARANTHESIS_L argument PARANTHESIS_R'''
     p[0] = "{"
@@ -327,8 +379,6 @@ def p_first_hash(p):
     p[0] = p[0][:-1] + "}"
 
 # defining second type of hash declaration
-
-
 def p_second_hash(p):
     '''second_hash : BRACES_LEFT argument BRACES_RIGHT'''
     p[0] = "{"
@@ -366,12 +416,7 @@ def p_comment( p ):
 def p_braces_left( p ):
     '''braces_left : BRACES_LEFT'''
     global indent
-    indent+=1
-
-def p_braces_right( p ):
-    '''braces_right : BRACES_RIGHT'''
-    global indent
-    indent-=1
+    indent += 1
 
 def p_empty(p):
      'empty :'
@@ -386,6 +431,7 @@ def p_error(p):
 def my_parser():
     input_file= open ( "input_code.pm ","r")
     perl_inp=input_file.read()
+    my_lexer(perl_inp)
     #file = open ("python_code.py","w+")
     parser = yacc.yacc()
     p=parser.parse(perl_inp)

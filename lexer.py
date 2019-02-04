@@ -33,15 +33,25 @@ t_BRACES_RIGHT = r'\}'
 t_PARANTHESIS_L = r'\('
 t_PARANTHESIS_R = r'\)'
 t_DEREF = r'->'
-t_HASH_OP = r'=>'
 t_COMMENT = r'\#.*'
 
-
+def t_HASH_OP(t):
+     r'=>'
+     return t
 
 def t_INCREMENT(t):
      r'\+\+'
      return t
 
+def t_NAME(t):
+    r'[$@%]?[a-zA-Z][a-zA-Z0-9_]*'
+    t.value=t.value
+    t.type=reserved.get(t.value,'NAME')
+    return t
+    
+def t_newline(t):
+    r'\n'
+    t.lexer.lineno += len(t.value)
 
 def t_DECREMENT(t):
      r'--'
@@ -74,15 +84,6 @@ def t_NUMBER(t):
     else:
         t.value = int(t.value)
     return t
-
-def t_NAME(t):
-    r'[$@%]?[a-zA-Z][a-zA-Z0-9_]*'
-    t.value=t.value
-    t.type=reserved.get(t.value,'NAME')
-    return t
-def t_newline(t):
-    r'\n'
-    t.lexer.lineno += len(t.value)
  
 def t_ASSIGNOP(t):
      r'''(=)|(\+=)|(-=)|(\*=)|(\*\*=)|(/=)|(%=)|(&=)|(//=)|(&&=)|(\|=)|(\|\|=)|(\^=)|(x=)'''
@@ -124,14 +125,15 @@ def t_error(t):
 lex.lex() 
 
 def my_lexer(perl_inp):
-    #file = open ("my_lexer_op","a+")
+    file = open ("my_lexer_op","w+")
     lex.input(perl_inp)
     while True:
         tok = lex.token()
         if not tok: break
         else : 
-            print(str(tok))
-            #print("\n")    
+               print(str(tok))
+               file.write(str(tok))
+               file.write("\n")  
 
 #perl_inp=open("input_code.pm")
 #perl_inp=perl_inp.read()
