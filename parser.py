@@ -49,11 +49,13 @@ def p_body( p ):
     '''body : statementlist
             | empty          
             '''
+    print("body:")
     p[0]=p[1]
 
 def p_statementlist(p):
     '''statementlist : statement
                     | statementlist statement'''
+    print("list:",p[1:])
     p[0] = "\n".join(p[1:])
 
 # all types of statements
@@ -75,6 +77,7 @@ def p_statement(p):
         ind = 0
     else:
         ind = indent
+    print("statement:",p[1:])
     p[0]= "\t"*ind + str(p[1])
 
 # binary operators
@@ -345,7 +348,18 @@ def p_var_dec( p ):
         else:
             p[0] = p[2][1:] + p[3] + "arg.pop()"
     elif incons:
-        p[0] = "self." + p[2][1:] + p[3] + p[4]
+        if p[2][0] == "%":
+            assign = ""
+            i = 1
+            for j in re.split(":|,",p[4][1:-1]):
+                if i%2 == 1:
+                    assign += "self." + j.replace("\"","") + "="
+                else:
+                    assign += j + "\n" + "\t"*indent
+                i += 1
+            p[0] = assign
+        else:
+            p[0] = "self." + p[2][1:] + p[3] + p[4]
     else:
         p[0] = p[2][1:] + p[3] + p[4]
         
@@ -411,7 +425,7 @@ def p_INPUT(p):
 
 def p_comment( p ):
     '''comment : COMMENT'''
-    p[0] = "\t"*indent+p[1]
+    p[0] = p[1]
 
 def p_braces_left( p ):
     '''braces_left : BRACES_LEFT'''
