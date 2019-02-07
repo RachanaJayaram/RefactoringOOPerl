@@ -300,7 +300,7 @@ def p_function_dec( p ):
         extra = "self,"
     else:
         extra = ""
-    p[0] = "def " + str(p[2]) + "(" + extra + "argv):\n" + p[3]
+    p[0] = "def " + str(p[2]) + "(" + extra + "*argv):\n" + p[3]
     global fline
     fline = 0
 
