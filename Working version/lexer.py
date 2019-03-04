@@ -18,7 +18,7 @@ reserved={
     'bless': 'BLESS',
 }
 
-literals=['!','~','x','>','<']
+literals=['!','~','x','>','<',':','?']
 
 tokens=['STRING','COMMA','SEMI','BRACES_LEFT','BRACES_RIGHT','PARANTHESIS_L','PARANTHESIS_R','HASH_OP','DEREF','COMMENT','NUMBER','NAME','POWOP','ASSIGNOP','MULOP','ADDOP','SHIFTOP','RELOP','EQOP','BITANDOP','BITOROP','DOTDOT','ANDAND','OROR','DORDOR','MATCHOP','INCREMENT','DECREMENT']+list(reserved.values())
 
@@ -88,7 +88,7 @@ def t_NUMBER(t):
     return t
  
 def t_ASSIGNOP(t):
-     r'''(=)|(\+=)|(-=)|(\*=)|(\*\*=)|(/=)|(%=)|(&=)|(//=)|(&&=)|(\|=)|(\|\|=)|(\^=)|(x=)'''
+     r'''(=)|(\+=)|(-=)|(\*=)|(\*\*=)|(/=)|(%=)|(&=)|(//=)|(&&=)|(\|=)|(\|\|=)|(\^=)|(x=)|(\.=)|(&\.=)|(\|\.=)|(\^\.=)|(>>=)|(<<=)'''
      return t
 def t_POWOP(t):
      r'\*\*'
