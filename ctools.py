@@ -112,17 +112,17 @@ def strbitwise(a,op,b):
             for i in range(0, len(b)):
                 temp += chr(ord(a[i]) | ord(b[i]))
         return temp
-    elif op == '|':
+    elif op == '^':
         if len(a) > len(b):
             b += "0"*(len(a)-len(b))
             for i in range(0, len(a)):
-                temp += chr(ord(a[i]) | ord(b[i]))
+                temp += chr(ord(a[i]) ^ ord(b[i]))
         elif len(b) > len(a):
             a += "0"*(len(b)-len(a))
             for i in range(0, len(b)):
-                temp += chr(ord(a[i]) | ord(b[i]))
+                temp += chr(ord(a[i]) ^ ord(b[i]))
         else:
             for i in range(0, len(b)):
-                temp += chr(ord(a[i]) | ord(b[i]))
+                temp += chr(ord(a[i]) ^ ord(b[i]))
         return temp
 
