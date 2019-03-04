@@ -173,11 +173,11 @@ def p_term(p):
            | NAME
            | NUMBER
            | STRING
-           | var_deref   
+           | var_deref
+           | term '?' term ':' term   
            | Q BRACES_LEFT NAME BRACES_RIGHT
            | QQ BRACES_LEFT NAME BRACES_RIGHT
            | QX BRACES_LEFT NAME BRACES_RIGHT'''
- 	#can integrate the ternary operator here
     if p[1]=='(':
         p[0]="("+str(p[2])+")"
     elif len(p)==5:
@@ -187,8 +187,7 @@ def p_term(p):
             p[0]="\""+p[3]+"\""
         elif ('qx' in p[1]):
             p[0]="`"+p[3]+"`"
-    # this elif will always fail
-    elif len(p)==4 and (p[2]==',' or p[2]=='=>'):
-        p[0]=str(p[1])+p[2]+str(p[3]) 
+    elif len(p)==6:
+        p[0]=str(p[3])+" if "+str(p[1])+" else "+str(p[5])
     else :
         p[0]=p[1]
