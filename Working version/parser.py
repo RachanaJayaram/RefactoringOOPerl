@@ -48,8 +48,10 @@ def p_statement(p):
                  | constructor
                  | object_creation
                  | obj_func_call
+                 | print_st SEMI
                  | print_st
                  | use_st
+                 | arg_list SEMI
                  | comment'''
     print("statemnt: ",p[1])
     p[0] = p[1]
@@ -124,7 +126,7 @@ def p_error(p):
         print("Error at Symbol ",p.value," Line no ",p.lineno," Position ",p.lexpos)
 
 def my_parser():
-    file_name = input()
+    file_name = input() #"./input/print.pm"
     output_file_name='output'+file_name[file_name.index('/',file_name.index('/')+1):file_name.index('.',1)]+'.py'
     print(output_file_name)
     input_file = open(file_name,"r")
