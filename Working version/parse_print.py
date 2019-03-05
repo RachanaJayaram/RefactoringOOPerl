@@ -28,16 +28,10 @@ def p_var_deref(p):
     else:
         p[0] = p[1] + '.' + p[4]
 
-def p_my(p):
-    '''my : MY
-          | empty'''
-
-def p_block(p):
-    '''block : braces_left body braces_right'''
-    p[0] = p[2]
-
-def p_braces_left(p):
-    '''braces_left : BRACES_LEFT'''
-
-def p_braces_right(p):
-    '''braces_right : BRACES_RIGHT'''
+def p_variable(p):
+    '''variable : MY NAME
+          | NAME'''
+    if len(p) > 2 :
+        p[0] = p[2]
+    else:
+        p[0] = p[1]

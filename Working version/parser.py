@@ -70,46 +70,46 @@ def p_use_st(p):
     p[0] = "import " + p[2]
 
 def p_function_dec(p):
-    '''function_dec : SUB NAME block'''
+    '''function_dec : SUB NAME BRACES_LEFT body BRACES_RIGHT'''
     extra=""
     if constants.in_package:
         extra="self,"
-    p[0] = ("\n" + "def " + str(p[2]) + "(" + extra + "*argv):\n" + "\targ_list=list(argv)[::-1]", p[3])
+    p[0] = ("\n" + "def " + str(p[2]) + "(" + extra + "*argv):\n" + "\targ_list=list(argv)[::-1]", p[4])
     constants.first_line = 0
 
 def p_var_dec(p):
-    '''var_dec : my NAME ASSIGNOP SHIFT SEMI
-               | my NAME ASSIGNOP term SEMI'''
-    if p[4] == "shift":
+    '''var_dec : variable ASSIGNOP SHIFT SEMI
+               | variable ASSIGNOP term SEMI'''
+    if p[3] == "shift":
         if constants.in_package == True and constants.first_line == 0:
             constants.first_line = 1
             p[0] = []
         else:
-            if p[2][0] == '$':
-                p[0] = ('self.' + p[2][1:] + '=arg_list.pop()')
+            if p[1][0] == '$':
+                p[0] = ('self.' + p[1][1:] + '=arg_list.pop()')
     else:
-        if p[2][0] == '$':
-            if p[3] == '+=' or p[3] == '-=' or p[3] == '/=' or p[3] == '%=' or p[3] == '**=' or p[3] == '&=' or p[3] == '^=' or p[3] == '|=' or p[3] == '>>=' or p[3] == '<<=':
-                p[0] = p[2][1:] + p[3] + p[4]
-            elif p[3] == '&&=' or p[3] == '//=' or p[3] == '||=':
-                if p[3] == '&&=':
-                    p[0] = p[2][1:]+" = "+p[2][1:]+" and "+p[4]
+        if p[1][0] == '$':
+            if p[2] == '+=' or p[2] == '-=' or p[2] == '/=' or p[2] == '%=' or p[2] == '**=' or p[2] == '&=' or p[2] == '^=' or p[2] == '|=' or p[2] == '>>=' or p[2] == '<<=':
+                p[0] = p[1][1:] + p[2] + p[3]
+            elif p[2] == '&&=' or p[2] == '//=' or p[2] == '||=':
+                if p[2] == '&&=':
+                    p[0] = p[1][1:]+" = "+p[1][1:]+" and "+p[3]
                 if p[3] == '//=':
-                    p[0] = p[2][1:]+" = "+"dor( "+p[2][1:]+" , "+p[4]+" )"
+                    p[0] = p[1][1:]+" = "+"dor( "+p[1][1:]+" , "+p[3]+" )"
                 else:
-                    p[0] = p[2][1:]+" = "+p[2][1:]+" or "+p[4]
-            elif p[3] == '&.=' or p[3] == '^.=' or p[3] == '|.=':
-                p[0] = p[2][1:]+" = " + "strbitwise( "+p[2][1:]+" , "+p[3][0]+" , "+p[4]+" )"
+                    p[0] = p[1][1:]+" = "+p[1][1:]+" or "+p[3]
+            elif p[2] == '&.=' or p[2] == '^.=' or p[2] == '|.=':
+                p[0] = p[1][1:]+" = " + "strbitwise( "+p[1][1:]+" , "+p[2][0]+" , "+p[3]+" )"
             else:
-                if p[3] == '.=':
-                    p[0] = p[2][1:] + " += " + p[4]
-                elif p[3] == 'x=':
-                    p[0] = p[2][1:] + " *= " + p[4]
+                if p[2] == '.=':
+                    p[0] = p[1][1:] + " += " + p[3]
+                elif p[2] == 'x=':
+                    p[0] = p[1][1:] + " *= " + p[3]
                 else:
-                    p[0] = p[2][1:] + " = " + p[4]
+                    p[0] = p[1][1:] + " = " + p[3]
 
         else:
-            p[0] = p[2] + '=' + p[4]
+            p[0] = p[1] + '=' + p[3]
 
 def p_empty(p):
     '''empty : '''
