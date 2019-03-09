@@ -25,7 +25,7 @@ precedence = ( #operator precedence and associativity table
      ('right','!','~'),
      ('right','UMINUS'),
      ('right', 'POWOP'),
-     ('nonassoc','INCREMENT','DECREMENT'),
+     ('nonassoc', 'INCREMENT', 'DECREMENT'),
      ('left','DEREF'),
 )
 
