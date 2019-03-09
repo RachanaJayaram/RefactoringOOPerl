@@ -1,4 +1,4 @@
-fileHandles=['a']
+fileHandles=[]
 def p_print_st(p):
     '''print_st : PRINT HANDLE
                 | PRINT PARANTHESIS_L HANDLE PARANTHESIS_R'''
