@@ -12,7 +12,7 @@ def p_constructor_body(p):
     p[0] = p[2]
 
 def p_constructor_hash(p):
-    '''constructor_hash : variable ASSIGNOP BRACES_LEFT hash_statement_list BRACES_RIGHT SEMI'''
+    '''constructor_hash : my ASSIGNOP BRACES_LEFT hash_statement_list BRACES_RIGHT SEMI'''
     p[0] = p[4]
 
 def p_hash_statement_list(p):  
