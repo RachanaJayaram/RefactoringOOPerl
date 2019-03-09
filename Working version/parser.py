@@ -48,8 +48,10 @@ def p_statement(p):
                  | constructor
                  | object_creation
                  | obj_func_call
+                 | print_st SEMI
                  | print_st
                  | use_st
+                 | arg_list SEMI
                  | comment'''
     print("statemnt: ",p[1])
     p[0] = p[1]
@@ -79,37 +81,74 @@ def p_function_dec(p):
 
 def p_var_dec(p):
     '''var_dec : my NAME ASSIGNOP SHIFT SEMI
-               | my NAME ASSIGNOP term SEMI'''
-    if p[4] == "shift":
-        if constants.in_package == True and constants.first_line == 0:
-            constants.first_line = 1
-            p[0] = []
+               | my NAME ASSIGNOP term SEMI
+               | NAME ASSIGNOP SHIFT SEMI
+               | NAME ASSIGNOP term SEMI'''
+    if len(p)==6:
+        if str(p[4]) == "shift":
+            if constants.in_package == True and constants.first_line == 0:
+                constants.first_line = 1
+                p[0] = []
+            else:
+                if p[2][0] == '$':
+                    p[0] = ('self.' + p[2][1:] + '=arg_list.pop()')
         else:
             if p[2][0] == '$':
-                p[0] = ('self.' + p[2][1:] + '=arg_list.pop()')
-    else:
-        if p[2][0] == '$':
-            if p[3] == '+=' or p[3] == '-=' or p[3] == '/=' or p[3] == '%=' or p[3] == '**=' or p[3] == '&=' or p[3] == '^=' or p[3] == '|=' or p[3] == '>>=' or p[3] == '<<=':
-                p[0] = p[2][1:] + p[3] + p[4]
-            elif p[3] == '&&=' or p[3] == '//=' or p[3] == '||=':
-                if p[3] == '&&=':
-                    p[0] = p[2][1:]+" = "+p[2][1:]+" and "+p[4]
-                if p[3] == '//=':
-                    p[0] = p[2][1:]+" = "+"dor( "+p[2][1:]+" , "+p[4]+" )"
+                if p[3] == '+=' or p[3] == '-=' or p[3] == '/=' or p[3] == '%=' or p[3] == '**=' or p[3] == '&=' or p[3] == '^=' or p[3] == '|=' or p[3] == '>>=' or p[3] == '<<=':
+                    p[0] = p[2][1:] + p[3] + str(p[4])
+                elif p[3] == '&&=' or p[3] == '//=' or p[3] == '||=':
+                    if p[3] == '&&=':
+                        p[0] = p[2][1:]+" = "+p[2][1:]+" and "+str(p[4])
+                    if p[3] == '//=':
+                        p[0] = p[2][1:]+" = "+"dor( "+p[2][1:]+" , "+str(p[4])+" )"
+                    else:
+                        p[0] = p[2][1:]+" = "+p[2][1:]+" or "+str(p[4])
+                elif p[3] == '&.=' or p[3] == '^.=' or p[3] == '|.=':
+                    p[0] = p[2][1:]+" = " + "strbitwise( "+p[2][1:]+" , "+p[3][0]+" , "+str(p[4])+" )"
                 else:
-                    p[0] = p[2][1:]+" = "+p[2][1:]+" or "+p[4]
-            elif p[3] == '&.=' or p[3] == '^.=' or p[3] == '|.=':
-                p[0] = p[2][1:]+" = " + "strbitwise( "+p[2][1:]+" , "+p[3][0]+" , "+p[4]+" )"
-            else:
-                if p[3] == '.=':
-                    p[0] = p[2][1:] + " += " + p[4]
-                elif p[3] == 'x=':
-                    p[0] = p[2][1:] + " *= " + p[4]
-                else:
-                    p[0] = p[2][1:] + " = " + p[4]
+                    if p[3] == '.=':
+                        p[0] = p[2][1:] + " += " + str(p[4])
+                    elif p[3] == 'x=':
+                        p[0] = p[2][1:] + " *= " + str(p[4])
+                    else:
+                        p[0] = p[2][1:] + " = " + str(p[4])
 
+            else:
+                p[0] = p[2] + '=' + str(p[4])
+    else:
+        if str(p[3]) == "shift":
+            if constants.in_package == True and constants.first_line == 0:
+                constants.first_line = 1
+                p[0] = []
+            else:
+                if p[1][0] == '$':
+                    p[0] = ('self.' + p[1][1:] + '=arg_list.pop()')
         else:
-            p[0] = p[2] + '=' + p[4]
+            if p[1][0] == '$':
+                if p[2] == '+=' or p[2] == '-=' or p[2] == '/=' or p[2] == '%=' or p[2] == '**=' or p[2] == '&=' or p[2] == '^=' or p[2] == '|=' or p[2] == '>>=' or p[2] == '<<=':
+                    p[0] = p[1][1:] + p[2] + str(p[3])
+                elif p[2] == '&&=' or p[2] == '//=' or p[2] == '||=':
+                    if p[2] == '&&=':
+                        p[0] = p[1][1:]+" = "+p[1][1:]+" and "+str(p[3])
+                    if p[2] == '//=':
+                        p[0] = p[1][1:]+" = " + \
+                            "dor( "+p[1][1:]+" , "+str(p[3])+" )"
+                    else:
+                        p[0] = p[1][1:]+" = "+p[1][1:]+" or "+str(p[3])
+                elif p[3] == '&.=' or p[3] == '^.=' or p[3] == '|.=':
+                    p[0] = p[1][1:]+" = " + \
+                        "strbitwise( "+p[1][1:]+" , " + \
+                                    p[2][0]+" , "+str(p[3])+" )"
+                else:
+                    if p[2] == '.=':
+                        p[0] = p[1][1:] + " += " + str(p[3])
+                    elif p[2] == 'x=':
+                        p[0] = p[1][1:] + " *= " + str(p[3])
+                    else:
+                        p[0] = p[1][1:] + " = " + str(p[3])
+
+            else:
+                p[0] = p[2] + '=' + str(p[4])
 
 def p_empty(p):
     '''empty : '''
@@ -124,7 +163,7 @@ def p_error(p):
         print("Error at Symbol ",p.value," Line no ",p.lineno," Position ",p.lexpos)
 
 def my_parser():
-    file_name = input()
+    file_name = "./input/print.pm"  # input()
     output_file_name='output'+file_name[file_name.index('/',file_name.index('/')+1):file_name.index('.',1)]+'.py'
     print(output_file_name)
     input_file = open(file_name,"r")
