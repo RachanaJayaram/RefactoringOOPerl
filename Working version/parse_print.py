@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-fileHandles=['a']
-=======
 fileHandles=[]
->>>>>>> 67ddd679179428cf9226884d0f10b877b605f8b4
 def p_print_st(p):
     '''print_st : PRINT HANDLE
                 | PRINT PARANTHESIS_L HANDLE PARANTHESIS_R'''
