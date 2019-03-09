@@ -1,7 +1,7 @@
 #defining the constructor logics
 
 def p_constructor(p):
-    '''constructor : SUB NEW braces_left constructor_body braces_right'''
+    '''constructor : SUB NEW BRACES_LEFT constructor_body BRACES_RIGHT'''
     output = "\n" + "def __init__(self,*argv) : \n"
     output += "\t" + "arg_list = list(argv)[::-1]\n"
     output += "\t" + "self.__dict__.update({"
@@ -12,8 +12,8 @@ def p_constructor_body(p):
     p[0] = p[2]
 
 def p_constructor_hash(p):
-    '''constructor_hash : my NAME ASSIGNOP BRACES_LEFT hash_statement_list BRACES_RIGHT SEMI'''
-    p[0] = p[5]
+    '''constructor_hash : variable ASSIGNOP BRACES_LEFT hash_statement_list BRACES_RIGHT SEMI'''
+    p[0] = p[4]
 
 def p_hash_statement_list(p):  
     '''hash_statement_list : hash_statement

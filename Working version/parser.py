@@ -72,11 +72,11 @@ def p_use_st(p):
     p[0] = "import " + p[2]
 
 def p_function_dec(p):
-    '''function_dec : SUB NAME block'''
+    '''function_dec : SUB NAME BRACES_LEFT body BRACES_RIGHT'''
     extra=""
     if constants.in_package:
         extra="self,"
-    p[0] = ("\n" + "def " + str(p[2]) + "(" + extra + "*argv):\n" + "\targ_list=list(argv)[::-1]", p[3])
+    p[0] = ("\n" + "def " + str(p[2]) + "(" + extra + "*argv):\n" + "\targ_list=list(argv)[::-1]", p[4])
     constants.first_line = 0
 
 def p_var_dec(p):
@@ -163,7 +163,9 @@ def p_error(p):
         print("Error at Symbol ",p.value," Line no ",p.lineno," Position ",p.lexpos)
 
 def my_parser():
+
     file_name = input()  # "./input/print.pm"
+
     output_file_name='output'+file_name[file_name.index('/',file_name.index('/')+1):file_name.index('.',1)]+'.py'
     print(output_file_name)
     input_file = open(file_name,"r")
