@@ -6,6 +6,7 @@ from parse_expressions import *
 from parse_constructor import *
 from parse_print import *
 from parse_object import *
+from LC import *
 
 #global access variables
 constants = constants_mod.constants
@@ -48,6 +49,7 @@ def p_statement(p):
                  | constructor
                  | object_creation
                  | obj_func_call
+                 | control_statements
                  | print_st SEMI
                  | print_st
                  | use_st
