@@ -16,6 +16,23 @@ def p_print_st(p):
         temp = p[2][1:-1] 
         p[0] = "print( " + temp + " , end = '')"
 
+
+def p_array_statement(p):
+    '''array_statement : PARANTHESIS_L arg_list PARANTHESIS_R
+                       | PARANTHESIS_L NUMBER DOTDOT NUMBER PARANTHESIS_R'''
+    if len(p)==4:
+        if '@' not in p[2:]:
+            p[0] = "[ "+p[2]+" ]"
+        else :
+             p[0] = "flatten( [ "+p[2]+" ] )"
+    else:
+        p[0] = "list(range( "+str(p[2])+" , "+str(p[4])+" ))"
+    print(p[2])
+
+def p_sub_script(p):
+    '''sub_script : NAME '[' term ']' '''
+    p[0] = p[1][1:]+p[2]+str(p[3])+p[4]
+
 def p_HANDLE(p):
     '''HANDLE : arg_list
               | NAME arg_list'''

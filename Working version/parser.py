@@ -85,7 +85,9 @@ def p_var_dec(p):
     '''var_dec : my NAME ASSIGNOP SHIFT SEMI
                | my NAME ASSIGNOP term SEMI
                | NAME ASSIGNOP SHIFT SEMI
-               | NAME ASSIGNOP term SEMI'''
+               | NAME ASSIGNOP term SEMI
+               | NAME ASSIGNOP array_statement SEMI
+               | sub_script ASSIGNOP term SEMI'''
     if len(p)==6:
         if str(p[4]) == "shift":
             if constants.in_package == True and constants.first_line == 0:
@@ -149,9 +151,11 @@ def p_var_dec(p):
                     else:
                         p[0] = p[1][1:] + " = " + str(p[3])
 
+            elif p[1][0] == '@':
+                p[0] = p[1][1:] + '=' + str(p[3])
             else:
-                p[0] = p[2] + '=' + str(p[4])
-
+                p1 = p[1].split('[')
+                p[0] = "insert_into( "+p1[0]+" , "+p1[1].split(']')[0]+" , "+str(p[3])+" )"
 def p_empty(p):
     '''empty : '''
     p[0] = ""

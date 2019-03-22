@@ -16,14 +16,15 @@ reserved={
     "qq":"QQ",
     "qx":"QX",
     'bless': 'BLESS',
+    'qw':'QW'
 }
 
-literals=['!','~','x','>','<',':','?']
+literals=['!','~','x','>','<',':','?','[',']']
 
-tokens=['STRING','COMMA','SEMI','BRACES_LEFT','BRACES_RIGHT','PARANTHESIS_L','PARANTHESIS_R','HASH_OP','DEREF','COMMENT','NUMBER','NAME','POWOP','ASSIGNOP','MULOP','ADDOP','SHIFTOP','RELOP','EQOP','BITANDOP','BITOROP','DOTDOT','ANDAND','OROR','DORDOR','MATCHOP','INCREMENT','DECREMENT']+list(reserved.values())
+tokens = ['STRING', 'RANGE', 'COMMA', 'SEMI', 'BRACES_LEFT', 'BRACES_RIGHT', 'PARANTHESIS_L', 'PARANTHESIS_R', 'HASH_OP', 'DEREF', 'COMMENT', 'NUMBER', 'NAME', 'POWOP', 'ASSIGNOP',
+          'MULOP', 'ADDOP', 'SHIFTOP', 'RELOP', 'EQOP', 'BITANDOP', 'BITOROP', 'DOTDOT', 'ANDAND', 'OROR', 'DORDOR', 'MATCHOP', 'INCREMENT', 'DECREMENT']+list(reserved.values())
 
 t_ignore = ' \t'
-
 t_STRING = r""""([^"\\]|\\.|\\\n)*"|'([^'\\]|\\.|\\\n)*'"""
 t_COMMA = r','
 t_SEMI = r';'
@@ -32,6 +33,11 @@ t_BRACES_RIGHT = r'\}'
 t_PARANTHESIS_L = r'\('
 t_PARANTHESIS_R = r'\)'
 t_COMMENT = r'\#.*'
+
+
+def t_DOTDOT(t):
+     r'(\.\.)'
+     return t
 
 def t_DEREF(t):
     r'->'
@@ -99,10 +105,6 @@ def t_MULOP(t):
 def t_ADDOP(t):
      r'''(\+)|(-)|(\.)'''
      return t
-
-def t_DOTDOT(t):
-     r'(\.\.)|(\.\.\.)'
-     return t
 def t_ANDAND(t):
      r'&&'
      return t
@@ -137,6 +139,7 @@ def my_lexer(perl_inp):
                file.write(str(tok))
                file.write("\n")  
 
-#perl_inp=open("input_code.pm")
+
+#perl_inp = open("./input/print.pm")
 #perl_inp=perl_inp.read()
 #my_lexer(perl_inp)

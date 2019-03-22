@@ -1,3 +1,2 @@
-a = 90
-print( "$a" , "hello" , end = '' )
- , "hi"
+b=list(range( 1 , 2 ))
+insert_into( b , 3 , 78 )

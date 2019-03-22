@@ -174,6 +174,7 @@ def p_term(p):
            | NUMBER
            | STRING
            | var_deref
+           | sub_script
            | term '?' term ':' term   
            | Q BRACES_LEFT NAME BRACES_RIGHT
            | QQ BRACES_LEFT NAME BRACES_RIGHT
