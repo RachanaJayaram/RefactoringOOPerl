@@ -16,7 +16,12 @@ reserved={
     "qq":"QQ",
     "qx":"QX",
     'bless': 'BLESS',
-    'qw':'QW'
+    'qw':'QW',
+    'for':'FOR',
+    'while':'WHILE',
+    'do':'DO',
+    'until':'UNTIL',
+    'foreach':'FOREACH',
 }
 
 literals=['!','~','x','>','<',':','?','[',']']

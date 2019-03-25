@@ -21,8 +21,8 @@ def p_iterative(p):
     print(p[1:])
 
 def p_for_st(p):
-    '''for_st : NAME PARANTHESIS_L NAME ASSIGNOP NUMBER SEMI NAME RELOP NUMBER SEMI NAME INCREMENT PARANTHESIS_R BRACES_LEFT body BRACES_RIGHT
-              | NAME PARANTHESIS_L NAME ASSIGNOP NUMBER SEMI NAME RELOP NUMBER SEMI NAME DECREMENT PARANTHESIS_R BRACES_LEFT body BRACES_RIGHT'''
+    '''for_st : FOR PARANTHESIS_L NAME ASSIGNOP NUMBER SEMI NAME RELOP NUMBER SEMI NAME INCREMENT PARANTHESIS_R BRACES_LEFT body BRACES_RIGHT
+              | FOR PARANTHESIS_L NAME ASSIGNOP NUMBER SEMI NAME RELOP NUMBER SEMI NAME DECREMENT PARANTHESIS_R BRACES_LEFT body BRACES_RIGHT'''
     print(p[1])
     if (str(p[11][-2:])=="++"):
         if (p[8]=='>' or p[8]=='<' or p[8]=='!='):
@@ -37,14 +37,14 @@ def p_for_st(p):
 
 #foreach $word (@data)
 def p_foreach_st(p):
-    '''foreach_st : NAME NAME PARANTHESIS_L NAME PARANTHESIS_R BRACES_LEFT body BRACES_RIGHT'''
+    '''foreach_st : FOREACH NAME PARANTHESIS_L NAME PARANTHESIS_R BRACES_LEFT body BRACES_RIGHT'''
     print(p[1])
     p[0]=("for "+str(p[2][1:])+" in "+str(p[4][1:])+":",p[7]);
 
 #while (condition)
 def p_while_st(p):
-    '''while_st : NAME PARANTHESIS_L NAME RELOP NUMBER PARANTHESIS_R BRACES_LEFT body BRACES_RIGHT
-                | NAME PARANTHESIS_L NUMBER PARANTHESIS_R BRACES_LEFT body BRACES_RIGHT'''
+    '''while_st : WHILE PARANTHESIS_L NAME RELOP NUMBER PARANTHESIS_R BRACES_LEFT body BRACES_RIGHT
+                | WHILE PARANTHESIS_L NUMBER PARANTHESIS_R BRACES_LEFT body BRACES_RIGHT'''
     print(p[1])
     if (str(p[3]).isnumeric()):
         p[0]=("while ("+str(p[3])+"):",p[6]);
@@ -55,12 +55,12 @@ def p_while_st(p):
 
 #do {  } while(condition);
 def p_do_while_st(p):
-    '''do_while_st : NAME BRACES_LEFT body BRACES_RIGHT NAME PARANTHESIS_L NAME RELOP NUMBER PARANTHESIS_R'''
+    '''do_while_st : DO BRACES_LEFT body BRACES_RIGHT WHILE PARANTHESIS_L NAME RELOP NUMBER PARANTHESIS_R'''
     print(p[1])
     p[0]=("while ("+str(p[7][1:])+str(p[8])+str(p[9])+"):",p[3]);
 
 #until ($a < 1) 
 def p_until_st(p):
-    '''until_st : NAME PARANTHESIS_L NAME RELOP NUMBER PARANTHESIS_R BRACES_LEFT body BRACES_RIGHT'''
+    '''until_st : UNTIL PARANTHESIS_L NAME RELOP NUMBER PARANTHESIS_R BRACES_LEFT body BRACES_RIGHT'''
     print(p[1])
     p[0]=("while ("+str(p[3][1:])+str(p[4])+str(p[5])+"):",p[8]);
