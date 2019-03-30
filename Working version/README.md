@@ -8,3 +8,7 @@ foreach loop-Requires arrays.
             -So I just wrote the grammar and the basic conversion
 All other loops work fine.
 But could have missed some conditions.
+
+Done with conditional statements.
+I haven't figured out a way to handle cases like when the user enters an else condition before an If.
+Otherwise if the syntax is right the statement get's converted properly.
