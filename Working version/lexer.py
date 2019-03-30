@@ -22,6 +22,10 @@ reserved={
     'do':'DO',
     'until':'UNTIL',
     'foreach':'FOREACH',
+    'if':'IF',
+    'elsif':'ELSIF',
+    'unless':'UNLESS',
+    'else':'ELSE',
 }
 
 literals=['!','~','x','>','<',':','?','[',']']

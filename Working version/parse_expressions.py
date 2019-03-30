@@ -101,7 +101,7 @@ def p_termbinop(p):
             if p[2] in match:
                 p[0] = str(p[1])+" "+match[p[2]]+" "+str(p[3])
             elif p[2] in match.values():
-                 p[0] = p[1]+" "+p[2]+" "+p[3]
+                 p[0] = str(p[1])+" "+str(p[2])+" "+str(p[3])
             elif p[2] == 'cmp' or p[2] == '<=>':
                 p[0] = "cmp( "+p[1]+","+p[3]+" )"
             elif (p[2] in addmulop):

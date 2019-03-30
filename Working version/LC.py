@@ -6,7 +6,8 @@
 
 #for (init statement; condition; increment/decrement )
 def p_control_statements(p):
-    '''control_statements : iterative '''
+    '''control_statements : iterative
+                          | conditional'''
     print("Control Statement",p[1]);
     p[0]=p[1]
     
@@ -64,3 +65,37 @@ def p_until_st(p):
     '''until_st : UNTIL PARANTHESIS_L NAME RELOP NUMBER PARANTHESIS_R BRACES_LEFT body BRACES_RIGHT'''
     print(p[1])
     p[0]=("while ("+str(p[3][1:])+str(p[4])+str(p[5])+"):",p[8]);
+
+def p_conditional(p):
+    '''conditional : if_st
+                   | else_st
+                   | elsif_st
+                   | unless_st'''
+    p[0]=p[1]
+    print(p[1:])
+
+def p_if_st(p):
+    '''if_st : IF PARANTHESIS_L NAME RELOP NUMBER PARANTHESIS_R BRACES_LEFT body BRACES_RIGHT
+             | IF PARANTHESIS_L NAME EQOP NUMBER PARANTHESIS_R BRACES_LEFT body BRACES_RIGHT'''
+    print(p[1])
+    p[0]=("if ("+str(p[3][1:])+str(p[4])+str(p[5])+"):",p[8]);
+
+def p_else_st(p):
+    '''else_st : ELSE BRACES_LEFT body BRACES_RIGHT'''
+    print(p[1])
+    p[0]=("else:",p[3]);
+
+def p_elsif_st(p):
+    '''elsif_st : ELSIF PARANTHESIS_L NAME RELOP NUMBER PARANTHESIS_R BRACES_LEFT body BRACES_RIGHT
+                 | ELSIF PARANTHESIS_L NAME EQOP NUMBER PARANTHESIS_R BRACES_LEFT body BRACES_RIGHT'''
+    print(p[1])
+    p[0]=("elif ("+str(p[3][1:])+str(p[4])+str(p[5])+"):",p[8]);
+
+def p_unless_st(p):
+    '''unless_st : UNLESS PARANTHESIS_L NAME RELOP NUMBER PARANTHESIS_R BRACES_LEFT body BRACES_RIGHT
+                 | UNLESS PARANTHESIS_L NAME EQOP NUMBER PARANTHESIS_R BRACES_LEFT body BRACES_RIGHT'''
+    print(p[1])
+    p[0]=("if not ("+str(p[3][1:])+str(p[4])+str(p[5])+"):",p[8]);
+
+    
+    
