@@ -10,7 +10,7 @@ from LC import *
 
 #global access variables
 constants = constants_mod.constants
-
+inherit= False
 #starting point
 start = 'start'
 
@@ -65,13 +65,21 @@ def p_package(p):
 
 def p_package_def(p):
     '''package_dec : PACKAGE NAME SEMI'''
-    p[0] = "class " + str(p[2]) + ":"
+    if inherit:
+    	p[0] = "class " + str(p[2]) +"( "+ inherit +" )"+ ":"
+    else:
+    	p[0] = "class " + str(p[2]) + ":"
     constants.in_package = True
     
 
 def p_use_st(p):
-    '''use_st : USE NAME SEMI'''
-    p[0] = "import " + p[2]
+    '''use_st : USE NAME SEMI
+    		  : USE PARENT STRING SEMI'''
+   	if len(p)==4:
+    	p[0] = "import " + p[2]
+    else:
+    	p[0] = "from "+p[3]+" import "+p[3]
+    	inherit=p[3]
 
 def p_function_dec(p):
     '''function_dec : SUB NAME BRACES_LEFT body BRACES_RIGHT'''
