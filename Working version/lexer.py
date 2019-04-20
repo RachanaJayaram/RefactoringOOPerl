@@ -26,7 +26,9 @@ reserved={
     'elsif':'ELSIF',
     'unless':'UNLESS',
     'else':'ELSE',
-    'parent':'PARENT'
+    'parent':'PARENT',
+    'DESTROY':'destroy',
+    'scalar' : 'SCALAR'
 }
 
 literals=['!','~','x','>','<',':','?','[',']']
