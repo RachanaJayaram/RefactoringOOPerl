@@ -10,7 +10,7 @@ from LC import *
 
 #global access variables
 constants = constants_mod.constants
-inherit= False
+
 #starting point
 start = 'start'
 
@@ -49,6 +49,7 @@ def p_statement(p):
                  | constructor
                  | object_creation
                  | obj_func_call
+                 | obj_variable
                  | control_statements
                  | print_st SEMI
                  | print_st
@@ -65,105 +66,48 @@ def p_package(p):
 
 def p_package_def(p):
     '''package_dec : PACKAGE NAME SEMI'''
-    if inherit:
-    	p[0] = "class " + str(p[2]) +"( "+ inherit +" )"+ ":"
-    else:
-    	p[0] = "class " + str(p[2]) + ":"
+    p[0] = "class " + str(p[2])
     constants.in_package = True
-    
+
 
 def p_use_st(p):
     '''use_st : USE NAME SEMI
-    		  : USE PARENT STRING SEMI'''
-   	if len(p)==4:
-    	p[0] = "import " + p[2]
+    		  | USE PARENT arg_list SEMI'''
+    if len(p)==4:
+        p[0] = "from " + p[2] + " import *"
     else:
-    	p[0] = "from "+p[3]+" import "+p[3]
-    	inherit=p[3]
+        temp=[]
+        p[0]=""
+        for i in p[3].split(","):
+            p[0] += "from "+i[1:-1]+" import "+i[1:-1]+"\n"
+            temp.append(i[1:-1])
+        constants.inherit =','.join(temp)
 
 def p_function_dec(p):
     '''function_dec : SUB NAME BRACES_LEFT body BRACES_RIGHT'''
     extra=""
     if constants.in_package:
         extra="self,"
-    p[0] = ("\n" + "def " + str(p[2]) + "(" + extra + "*argv):\n" + "\targ_list=list(argv)[::-1]", p[4])
+    if type(p[4])!=list:
+        p[4]=[p[4]]
+    p[0] = ("def " + str(p[2]) + "(" + extra + "*argv):\n" + "\targ_list=list(argv)[::-1]", p[4])
     constants.first_line = 0
 
 def p_var_dec(p):
-    '''var_dec : my NAME ASSIGNOP SHIFT SEMI
-               | my NAME ASSIGNOP term SEMI
+    '''var_dec : MY NAME ASSIGNOP SHIFT SEMI
+               | MY NAME ASSIGNOP term SEMI
+               | MY NAME ASSIGNOP array_statement SEMI
+               | MY NAME ASSIGNOP hash_statement SEMI
                | NAME ASSIGNOP SHIFT SEMI
                | NAME ASSIGNOP term SEMI
                | NAME ASSIGNOP array_statement SEMI
+               | NAME ASSIGNOP hash_statement SEMI
                | sub_script ASSIGNOP term SEMI'''
     if len(p)==6:
-        if str(p[4]) == "shift":
-            if constants.in_package == True and constants.first_line == 0:
-                constants.first_line = 1
-                p[0] = []
-            else:
-                if p[2][0] == '$':
-                    p[0] = ('self.' + p[2][1:] + '=arg_list.pop()')
-        else:
-            if p[2][0] == '$':
-                if p[3] == '+=' or p[3] == '-=' or p[3] == '/=' or p[3] == '%=' or p[3] == '**=' or p[3] == '&=' or p[3] == '^=' or p[3] == '|=' or p[3] == '>>=' or p[3] == '<<=':
-                    p[0] = p[2][1:] + p[3] + str(p[4])
-                elif p[3] == '&&=' or p[3] == '//=' or p[3] == '||=':
-                    if p[3] == '&&=':
-                        p[0] = p[2][1:]+" = "+p[2][1:]+" and "+str(p[4])
-                    if p[3] == '//=':
-                        p[0] = p[2][1:]+" = "+"dor( "+p[2][1:]+" , "+str(p[4])+" )"
-                    else:
-                        p[0] = p[2][1:]+" = "+p[2][1:]+" or "+str(p[4])
-                elif p[3] == '&.=' or p[3] == '^.=' or p[3] == '|.=':
-                    p[0] = p[2][1:]+" = " + "strbitwise( "+p[2][1:]+" , "+p[3][0]+" , "+str(p[4])+" )"
-                else:
-                    if p[3] == '.=':
-                        p[0] = p[2][1:] + " += " + str(p[4])
-                    elif p[3] == 'x=':
-                        p[0] = p[2][1:] + " *= " + str(p[4])
-                    else:
-                        p[0] = p[2][1:] + " = " + str(p[4])
-
-            else:
-                p[0] = p[2] + '=' + str(p[4])
+            var_dec_helper(p, 0) #in case my is there in the declaration
     else:
-        if str(p[3]) == "shift":
-            if constants.in_package == True and constants.first_line == 0:
-                constants.first_line = 1
-                p[0] = []
-            else:
-                if p[1][0] == '$':
-                    p[0] = ('self.' + p[1][1:] + '=arg_list.pop()')
-        else:
-            if p[1][0] == '$':
-                if p[2] == '+=' or p[2] == '-=' or p[2] == '/=' or p[2] == '%=' or p[2] == '**=' or p[2] == '&=' or p[2] == '^=' or p[2] == '|=' or p[2] == '>>=' or p[2] == '<<=':
-                    p[0] = p[1][1:] + p[2] + str(p[3])
-                elif p[2] == '&&=' or p[2] == '//=' or p[2] == '||=':
-                    if p[2] == '&&=':
-                        p[0] = p[1][1:]+" = "+p[1][1:]+" and "+str(p[3])
-                    if p[2] == '//=':
-                        p[0] = p[1][1:]+" = " + \
-                            "dor( "+p[1][1:]+" , "+str(p[3])+" )"
-                    else:
-                        p[0] = p[1][1:]+" = "+p[1][1:]+" or "+str(p[3])
-                elif p[3] == '&.=' or p[3] == '^.=' or p[3] == '|.=':
-                    p[0] = p[1][1:]+" = " + \
-                        "strbitwise( "+p[1][1:]+" , " + \
-                                    p[2][0]+" , "+str(p[3])+" )"
-                else:
-                    if p[2] == '.=':
-                        p[0] = p[1][1:] + " += " + str(p[3])
-                    elif p[2] == 'x=':
-                        p[0] = p[1][1:] + " *= " + str(p[3])
-                    else:
-                        p[0] = p[1][1:] + " = " + str(p[3])
+            var_dec_helper(p,1)  #in case my is not there in the declaration
 
-            elif p[1][0] == '@':
-                p[0] = p[1][1:] + '=' + str(p[3])
-            else:
-                p1 = p[1].split('[')
-                p[0] = "insert_into( "+p1[0]+" , "+p1[1].split(']')[0]+" , "+str(p[3])+" )"
 def p_empty(p):
     '''empty : '''
     p[0] = ""
@@ -190,7 +134,9 @@ def my_parser():
     my_lexer(perl_inp)
     parser = yacc.yacc()
     p = parser.parse(perl_inp)
-    p = tuple(p)
+    p = list(p)
+    p= reorder(p)
+    p=tuple(p)
     print("\n\n Parse tree: \n",p)
 
     stk = []
@@ -210,7 +156,25 @@ def lft(p,stk,indent = 0):
         for node in p:
             lft(node,stk,indent)
 
-
+def reorder(p):
+    flag=1
+    for statement in p:
+        if type(statement) == str:
+            statement_new = statement
+            if constants.inherit and ('class' in statement) and flag:
+                statement_new = statement + '( '+constants.inherit+' ) :'
+                flag=0
+            elif constants.inherit == False and ('class' in statement):
+                statement_new+= ' :'
+            p[p.index(statement)] = statement_new
+        if type(statement) == list:
+            statement_new2=statement
+            for stat in statement:
+                if ('import' in stat):
+                    p.insert(0, stat)
+                    statement_new2.pop(statement_new2.index(stat))
+            p[p.index(statement)] = statement_new2
+    return p
 #calling the parser function 
 my_parser()
 
