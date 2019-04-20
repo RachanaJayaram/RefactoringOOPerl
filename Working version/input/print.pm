@@ -1,2 +1,7 @@
-@b=(1..2);
-$b[3]=78;
+package child;
+use parent 'parent','grandparent';
+sub hi
+{
+  $name = "skanda";
+  print "hello"."$name";
+}
