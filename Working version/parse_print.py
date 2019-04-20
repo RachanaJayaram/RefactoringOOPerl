@@ -50,7 +50,7 @@ def p_arg_list(p):
     p[0] = p[1]
     for arg in p[2:]:
         if arg != ',':
-            p[0] += " , " + arg
+            p[0] += "," + arg
 def p_arg(p):
     '''arg : term 
            | empty'''
