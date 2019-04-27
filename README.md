@@ -1,5 +1,5 @@
 # Refactoring_oo_perl
-<small>
+<!--
 The files perly.y and toke.c are from Perl Source Code. Will be very helpful for making the parser for project.
 doc.txt is the test file.
 p2p.py is the actual python file.
@@ -25,8 +25,12 @@ I have uploaded 4 files. lexer.py , parser.py, ctools.py and input_code.pm. Also
 
 Found one bug in the code.
 Skanda : In the lexing you gave higher priority to <,> when compared to <=,>= .
-</small>
-Current State : Inheritance - being worked on.
+-->
+<hr>
 
+Current State : 
+<br>
+Inheritance - being worked on.
+<br>
 We now have a two stage parser. First stage generates a lookup table that is required by the second stage for translation. Necessary for local global and my. (check the 2 stage branch)
           
