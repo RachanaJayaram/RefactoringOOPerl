@@ -1,4 +1,3 @@
-#from re import *
 def increment(a):
     if type(a)!=str:
         return a+1

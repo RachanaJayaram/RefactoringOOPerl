@@ -2,13 +2,13 @@ import ply.lex as lex
 reserved={
     'package':'PACKAGE',
     'sub':'SUB',
-    'use' : 'USE',
     'my':'MY',
     'shift':'SHIFT',
     'return':'RETURN',
     'print':'PRINT',
     'new':'NEW',
     'not':'WNOT',
+    'use':'USE',
     'xor':'WXOR',
     'and':'WAND',
     'or':'WOR',
@@ -16,27 +16,24 @@ reserved={
     "qq":"QQ",
     "qx":"QX",
     'bless': 'BLESS',
-    'qw':'QW',
+    'lib':'LIB',
     'for':'FOR',
-    'while':'WHILE',
     'do':'DO',
     'until':'UNTIL',
     'foreach':'FOREACH',
-    'if':'IF',
-    'elsif':'ELSIF',
-    'unless':'UNLESS',
-    'else':'ELSE',
-    'parent':'PARENT',
-    'DESTROY':'destroy',
-    'scalar' : 'SCALAR'
+    'while':'WHILE',
+    'local':'LOCAL'
+
+
 }
 
-literals=['!','~','x','>','<',':','?','[',']']
+literals=['!','~','x','>','<']
 
-tokens = ['STRING', 'RANGE', 'COMMA', 'SEMI', 'BRACES_LEFT', 'BRACES_RIGHT', 'PARANTHESIS_L', 'PARANTHESIS_R', 'HASH_OP', 'DEREF', 'COMMENT', 'NUMBER', 'NAME', 'POWOP', 'ASSIGNOP',
-          'MULOP', 'ADDOP', 'SHIFTOP', 'RELOP', 'EQOP', 'BITANDOP', 'BITOROP', 'DOTDOT', 'ANDAND', 'OROR', 'DORDOR', 'MATCHOP', 'INCREMENT', 'DECREMENT']+list(reserved.values())
+tokens=['END','SEPERATOR','STRING','COMMA','SEMI','EQUAL','BRACES_LEFT','BRACES_RIGHT','PARANTHESIS_L','PARANTHESIS_R','HASH_OP','DEREF','COMMENT','NUMBER','NAME','POWOP','ASSIGNOP','MULOP','ADDOP','SHIFTOP','RELOP','EQOP','BITANDOP','BITOROP','DOTDOT','ANDAND','OROR','DORDOR','MATCHOP','INCREMENT','DECREMENT']+list(reserved.values())
 
 t_ignore = ' \t'
+
+t_SEPERATOR = r'::'
 t_STRING = r""""([^"\\]|\\.|\\\n)*"|'([^'\\]|\\.|\\\n)*'"""
 t_COMMA = r','
 t_SEMI = r';'
@@ -45,16 +42,10 @@ t_BRACES_RIGHT = r'\}'
 t_PARANTHESIS_L = r'\('
 t_PARANTHESIS_R = r'\)'
 t_COMMENT = r'\#.*'
-
-
-def t_DOTDOT(t):
-     r'(\.\.)'
-     return t
-
+t_EQUAL= r'='
 def t_DEREF(t):
-    r'->'
-    return t
-
+     r'->'
+     return t
 def t_HASH_OP(t):
      r'=>'
      return t
@@ -68,6 +59,15 @@ def t_NAME(t):
     t.value=t.value
     t.type=reserved.get(t.value,'NAME')
     return t
+
+def t_END(t):
+#     r'[1-9]+[0-9]*;'
+    r'1;'
+    t.value=t.value
+    t.type=reserved.get(t.value,'END')
+    return t
+
+
     
 def t_newline(t):
     r'\n'
@@ -106,7 +106,7 @@ def t_NUMBER(t):
     return t
  
 def t_ASSIGNOP(t):
-     r'''(=)|(\+=)|(-=)|(\*=)|(\*\*=)|(/=)|(%=)|(&=)|(//=)|(&&=)|(\|=)|(\|\|=)|(\^=)|(x=)|(\.=)|(&\.=)|(\|\.=)|(\^\.=)|(>>=)|(<<=)'''
+     r'''(=)|(\+=)|(-=)|(\*=)|(\*\*=)|(/=)|(%=)|(&=)|(//=)|(&&=)|(\|=)|(\|\|=)|(\^=)|(x=)'''
      return t
 def t_POWOP(t):
      r'\*\*'
@@ -116,6 +116,10 @@ def t_MULOP(t):
      return t
 def t_ADDOP(t):
      r'''(\+)|(-)|(\.)'''
+     return t
+
+def t_DOTDOT(t):
+     r'(\.\.)|(\.\.\.)'
      return t
 def t_ANDAND(t):
      r'&&'
@@ -151,7 +155,6 @@ def my_lexer(perl_inp):
                file.write(str(tok))
                file.write("\n")  
 
-
-#perl_inp = open("./input/print.pm")
+#perl_inp=open("input_code.pm")
 #perl_inp=perl_inp.read()
 #my_lexer(perl_inp)
