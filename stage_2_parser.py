@@ -49,7 +49,9 @@ def p_not_package(p):
                         global_variables.append('' + variable)
     global_variables=[variable + '=None' for variable in global_variables]
     param_str='\n'.join(global_variables)
+    print(param_str)
     p[0]=["str_=lambda x: '' if x==None else str(x)"] + [param_str] + p[1]
+    
 def p_body( p ):
     '''body : statement_list
             | empty          
@@ -135,7 +137,7 @@ def p_function_dec( p ):
                     if 'global' in lookup_table[function][variable] :
                         if '' + variable not in global_variables:
                             global_variables.append('' + variable)
-        print(global_variables)
+        # print(global_variables)
         global_variables.append('*argv')
         param_str=' , '.join(global_variables)
         if constants.package==1:
@@ -162,7 +164,7 @@ def p_var_dec( p ):
                 |  NAME SEPERATOR NAME  ASSIGNOP o_func_call
                 '''
     rhs=""
-    print(p[:])
+    # print(p[:])
     l=len(p)
     if l>=2 and p[l-2]=="shift":
         rhs=' arg_list.pop()'
@@ -180,7 +182,7 @@ def p_var_dec( p ):
             lookup_table[function_stack[-1]][p[2][1:]]['my']=True
         op="my_" + p[2][1:]
     elif p[1]=='local':
-        print("\n\n",p[1:])
+        # print("\n\n",p[1:])
         lookup_table[function_stack[-1]][p[2][1:]]['last_used']='local'
 
         if lookup_table[function_stack[-1]][p[2][1:]]['local']==False:
@@ -205,7 +207,7 @@ def p_var_dec( p ):
 
 def p_name(p):
     '''name : NAME'''
-    print(p[1],function_stack)
+    # print(p[1],function_stack)
     if lookup_table[function_stack[-1]][p[1][1:]]['last_used']=='my':
         p[0]-"my_" + p[1][1:]
     elif lookup_table[function_stack[-1]][p[1][1:]]['last_used']=='local':
@@ -266,7 +268,7 @@ def p_func_call( p ):
             
             
     op=""
-    print('###',p[1],arg_list_plus)
+    # print('###',p[1],arg_list_plus)
     arg_list_str=' , '.join(arg_list_plus)
     if arg_list_plus!=[]:
         if str(p[3])!='':
@@ -276,7 +278,7 @@ def p_func_call( p ):
 
     else:
         op=str(p[1]) + '(  ' + str(p[3]) + ' )'
-    print('#',op)
+    # print('#',op)
     p[0]=op
 
 def p_empty(p):
@@ -305,7 +307,7 @@ def p_return_st(p):
         p[0]='return()'
 def p_string(p):
     '''string : STRING'''
-
+    
     if p[1][1]=='$':
         string="\" " + p[1][1:]
         string=string.split()
@@ -319,15 +321,14 @@ def p_string(p):
                 string[i]="\" + str_(" + 'local_' + string[i][1:] + ") + \""
             else:
                 string[i]="\" + str_(" + '' + string[i][1:] + ") + \""
-    string=" ".join(string)
+    string=' '.join(string)
     if p[1][1]=='$':
-        string=string[4:]
+        string=string[6:]
     p[0]=string
-def my_parser():
-    file_name=input()
+def my_parser(file_name):
+    # print("asddd",file_name)
     output_file_name=file_name.split('testing/input/')[1]
-
-
+    
     # condition for when module to be tranlated is in a sub folder input/server/a.pm -> input/server/a.py
     if '/'  in output_file_name:
         output_path='testing/output/' + output_file_name[:output_file_name.rindex('/')]
@@ -339,8 +340,7 @@ def my_parser():
         output_file_name='testing/output/' + output_file_name[:output_file_name.index('.')] + '.py'
     input_file= open ( file_name,"r")
     perl_inp=input_file.read()
-    print(perl_inp)
-
+    # print(perl_inp)
     file = open (output_file_name,"w+")
     my_lexer(perl_inp)
     parser = yacc.yacc()
@@ -348,7 +348,7 @@ def my_parser():
     print(p)
     p=tuple(p)
 
-    print("\n\nParse tree :\n",p)
+    # print("\n\nParse tree :\n",p)
     
     stk=[]
     lft(p,stk)
@@ -359,6 +359,7 @@ def my_parser():
         file.write(statement + "\n")
     file.close()
     input_file.close()
+    return(output_file_name)
    
 def lft(p,stk,indent=0):
 
@@ -373,7 +374,13 @@ def lft(p,stk,indent=0):
     else:
         for node in p:
             lft(node,stk,indent)
-
-my_parser()
-
+if __name__ == "__main__":
+    try:
+        f_name=open("server/scratch_pad.txt","r")
+    except: 
+        f_name=open("scratch_pad.txt","r")
+    f=f_name.readline()
+    f_name.close()
+    print(f)
+    my_parser(f)
 

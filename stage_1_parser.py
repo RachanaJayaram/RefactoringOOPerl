@@ -122,11 +122,14 @@ def p_scope_res(p):
 
 def p_string(p):
     '''string : STRING'''
-    if p[1][1]=='$':
-        if p[1][1:] not in  lookup_table[function_stack[-1]].keys():
-            lookup_table[function_stack[-1]][p[1][1:]]=['global']
-    else:
-        string=p[1].split()
+    string=p[1].split()
+    print(string)
+    try:
+        if string[0][1]=='$':
+            string[0]=string[0][2:]
+    except:
+        pass
+        
     for i in range(len(string)):
         if string[i].find('$')!=-1:
             if string[i][1:] not in  lookup_table[function_stack[-1]].keys():
@@ -296,8 +299,8 @@ def p_term(p):
            | var_deref
            | QX BRACES_LEFT NAME BRACES_RIGHT'''
 
-def my_parser():
-    file_name=input()
+def my_parser(file_name):
+    print(file_name)
     output_file_name=file_name.split('testing/input/')[1]
     if '/'  in output_file_name:
         output_path='testing/look_up/look_up_'+output_file_name[:output_file_name.rindex('/')]
@@ -340,4 +343,13 @@ def my_parser():
 
 
 
-my_parser()
+if __name__ == "__main__":  
+    try:
+        f_name=open("server/scratch_pad.txt","r")
+    except: 
+        f_name=open("scratch_pad.txt","r")
+
+    f=f_name.readline()
+    f_name.close()
+    print(f)
+    my_parser(f)

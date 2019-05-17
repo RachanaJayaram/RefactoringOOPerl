@@ -9,10 +9,10 @@ def p_o_func_call( p ):
 def p_arg_list(p):
     '''arg_list : arg 
                 | arg_list COMMA arg'''
-    p[0]=p[1]
+    p[0]=str(p[1])
     for arg in p[2:]:
         if arg!=',':
-            p[0]+=","+arg
+            p[0]+=","+str(arg)
 
 def p_arg(p):
     '''arg : name
