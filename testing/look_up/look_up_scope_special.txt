@@ -1,0 +1,37 @@
+
+main
+defined:1
+y:{'last_used': 'global', 'global': False}
+x:{'last_used': 'global', 'global': False}
+end_:{'last_used': 'global', 'global': False}
+sep_:{'last_used': 'global', 'global': False}
+z:{'last_used': 'global', 'global': False}
+called_functions:['foo', 'scope_test']
+returned:False
+
+foo
+defined:2
+end_:{'last_used': 'global', 'global': False}
+sep_:{'last_used': 'global', 'global': False}
+z:{'last_used': 'global', 'global': False, 'local': False}
+y:{'last_used': 'global', 'my': False, 'global': False}
+x:{'last_used': 'global', 'global': False}
+called_functions:['g']
+returned:False
+
+g
+defined:1
+end_:{'last_used': 'global', 'global': False}
+sep_:{'last_used': 'global', 'global': False}
+x:{'last_used': 'global', 'global': False}
+y:{'last_used': 'global', 'global': False}
+z:{'last_used': 'global', 'global': False}
+returned:False
+
+scope_test
+defined:1
+end_:{'last_used': 'global', 'global': False, 'local': False}
+sep_:{'last_used': 'global', 'global': False, 'local': False}
+returned:False
+
+#lookup_table:{'main': {'defined': 1, 'y': {'last_used': 'global', 'global': False}, 'x': {'last_used': 'global', 'global': False}, 'end_': {'last_used': 'global', 'global': False}, 'sep_': {'last_used': 'global', 'global': False}, 'z': {'last_used': 'global', 'global': False}, 'called_functions': ['foo', 'scope_test'], 'returned': False}, 'foo': {'defined': 2, 'end_': {'last_used': 'global', 'global': False}, 'sep_': {'last_used': 'global', 'global': False}, 'z': {'last_used': 'global', 'global': False, 'local': False}, 'y': {'last_used': 'global', 'my': False, 'global': False}, 'x': {'last_used': 'global', 'global': False}, 'called_functions': ['g'], 'returned': False}, 'g': {'defined': 1, 'end_': {'last_used': 'global', 'global': False}, 'sep_': {'last_used': 'global', 'global': False}, 'x': {'last_used': 'global', 'global': False}, 'y': {'last_used': 'global', 'global': False}, 'z': {'last_used': 'global', 'global': False}, 'returned': False}, 'scope_test': {'defined': 1, 'end_': {'last_used': 'global', 'global': False, 'local': False}, 'sep_': {'last_used': 'global', 'global': False, 'local': False}, 'returned': False}}

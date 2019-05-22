@@ -1,0 +1,29 @@
+
+main
+defined:1
+x:{'last_used': 'global', 'global': False}
+y:{'last_used': 'global', 'global': False}
+end_:{'last_used': 'global', 'global': False}
+sep_:{'last_used': 'global', 'global': False}
+area:{'last_used': 'global', 'global': False}
+perimeter:{'last_used': 'global', 'global': False}
+called_functions:['fibonacci', 'foo']
+returned:False
+
+fibonacci
+defined:2
+end_:{'last_used': 'global', 'global': False, 'local': False}
+sep_:{'last_used': 'global', 'global': False, 'local': False}
+n:{'last_used': 'global', 'global': False}
+a:{'last_used': 'global', 'global': False}
+b:{'last_used': 'global', 'global': False}
+c:{'last_used': 'global', 'global': False}
+returned:False
+
+foo
+defined:1
+end_:{'last_used': 'global', 'global': False}
+sep_:{'last_used': 'global', 'global': False, 'local': False}
+returned:False
+
+#lookup_table:{'main': {'defined': 1, 'x': {'last_used': 'global', 'global': False}, 'y': {'last_used': 'global', 'global': False}, 'end_': {'last_used': 'global', 'global': False}, 'sep_': {'last_used': 'global', 'global': False}, 'area': {'last_used': 'global', 'global': False}, 'perimeter': {'last_used': 'global', 'global': False}, 'called_functions': ['fibonacci', 'foo'], 'returned': False}, 'fibonacci': {'defined': 2, 'end_': {'last_used': 'global', 'global': False, 'local': False}, 'sep_': {'last_used': 'global', 'global': False, 'local': False}, 'n': {'last_used': 'global', 'global': False}, 'a': {'last_used': 'global', 'global': False}, 'b': {'last_used': 'global', 'global': False}, 'c': {'last_used': 'global', 'global': False}, 'returned': False}, 'foo': {'defined': 1, 'end_': {'last_used': 'global', 'global': False}, 'sep_': {'last_used': 'global', 'global': False, 'local': False}, 'returned': False}}

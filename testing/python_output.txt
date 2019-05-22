@@ -1,0 +1,12 @@
+main before foo : 
+ x : 10 y :  z :  
+foo before g : 
+ x : 10 y : 20 z : 30 
+g : 
+ x : 10 y :  z : 30 
+foo after g : 
+ x : 2 y : 20 z : 3 
+foo global : 
+ y : 2
+main after foo : 
+ x : 2 y : 2 z : 10 

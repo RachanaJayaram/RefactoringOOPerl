@@ -1,0 +1,12 @@
+
+main
+defined:1
+x:{'last_used': 'global', 'global': False}
+y:{'last_used': 'global', 'global': False}
+end_:{'last_used': 'global', 'global': False}
+sep_:{'last_used': 'global', 'global': False}
+area:{'last_used': 'global', 'global': False}
+perimeter:{'last_used': 'global', 'global': False}
+returned:False
+
+#lookup_table:{'main': {'defined': 1, 'x': {'last_used': 'global', 'global': False}, 'y': {'last_used': 'global', 'global': False}, 'end_': {'last_used': 'global', 'global': False}, 'sep_': {'last_used': 'global', 'global': False}, 'area': {'last_used': 'global', 'global': False}, 'perimeter': {'last_used': 'global', 'global': False}, 'returned': False}}

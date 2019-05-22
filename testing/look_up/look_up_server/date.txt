@@ -1,0 +1,21 @@
+
+main
+defined:1
+class:{'last_used': 'global', 'my': False}
+returned:False
+
+dispdate
+defined:1
+self:{'last_used': 'global', 'my': False}
+end_:{'last_used': 'global', 'global': False}
+sep_:{'last_used': 'global', 'global': False}
+returned:False
+
+dispdate2
+defined:1
+self:{'last_used': 'global', 'my': False}
+end_:{'last_used': 'global', 'global': False}
+sep_:{'last_used': 'global', 'global': False}
+returned:False
+
+#lookup_table:{'main': {'defined': 1, 'class': {'last_used': 'global', 'my': False}, 'returned': False}, 'dispdate': {'defined': 1, 'self': {'last_used': 'global', 'my': False}, 'end_': {'last_used': 'global', 'global': False}, 'sep_': {'last_used': 'global', 'global': False}, 'returned': False}, 'dispdate2': {'defined': 1, 'self': {'last_used': 'global', 'my': False}, 'end_': {'last_used': 'global', 'global': False}, 'sep_': {'last_used': 'global', 'global': False}, 'returned': False}}

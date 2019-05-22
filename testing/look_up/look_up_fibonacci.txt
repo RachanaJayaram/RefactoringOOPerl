@@ -1,0 +1,9 @@
+
+main
+defined:1
+a:{'last_used': 'global', 'global': False}
+b:{'last_used': 'global', 'global': False}
+c:{'last_used': 'global', 'global': False}
+returned:False
+
+#lookup_table:{'main': {'defined': 1, 'a': {'last_used': 'global', 'global': False}, 'b': {'last_used': 'global', 'global': False}, 'c': {'last_used': 'global', 'global': False}, 'returned': False}}

@@ -1,0 +1,222 @@
+
+html,body{
+
+    font-family: "Open Sans", Helvetica, Arial, sans-serif;
+    font-size: 15px;
+    }
+  #instructions
+  {
+    margin-top: 3%;
+    font-size: 13px;
+    color: #fff;
+    text-align: center;
+  
+  }
+  #full_window{
+    height: 100%;
+    align-content: center;
+    position: absolute;
+    width: 100%;
+  }
+  
+  #side_bar{
+    background-color: rgb(60, 188, 243);
+    color: #fff;
+    padding-top: 20px;
+    padding-left: 0.75%;
+    font-family: Arial, sans-serif; 
+    font-weight: 100;
+    text-align: center;
+    
+  }
+  
+  
+  #main{
+    background-color: rgb(233, 234, 235);
+    color: #fff;
+    padding-top: 20px;
+    font-family: Arial, sans-serif; 
+    font-weight: 100;
+    
+  }
+  
+  #deets{
+    left:3px !important;
+    background-color:rgb(88, 198, 245);
+    font-size: 2px !important;
+    overflow: auto;
+  
+  }
+  #dashboard
+  {
+    padding: 30px;
+    font-size: 20px;
+    font-family: "Open Sans", Helvetica, Arial, sans-serif;
+    background-color: #fff;
+    color: #0091cd;
+    font-weight: lighter;
+  }
+  
+  tr td{
+    padding: 3px !important;
+    margin: 0 !important;
+  }
+    .card{
+    
+    margin-top: auto;
+    margin-bottom: auto;
+    background-color: rgba(3, 8, 75, 0.719);
+    justify-content: center;
+    padding: 15px;}
+    
+    
+    .card-header h2{
+    margin-top: 3.5%;
+    text-align: center;
+    color: white;
+    margin-bottom: 0%;
+    padding-bottom: 0%;
+    }
+    .card-body
+    {
+      margin-top: 0%;
+      padding-top: 0%;
+      top:0%;
+      color:white;
+    }
+    
+    .social_icon{
+    position: absolute;
+    right: 20px;
+    top: -45px;
+    }
+    
+    .input-group-prepend span{
+    width: 50px;
+    background-color: rgb(4, 10, 100);
+    color: white;
+    }
+    
+    input:focus{
+    outline: 0 0 0 0  !important;
+    box-shadow: 0 0 0 0 !important;
+    
+    }
+    #seperator
+    {
+      color:rgb(255, 255, 255);
+      border: 1px solid rgb(255, 255, 255);
+    }
+    
+    
+    .translate_btn{
+    color: white;
+    background-color: rgb(11, 105, 192);
+    width: 33%;
+    }
+    
+    .translate_btn:hover{
+    color: black;
+    background-color: white;
+    }
+    
+    .links{
+    color: white;
+    }
+    
+    .links a{
+    margin-left: 4px;
+    }
+  #translate_btn
+  {
+    width: fit-content
+  }
+  .form-group
+  {
+    text-align: center;
+    align-content: center;
+  }
+  .col-sm-6{
+    padding: 10px;
+    color: #2b2c2c;
+    box-shadow:         0px 1px 1px 1px #ccc;
+  }
+  /* Pretty printing styles. Used with prettify.js. */
+/* Vim sunburst theme by David Leibovic */
+
+pre .str, code .str { color: #65B042; } /* string  - green */
+pre .kwd, code .kwd { color: #E28964; } /* keyword - dark pink */
+pre .com, code .com { color: #AEAEAE; font-style: italic; } /* comment - gray */
+pre .typ, code .typ { color: #89bdff; } /* type - light blue */
+pre .lit, code .lit { color: #3387CC; } /* literal - blue */
+pre .pun, code .pun { color: #fff; } /* punctuation - white */
+pre .pln, code .pln { color: #fff; } /* plaintext - white */
+pre .tag, code .tag { color: #89bdff; } /* html/xml tag    - light blue */
+pre .atn, code .atn { color: #bdb76b; } /* html/xml attribute name  - khaki */
+pre .atv, code .atv { color: #65B042; } /* html/xml attribute value - green */
+pre .dec, code .dec { color: #3387CC; } /* decimal - blue */
+
+pre.prettyprint, code.prettyprint {
+	background-color: #000;
+	border-radius: 8px;
+}
+
+pre.prettyprint {
+	width: 95%;
+	margin: 1em auto;
+	padding: 1em;
+	white-space: pre-wrap;
+}
+
+
+/* Specify class=linenums on a pre to get line numbering */
+ol.linenums { margin-top: 0; margin-bottom: 0; color: #AEAEAE;   background-color: #000;
+} /* IE indents via margin-left */
+li.L0,li.L1,li.L2,li.L3,li.L5,li.L6,li.L7,li.L8 { list-style-type: none }
+/* Alternate shading for lines */
+li.L1,li.L3,li.L5,li.L7,li.L9 { }
+
+@media print {
+  pre .str, code .str { color: #060; }
+  pre .kwd, code .kwd { color: #006; font-weight: bold; }
+  pre .com, code .com { color: #600; font-style: italic; }
+  pre .typ, code .typ { color: #404; font-weight: bold; }
+  pre .lit, code .lit { color: #044; }
+  pre .pun, code .pun { color: #440; }
+  pre .pln, code .pln { color: #000; }
+  pre .tag, code .tag { color: #006; font-weight: bold; }
+  pre .atn, code .atn { color: #404; }
+  pre .atv, code .atv { color: #060; }
+}
+li.L0, li.L1, li.L2, li.L3,
+li.L5, li.L6, li.L7, li.L8 {
+  list-style-type: decimal !important;
+  background-color: #000;
+}
+li.L9
+{
+  background-color: #000;
+}
+.my_code
+{
+    float:left;
+    width: 100%;
+    overflow-x:scroll;
+    overflow-y:auto; 
+    height: 500px;
+    padding: 10px;
+    background-color: #000;
+    word-wrap: nowrap!important;
+    word-break: keep-all!important;
+    white-space:nowrap!important; 
+
+}
+.my_code_o
+{
+    float:left;
+    width: 100%;
+    overflow: auto;
+    height: 300px;
+    padding: 10px;
+    background-color: #000;
+}

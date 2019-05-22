@@ -1,0 +1,13 @@
+
+main
+defined:1
+returned:False
+
+hi
+defined:1
+end_:{'last_used': 'global', 'global': False}
+sep_:{'last_used': 'global', 'global': False}
+name:{'last_used': 'global', 'global': False}
+returned:False
+
+#lookup_table:{'main': {'defined': 1, 'returned': False}, 'hi': {'defined': 1, 'end_': {'last_used': 'global', 'global': False}, 'sep_': {'last_used': 'global', 'global': False}, 'name': {'last_used': 'global', 'global': False}, 'returned': False}}
